@@ -1,0 +1,15 @@
+{
+  "appName": "Report an error with your eVisa",
+  "theme": "govUK",
+  "behaviours": [
+    "hof/components/clear-session"
+  ],
+  "translations": "./apps/eec/translations",
+  "routes": [
+    "./apps/eec"
+  ],
+  "session": {
+    "name": "eec.hof.sid"
+  },
+  "getAccessibility": true
+}

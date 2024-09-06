@@ -1,0 +1,29 @@
+{
+  "start": {
+    "header": "Report an error with your eVisa"
+  },
+  "problem": {
+    "header": "What is the problem with your eVisa?"
+  },
+  "personal-details": {
+    "header": "Personal details"
+  },
+  "contact": {
+    "header": "How should we contact you about your eVisa?"
+  },
+  "someone-else": {
+    "header": "Are you completing this form on behalf of someone else?"
+  },
+  "check-answers": {
+    "header": "Check your answers before sending your request"
+  },
+  "request-sent": {
+    "header": "Request sent"
+  },
+  "confirm": {
+    "sections": {
+    },
+    "fields": {
+    }
+  }
+}
