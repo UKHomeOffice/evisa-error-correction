@@ -5,7 +5,7 @@ eVisa error correction (EEC) used by the public to register that details of thei
 ## Description
 
 - The service allows the user to register that details of their new eVisa are incorrect - for example: name, sponsor reference, photo, NIN or restrictions and dates on the eVisa.
-- The EEC form should not be used to register changed details that were previously correct such as name, contact information or identity documents.
+- The EEC form should not be used to register changes to previously correct information such as name, contact information or identity documents.
 - The user is able to review all the answers provided to confirm their details prior to submission.
 - Once the application is submitted, automated notifications are sent to the business and the user.
 
