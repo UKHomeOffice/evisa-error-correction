@@ -62,8 +62,7 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-photo'
-    },
-    useHintText: false
+    }
   },
   'detail-nin': {
     mixin: 'input-text',
