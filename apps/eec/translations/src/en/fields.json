@@ -1,3 +1,50 @@
 {
-
+  "problem": {
+    "legend": "What is the problem with your eVisa?",
+    "hint": "You can select more than one option",
+    "options": {
+      "problem-full-name": {
+        "label": "Full name"
+      },
+      "problem-sponsor-ref": {
+        "label": "Sponsor reference"
+      },
+      "problem-photo": {
+        "label": "Photo"
+      },
+      "problem-nin": {
+        "label": "National Insurance number"
+      },
+      "problem-restrictions": {
+        "label": "Restrictions"
+      },
+      "problem-status": {
+        "label": "Status"
+      },
+      "problem-valid-until": {
+        "label": "Valid until"
+      }
+    }
+  },
+  "detail-full-name": {
+    "label": "What is your correct full name?"
+  },
+  "detail-sponsor-ref": {
+    "label": "What is the correct sponsor reference number?"
+  },
+  "detail-photo": {
+    "label": "What is wrong with your photo?"
+  },
+  "detail-nin": {
+    "label": "What is your correct National Insurance number?"
+  },
+  "detail-restrictions": {
+    "label": "What is wrong with the restrictions of your visa?"
+  },
+  "detail-status": {
+    "label": "What is your correct immigration status?"
+  },
+  "detail-valid-until": {
+    "label": "What is the correct date your visa is valid to?"
+  }
 }
