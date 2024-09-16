@@ -29,7 +29,7 @@ module.exports = {
       {
         value: 'problem-restrictions',
         toggle: 'detail-restrictions',
-        child: 'textarea',
+        child: 'textarea'
       },
       {
         value: 'problem-status',
