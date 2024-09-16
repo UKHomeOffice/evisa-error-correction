@@ -2,9 +2,7 @@ module.exports = {
   problem: {
     mixin: 'checkbox-group',
     validate: ['required'],
-    legend: {
-      className: 'visuallyhidden'
-    },
+    isPageHeading: true,
     options: [
       {
         value: 'problem-full-name',
@@ -64,7 +62,8 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-photo'
-    }
+    },
+    useHintText: false
   },
   'detail-nin': {
     mixin: 'input-text',
