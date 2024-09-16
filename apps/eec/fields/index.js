@@ -68,6 +68,7 @@ module.exports = {
   },
   'detail-nin': {
     mixin: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-two-thirds'],
     dependent: {
       field: 'problem',
       value: 'problem-nin'
@@ -84,6 +85,7 @@ module.exports = {
   },
   'detail-status': {
     mixin: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-two-thirds'],
     dependent: {
       field: 'problem',
       value: 'problem-status'
@@ -91,6 +93,7 @@ module.exports = {
   },
   'detail-valid-until': {
     mixin: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-one-third'],
     dependent: {
       field: 'problem',
       value: 'problem-valid-until'
