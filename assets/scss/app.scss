@@ -45,6 +45,10 @@ textarea {
   font-size: 19px !important;
 }
 
+.govuk-character-count__message {
+  display: none;
+}
+
 .validation-error-override {
   box-sizing: border-box;
   padding-left: 12px;
