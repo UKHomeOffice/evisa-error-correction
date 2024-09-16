@@ -29,6 +29,9 @@
 		  </div>
 	  </main>
       {{> partials-continue}}
+      {{^error}}
+        {{> partials-need-help}}
+      {{/error}}
       <script type="text/javascript" src="{{assetPath}}/js/bundle.js"></script>
 	  </div>
   {{/main}}

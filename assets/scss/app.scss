@@ -45,6 +45,10 @@ textarea {
   font-size: 19px !important;
 }
 
+.govuk-character-count__message {
+  display: none;
+}
+
 .validation-error-override {
   box-sizing: border-box;
   padding-left: 12px;
@@ -193,4 +197,8 @@ pre.looped-records {
 .panel-indent{
   margin: 20px 15px 20px 20px;
   padding: 10px 0 10px 30px;
+}
+
+.govuk-fieldset__heading{
+  font-family: "GDS Transport", arial, sans-serif;
 }

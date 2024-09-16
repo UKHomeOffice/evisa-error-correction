@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/UKHomeOffice/evisa-error-correction#readme",
   "dependencies": {
-    "hof": "^21.0.6",
-    "accessible-autocomplete": "^3.0.0"
+    "accessible-autocomplete": "^3.0.1",
+    "hof": "^21.1.1"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

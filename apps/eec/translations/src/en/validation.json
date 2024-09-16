@@ -1,3 +1,11 @@
 {
-
+  "problem": {
+    "required": "Select what the problem is"
+  },
+  "detail-photo": {
+    "maxlength": "You have exceeded the 500 character limit"
+  },
+  "detail-restrictions": {
+    "maxlength": "You have exceeded the 500 character limit"
+  }
 }

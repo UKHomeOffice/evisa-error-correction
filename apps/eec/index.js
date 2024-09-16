@@ -6,7 +6,16 @@ module.exports = {
   steps: {
     '/problem': {
       next: '/personal-details',
-      fields: []
+      fields: [
+        'problem',
+        'detail-full-name',
+        'detail-sponsor-ref',
+        'detail-photo',
+        'detail-nin',
+        'detail-restrictions',
+        'detail-status',
+        'detail-valid-until'
+      ]
     },
     '/personal-details': {
       next: '/contact',
