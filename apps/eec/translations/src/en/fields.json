@@ -46,5 +46,54 @@
   },
   "detail-valid-until": {
     "label": "What is the correct date your visa is valid to?"
+  },
+  "reporter-full-name": {
+    "label": "Full name"
+  },
+  "reporter-dob": {
+    "legend": "Date of birth",
+    "hint": "For example, 27 3 2007"
+  },
+  "reporter-nationality": {
+    "label": "Country of nationality",
+    "options": {
+      "none_selected": "Select a country"
+    }
+  },
+  "reporter-reference-type": {
+    "legend": "Reference number",
+    "hint": "Select one option.",
+    "options": {
+      "brp": {
+        "label": "BRP number"
+      },
+      "gwf": {
+        "label": "GWF number"
+      },
+      "uan": {
+        "label": "UAN number"
+      },
+      "passport": {
+        "label": "Passport number"
+      },
+      "no-reference": {
+        "label": "I do not have a reference number"
+      }
+    }
+  },
+  "reporter-brp": {
+    "label": "Enter BRP number",
+    "hint": "For example, RZ1234567"
+  },
+  "reporter-gwf": {
+    "label": "Enter GWF number",
+    "hint": "For example, GWF012345678"
+  },
+  "reporter-uan": {
+    "label": "Enter UAN",
+    "hint": "For example, 1234-1234-1234-1234"
+  },
+  "reporter-passport": {
+    "label": "Enter passport number"
   }
 }
