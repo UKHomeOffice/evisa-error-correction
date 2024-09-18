@@ -20,7 +20,7 @@
       "header": "Send your request",
       "disclaimer": "By sending your request you are confirming that, to the best of your knowledge, the details you are providing are correct.",
       "link-intro": "Find out",
-      "lint-text": "how the Home Office uses your personal information"
+      "link-text": "how the Home Office uses your personal information"
     }
   },
   "confirm": {

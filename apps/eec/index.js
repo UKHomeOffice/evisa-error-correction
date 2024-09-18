@@ -70,6 +70,7 @@ module.exports = {
       behaviours: [Summary],
       sections: require('./sections/summary-data-sections'),
       template: 'summary',
+      isNeedHelpHidden: true,
       next: '/request-sent'
     },
     '/request-sent': {

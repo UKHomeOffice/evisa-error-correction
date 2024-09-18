@@ -5,10 +5,11 @@
         {{> partials-summary-table}}
       {{/rows}}
     </div>
-    <h2 class="govuk-heading-m">{{#}}pages.send-request.header{{/t}}</h2>
-    <p class="govuk-body">{{#}}pages.send-request.disclaimer{{/t}}</p>
+    <h2 class="govuk-heading-m">{{#t}}pages.request-sent.send-request.header{{/t}}</h2>
+    <p class="govuk-body">{{#t}}pages.request-sent.send-request.disclaimer{{/t}}</p>
     <p class="govuk-body">
-      {{#}}pages.send-request.link-intro{{/t}} <a href="#" class="govuk-link">{{#}}pages.send-request.link-text{{/t}}</a>.
+      {{#t}}pages.request-sent.send-request.link-intro{{/t}} 
+      <a href="https://www.gov.uk/government/publications/personal-information-use-in-borders-immigration-and-citizenship/borders-immigration-and-citizenship-privacy-information-notice" class="govuk-link">{{#t}}pages.request-sent.send-request.link-text{{/t}}</a>.
     </p>
     {{#input-submit}}submit{{/input-submit}}
   {{/page-content}}

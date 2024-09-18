@@ -1,3 +1,6 @@
+const config = require('../../../config');
+const { getLabel } = require('../../../utils');
+
 module.exports = {
   'corrected-details': {
     steps: [
@@ -39,7 +42,12 @@ module.exports = {
       },
       {
         step: '/personal-details',
-        field: 'requestor-dob'
+        field: 'requestor-dob',
+        parse: val => {
+          const date = new Date(val);
+          const formatter = new Intl.DateTimeFormat(config.dateLocales, config.dateFormat);
+          return formatter.format(date);
+        }
       },
       {
         step: '/personal-details',
@@ -48,23 +56,28 @@ module.exports = {
       {
         step: '/personal-details',
         field: 'reference-number',
-        parse: (req) => {
-          return req.sessionModel.get('requestor-contact-method') === 'email' ?
-            req.sessionModel.get('requestor-email') :
-            Array(
-              req.sessionModel.get('requestor-address-line-1'),
-              req.sessionModel.get('requestor-address-line-2') ?? '',
-              req.sessionModel.get('requestor-town-or-city'),
-              req.sessionModel.get('requestor-county') ?? '',
-              req.sessionModel.get('requestor-postcode'),
-            ).join('\n');
+        parse: (val, req) => {
+          const refType = req.sessionModel.get('requestor-reference-type');
+          const refNumber = refType !== 'no-reference' ? req.sessionModel.get(`requestor-${refType}`) : undefined;
+          return refNumber ? `${refType.toUpperCase()} ${refNumber}` : getLabel('requestor-reference-type', refType);
         }
       },
       {
         step: '/contact',
-        field: 'contact-details'
+        field: 'contact-details',
+        parse: (val, req) => {
+          return req.sessionModel.get('requestor-contact-method') === 'email' ?
+            req.sessionModel.get('requestor-email') :
+            Array(
+              req.sessionModel.get('requestor-address-line-1'),
+              req.sessionModel.get('requestor-address-line-2'),
+              req.sessionModel.get('requestor-town-or-city'),
+              req.sessionModel.get('requestor-county'),
+              req.sessionModel.get('requestor-postcode')
+            ).filter(x => x).join('\n');
+        }
       }
     ]
 
   }
-}
+};
