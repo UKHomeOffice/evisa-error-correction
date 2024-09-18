@@ -1,0 +1,14 @@
+{{<partials-page}}
+  {{$pageTitle}}
+    {{#t}}pages.request-sent.confirmation{{/t}} &ndash; {{#t}}journey.serviceName{{/t}} &ndash; GOV.UK
+  {{/pageTitle}}
+  {{$page-content}}
+    <div class="govuk-panel govuk-panel--confirmation" role="alert">
+     <h1 class="govuk-panel__title">
+        {{#t}}pages.request-sent.confirmation{{/t}}
+      </h1>
+    </div>
+    {{#markdown}}what-happens-next{{/markdown}}
+    <a class="govuk-button" data-module="govuk-button" href="https://www.gov.uk">{{#t}}buttons.finish-and-return{{/t}}</a>
+  {{/page-content}}
+{{/partials-page}}

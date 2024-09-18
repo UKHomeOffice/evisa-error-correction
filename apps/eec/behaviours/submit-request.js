@@ -8,21 +8,20 @@ const {
   replyToId
 } = config.govukNotify;
 
-const { getLabel } = require('../../../utils');
+// const { getLabel } = require('../../../utils');
 
 const NotifyClient = require('notifications-node-client').NotifyClient;
 const Notify = new NotifyClient(notifyApiKey);
 
 module.exports = superclass => class extends superclass {
   async saveValues(req, res, next) {
-
     const baseEmailProps = {
       full_name: req.sessionModel.get('requestor-full-name')
     };
 
     const caseworkerEmailProps = {
       ...baseEmailProps
-    }
+    };
 
     try {
       await Notify.sendEmail(
@@ -35,7 +34,8 @@ module.exports = superclass => class extends superclass {
       );
       logger.info('EEC request email sent successfully');
 
-      const requestorEmail = req.sessionModel.get('requestor-email')
+      const requestorEmail = req.sessionModel.get('requestor-email');
+
       if (requestorEmail) {
         await Notify.sendEmail(
           userConfirmationTemplateId,

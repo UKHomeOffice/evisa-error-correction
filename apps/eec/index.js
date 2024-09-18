@@ -75,7 +75,8 @@ module.exports = {
     },
     '/request-sent': {
       clearSession: true,
-      backLink: false
+      backLink: false,
+      isNeedHelpHidden: true
     }
   }
 };
