@@ -19,7 +19,16 @@ module.exports = {
     },
     '/personal-details': {
       next: '/contact',
-      fields: []
+      fields: [
+        'reporter-full-name',
+        'reporter-dob',
+        'reporter-nationality',
+        'reporter-reference-type',
+        'reporter-brp',
+        'reporter-gwf',
+        'reporter-uan',
+        'reporter-passport'
+      ]
     },
     '/contact': {
       next: '/someone-else',
