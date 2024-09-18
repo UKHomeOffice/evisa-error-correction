@@ -141,7 +141,7 @@ module.exports = {
     validate: ['required'],
     options: [{
       value: '',
-      label: 'fields.country-of-nationality.options.none_selected'
+      label: 'fields.reporter-nationality.options.none_selected'
     }].concat(countries)
   },
   'reporter-reference-type': {
