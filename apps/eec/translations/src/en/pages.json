@@ -15,12 +15,60 @@
     "header": "Check your answers before sending your request"
   },
   "request-sent": {
-    "header": "Request sent"
+    "header": "Request sent",
+    "send-request": {
+      "header": "Send your request",
+      "disclaimer": "By sending your request you are confirming that, to the best of your knowledge, the details you are providing are correct.",
+      "link-intro": "Find out",
+      "lint-text": "how the Home Office uses your personal information"
+    }
   },
   "confirm": {
     "sections": {
+      "corrected-details": {
+        "header": "Corrected eVisa details"
+      },
+      "personal-details": {
+        "header": "Personal details"
+      }
     },
     "fields": {
+      "detail-full-name": {
+        "label": "Full name"
+      },
+      "detail-sponsor-ref": {
+        "label": "Sponsor reference"
+      },
+      "detail-photo": {
+        "label": "Photo"
+      },
+      "detail-nin": {
+        "label": "National Insurance number"
+      },
+      "detail-restrictions": {
+        "label": "Restrictions"
+      },
+      "detail-status": {
+        "label": "Status title"
+      },
+      "detail-valid-until": {
+        "label": "Valid until"
+      },
+      "requestor-full-name": {
+        "label": "Full name"
+      },
+      "requestor-dob": {
+        "label": "Date of birth"
+      },
+      "requestor-nationality": {
+        "label": "Country of nationality"
+      },
+      "reference-number": {
+        "label": "Reference number"
+      },
+      "contact-details": {
+        "label": "Contact details"
+      }
     }
   }
 }

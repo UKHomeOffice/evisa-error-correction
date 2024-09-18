@@ -1,0 +1,15 @@
+{{<partials-page}}
+  {{$page-content}}
+    <div class="table-details">
+      {{#rows}}
+        {{> partials-summary-table}}
+      {{/rows}}
+    </div>
+    <h2 class="govuk-heading-m">{{#}}pages.send-request.header{{/t}}</h2>
+    <p class="govuk-body">{{#}}pages.send-request.disclaimer{{/t}}</p>
+    <p class="govuk-body">
+      {{#}}pages.send-request.link-intro{{/t}} <a href="#" class="govuk-link">{{#}}pages.send-request.link-text{{/t}}</a>.
+    </p>
+    {{#input-submit}}submit{{/input-submit}}
+  {{/page-content}}
+{{/partials-page}}
