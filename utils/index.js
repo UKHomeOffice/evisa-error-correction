@@ -1,3 +1,4 @@
+const config = require('../config');
 const translations = require('../apps/eec/translations/src/en/fields.json');
 
 const getLabel = (fieldKey, fieldValue) => {
@@ -7,4 +8,9 @@ const getLabel = (fieldKey, fieldValue) => {
   return translations[fieldKey]?.options[fieldValue]?.label || undefined;
 };
 
-module.exports = { getLabel };
+const formatDate = date => {
+  const dateObj = new Date(date);
+  return new Intl.DateTimeFormat(config.dateLocales).format(dateObj);
+};
+
+module.exports = { getLabel, formatDate };
