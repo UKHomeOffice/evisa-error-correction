@@ -1,5 +1,6 @@
 const hof = require('hof');
 const Summary = hof.components.summary;
+const submitRequest = require('./behaviours/submit-request');
 
 module.exports = {
   name: 'eec',
@@ -67,7 +68,7 @@ module.exports = {
       ]
     },
     '/check-answers': {
-      behaviours: [Summary],
+      behaviours: [Summary, submitRequest],
       sections: require('./sections/summary-data-sections'),
       template: 'summary',
       isNeedHelpHidden: true,
