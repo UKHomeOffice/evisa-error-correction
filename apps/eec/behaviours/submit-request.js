@@ -22,7 +22,7 @@ const genErrorMsg = error => {
 class EmailProps {
   constructor(req) {
     this.personalisation = {
-      full_name: req.sessionModel.get('detail-full-name') ?? req.sessionModel.get('requestor-full-name')
+      full_name: req.sessionModel.get('detail-full-name') || req.sessionModel.get('requestor-full-name')
     };
     if (replyToId) {
       this.emailReplyToId = replyToId;
@@ -34,38 +34,41 @@ class EmailProps {
   }
 }
 
-const buildProblemNotes = (req) => {
-  const problems = req.sessionModel.get('problem');
-  let concatProblems = ''
+const buildProblemNotes = req => {
+  let problems = req.sessionModel.get('problem');
+  let concatProblems = '';
 
-  for (problem of problems) {
-    concatProblems += getLabel('problem', problem) + ': ';
-    concatProblems += req.sessionModel.get(problem.replace('problem', 'detail')) + '\n\n'
+  if (typeof problems === 'string') {
+    problems = Array.of(problems);
   }
 
-  console.log('PROBLEMS: ', concatProblems);
+  for (const problem of problems) {
+    concatProblems += getLabel('problem', problem) + ': ';
+    concatProblems += req.sessionModel.get(problem.replace('problem', 'detail')) + '\n\n';
+  }
+
   return concatProblems;
 };
 
 module.exports = superclass => class extends superclass {
   async saveValues(req, res, next) {
     const businessEmailProps = new EmailProps(req);
-    const userContactEmail = req.sessionModel.get('requestor-email') || req.sessionModel.get('representative-email');
 
-    const additionalProps = {
+    businessEmailProps.addPersonalisation({
       full_name: req.sessionModel.get('requestor-full-name'),
       date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
       nationality: req.sessionModel.get('requestor-nationality'),
       reference: req.sessionModel.get('formatted-reference'),
       problem_notes: buildProblemNotes(req),
-      contact_email: userContactEmail ?? 'none provided',
-      contact_address: req.sessionModel.get('formatted-address') ?? 'none provided',
+      contact_email: req.sessionModel.get('requestor-email') || 'none provided',
+      contact_address: req.sessionModel.get('formatted-address') || 'none provided',
       completing_for_someone_else: getLabel(
         'completing-for-someone-else', req.sessionModel.get('completing-for-someone-else')
-      )
-    };
-
-    businessEmailProps.addPersonalisation(additionalProps);
+      ),
+      representative_name: req.sessionModel.get('representative-name') ?? '',
+      representative_email: req.sessionModel.get('representative-email') ?? '',
+      representative_type: getLabel('representative-type', req.sessionModel.get('representative-type')) ?? ''
+    });
 
     try {
       await Notify.sendEmail(businessConfirmationTemplateId, caseworkerEmail, businessEmailProps);
@@ -74,6 +77,8 @@ module.exports = superclass => class extends superclass {
       logger.error(`Failed to send EEC request email: ${genErrorMsg(error)}`);
       return next(error);
     }
+
+    const userContactEmail = req.sessionModel.get('requestor-email') || req.sessionModel.get('representative-email');
 
     if (userContactEmail) {
       const userEmailProps = new EmailProps(req);
