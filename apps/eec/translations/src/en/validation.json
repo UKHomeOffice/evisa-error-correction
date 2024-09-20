@@ -8,6 +8,10 @@
   "detail-restrictions": {
     "maxlength": "You have exceeded the 500 character limit"
   },
+  "detail-signin-email": {
+    "email": "Enter an email address in the correct format, like name@example.com",
+    "maxlength": "Email address must be less than 254 characters"
+  },
   "requestor-full-name": {
     "required": "Enter your full name",
     "validateText": "Full name must only include letters a to z, spaces, hyphens and apostrophes"

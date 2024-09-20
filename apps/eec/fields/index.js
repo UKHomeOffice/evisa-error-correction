@@ -65,6 +65,16 @@ module.exports = {
         value: 'problem-valid-until',
         toggle: 'detail-valid-until',
         child: 'input-text'
+      },
+      {
+        value: 'problem-signin-email',
+        toggle: 'detail-signin-email',
+        child: 'input-text'
+      },
+      {
+        value: 'problem-signin-phone',
+        toggle: 'detail-signin-phone',
+        child: 'input-text'
       }
     ]
   },
@@ -122,6 +132,26 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-valid-until'
+    }
+  },
+  'detail-signin-email': {
+    mixin: 'input-text',
+    validate: [
+      'email',
+      { type: 'maxlength', arguments: 254 }
+    ],
+    className: ['govuk-input', 'govuk-!-width-two-thirds'],
+    dependent: {
+      field: 'problem',
+      value: 'problem-signin-email'
+    }
+  },
+  'detail-signin-phone': {
+    mixin: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-one-third'],
+    dependent: {
+      field: 'problem',
+      value: 'problem-signin-phone'
     }
   },
   'requestor-full-name': {

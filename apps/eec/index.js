@@ -17,7 +17,9 @@ module.exports = {
         'detail-nin',
         'detail-restrictions',
         'detail-status',
-        'detail-valid-until'
+        'detail-valid-until',
+        'detail-signin-email',
+        'detail-signin-phone'
       ]
     },
     '/personal-details': {

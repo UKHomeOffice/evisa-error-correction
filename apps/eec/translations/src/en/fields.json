@@ -23,6 +23,12 @@
       },
       "problem-valid-until": {
         "label": "Valid until"
+      },
+      "problem-signin-email": {
+        "label": "Email address to sign in to your account"
+      },
+      "problem-signin-phone": {
+        "label": "Phone number to sign in to your account"
       }
     }
   },
@@ -46,6 +52,12 @@
   },
   "detail-valid-until": {
     "label": "What is the correct date your visa is valid to?"
+  },
+  "detail-signin-email": {
+    "label": "What is the correct email address where you can receive security codes?"
+  },
+  "detail-signin-phone": {
+    "label": "What is the correct phone number where you can receive security codes?"
   },
   "requestor-full-name": {
     "label": "Full name"
