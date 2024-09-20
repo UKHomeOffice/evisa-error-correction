@@ -78,7 +78,7 @@ module.exports = {
         }
       },
       {
-        step: '/completing-for-someone-else',
+        step: '/someone-else',
         field: 'completing-for-someone-else'
       }
     ]
