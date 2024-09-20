@@ -76,6 +76,10 @@ module.exports = {
               req.sessionModel.get('requestor-postcode')
             ).filter(x => x).join('\n');
         }
+      },
+      {
+        step: '/completing-for-someone-else',
+        field: 'completing-for-someone-else'
       }
     ]
   },
