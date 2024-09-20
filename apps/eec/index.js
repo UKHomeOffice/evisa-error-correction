@@ -1,3 +1,6 @@
+const hof = require('hof');
+const Summary = hof.components.summary;
+
 module.exports = {
   name: 'eec',
   baseUrl: '/',
@@ -64,6 +67,10 @@ module.exports = {
       ]
     },
     '/check-answers': {
+      behaviours: [Summary],
+      sections: require('./sections/summary-data-sections'),
+      template: 'summary',
+      isNeedHelpHidden: true,
       next: '/request-sent'
     },
     '/request-sent': {
