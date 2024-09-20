@@ -85,6 +85,24 @@ module.exports = {
         }
       }
     ]
-
+  },
+  'completing-for-someone-else': {
+    steps: [
+      {
+        step: '/someone-else-details',
+        field: 'representative-name',
+        dependsOn: 'completing-for-someone-else'
+      },
+      {
+        step: '/someone-else-details',
+        field: 'representative-email',
+        dependsOn: 'completing-for-someone-else'
+      },
+      {
+        step: '/someone-else-details',
+        field: 'representative-type',
+        dependsOn: 'completing-for-someone-else'
+      }
+    ]
   }
 };

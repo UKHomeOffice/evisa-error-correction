@@ -30,6 +30,9 @@
       },
       "personal-details": {
         "header": "Personal details"
+      },
+      "completing-for-someone-else": {
+        "header": "Details of person completing this form on behalf of another"
       }
     },
     "fields": {
@@ -68,6 +71,18 @@
       },
       "contact-details": {
         "label": "Contact details"
+      },
+      "completing-for-someone-else": {
+        "label": "Are you completing this form on behalf of someone else?"
+      },
+      "representative-name": {
+        "label": "Full name"
+      },
+      "representative-email": {
+        "label": "Email address"
+      },
+      "representative-type": {
+        "label": "Type of support"
       }
     }
   }
