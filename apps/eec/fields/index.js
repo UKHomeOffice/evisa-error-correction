@@ -223,7 +223,10 @@ module.exports = {
         toggle: 'address-details-fieldset',
         child: 'partials/address-details'
       }
-    ]
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
   },
   'requestor-email': {
     validate: [
@@ -243,12 +246,7 @@ module.exports = {
       value: 'uk-address'
     }
   },
-  'requestor-address-line-2': {
-    dependent: {
-      field: 'requestor-contact-method',
-      value: 'uk-address'
-    }
-  },
+  'requestor-address-line-2': {},
   'requestor-town-or-city': {
     validate: ['required'],
     dependent: {
@@ -258,10 +256,6 @@ module.exports = {
   },
   'requestor-county': {
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
-    dependent: {
-      field: 'requestor-contact-method',
-      value: 'uk-address'
-    }
   },
   'requestor-postcode': {
     formatter: ['ukPostcode'],
