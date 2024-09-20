@@ -12,16 +12,16 @@
     "consent": "By continuing, you confirm that you have consent to send this request on their behalf."
   },
   "check-answers": {
-    "header": "Check your answers before sending your request"
-  },
-  "request-sent": {
-    "header": "Request sent",
+    "header": "Check your answers before sending your request",
     "send-request": {
       "header": "Send your request",
       "disclaimer": "By sending your request you are confirming that, to the best of your knowledge, the details you are providing are correct.",
       "link-intro": "Find out",
       "link-text": "how the Home Office uses your personal information"
     }
+  },
+  "request-sent": {
+    "header": "Request sent"
   },
   "confirm": {
     "sections": {
@@ -30,6 +30,9 @@
       },
       "personal-details": {
         "header": "Personal details"
+      },
+      "completing-for-someone-else": {
+        "header": "Details of person completing this form on behalf of another"
       }
     },
     "fields": {
@@ -68,6 +71,18 @@
       },
       "contact-details": {
         "label": "Contact details"
+      },
+      "completing-for-someone-else": {
+        "label": "Are you completing this form on behalf of someone else?"
+      },
+      "representative-name": {
+        "label": "Full name"
+      },
+      "representative-email": {
+        "label": "Email address"
+      },
+      "representative-type": {
+        "label": "Type of support"
       }
     }
   }
