@@ -42,6 +42,10 @@
   "requestor-passport": {
     "required": "What is your passport number?"
   },
+  "requestor-ukvi": {
+    "required": "What is your UKVI customer number?",
+    "regex": "Enter your UKVI customer number in the correct format; for example, KX12345678"
+  },
   "requestor-contact-method": {
     "required": "Select how you want to be contacted"
   },

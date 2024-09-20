@@ -88,6 +88,9 @@
       "passport": {
         "label": "Passport number"
       },
+      "ukvi": {
+        "label": "UKVI customer number"
+      },
       "no-reference": {
         "label": "I do not have a reference number"
       }
@@ -107,6 +110,10 @@
   },
   "requestor-passport": {
     "label": "Enter passport number"
+  },
+  "requestor-ukvi": {
+    "label": "Enter UKVI customer number",
+    "hint": "For example, KX12345678"
   },
   "requestor-contact-method": {
     "legend": "We will contact you to confirm when we have corrected your details, or to let you know if we need more information.",

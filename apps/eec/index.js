@@ -32,7 +32,8 @@ module.exports = {
         'requestor-brp',
         'requestor-gwf',
         'requestor-uan',
-        'requestor-passport'
+        'requestor-passport',
+        'requestor-ukvi'
       ]
     },
     '/contact': {
