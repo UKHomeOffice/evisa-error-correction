@@ -20,23 +20,48 @@ module.exports = {
     '/personal-details': {
       next: '/contact',
       fields: [
-        'reporter-full-name',
-        'reporter-dob',
-        'reporter-nationality',
-        'reporter-reference-type',
-        'reporter-brp',
-        'reporter-gwf',
-        'reporter-uan',
-        'reporter-passport'
+        'requestor-full-name',
+        'requestor-dob',
+        'requestor-nationality',
+        'requestor-reference-type',
+        'requestor-brp',
+        'requestor-gwf',
+        'requestor-uan',
+        'requestor-passport'
       ]
     },
     '/contact': {
       next: '/someone-else',
-      fields: []
+      fields: [
+        'requestor-contact-method',
+        'requestor-email',
+        'requestor-address-line-1',
+        'requestor-address-line-2',
+        'requestor-town-or-city',
+        'requestor-county',
+        'requestor-postcode'
+      ]
     },
     '/someone-else': {
       next: '/check-answers',
-      fields: []
+      fields: ['completing-for-someone-else'],
+      forks: [
+        {
+          target: '/someone-else-details',
+          condition: {
+            field: 'completing-for-someone-else',
+            value: 'yes'
+          }
+        }
+      ]
+    },
+    '/someone-else-details': {
+      next: '/check-answers',
+      fields: [
+        'representative-name',
+        'representative-email',
+        'representative-type'
+      ]
     },
     '/check-answers': {
       next: '/request-sent'

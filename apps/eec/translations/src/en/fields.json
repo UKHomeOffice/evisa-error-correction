@@ -47,20 +47,20 @@
   "detail-valid-until": {
     "label": "What is the correct date your visa is valid to?"
   },
-  "reporter-full-name": {
+  "requestor-full-name": {
     "label": "Full name"
   },
-  "reporter-dob": {
+  "requestor-dob": {
     "legend": "Date of birth",
     "hint": "For example, 27 3 2007"
   },
-  "reporter-nationality": {
+  "requestor-nationality": {
     "label": "Country of nationality",
     "options": {
       "none_selected": "Select a country"
     }
   },
-  "reporter-reference-type": {
+  "requestor-reference-type": {
     "legend": "Reference number",
     "hint": "Select one option.",
     "options": {
@@ -81,19 +81,84 @@
       }
     }
   },
-  "reporter-brp": {
+  "requestor-brp": {
     "label": "Enter BRP number",
     "hint": "For example, RZ1234567"
   },
-  "reporter-gwf": {
+  "requestor-gwf": {
     "label": "Enter GWF number",
     "hint": "For example, GWF012345678"
   },
-  "reporter-uan": {
+  "requestor-uan": {
     "label": "Enter UAN",
     "hint": "For example, 1234-1234-1234-1234"
   },
-  "reporter-passport": {
+  "requestor-passport": {
     "label": "Enter passport number"
+  },
+  "requestor-contact-method": {
+    "legend": "We will contact you to confirm when we have corrected your details, or to let you know if we need more information.",
+    "hint": "Select one option.",
+    "options": {
+        "email": {
+            "label": "Email"
+        },
+        "uk-address": {
+            "label": "UK address"
+        }
+    }
+  },
+  "requestor-email": {
+    "label": "Email address"
+  },
+  "requestor-address-line-1": {
+    "label": "Address line 1"
+  },
+  "requestor-address-line-2": {
+    "label": "Address line 2 (optional)"
+  },
+  "requestor-town-or-city": {
+    "label": "Town or city"
+  },
+  "requestor-county": {
+    "label": "County (optional)"
+  },
+  "requestor-postcode": {
+    "label": "Postcode"
+  },
+  "completing-for-someone-else": {
+    "legend": "Are you completing this form on behalf of someone else?",
+    "hint": "For example, you are a friend, relative, employer, charity worker or lawyer.",
+    "options": {
+        "yes": {
+            "label": "Yes"
+        },
+        "no": {
+            "label": "No"
+        }
+    }
+  },
+  "representative-name": {
+    "label": "Full name"
+  },
+  "representative-email": {
+    "label": "Email address"
+  },
+  "representative-type": {
+    "legend": "Type of support",
+    "options": {
+        "sponsor": {
+            "label": "Sponsor"
+        },
+        "legal-representative": {
+            "label": "Legal representative"
+        },
+        "friend-or-relative": {
+            "label": "Friend or relative"
+        },
+        "support-organisation": {
+            "label": "Support organisation"
+        }
+    }
   }
 }

@@ -6,8 +6,10 @@
   "contact": {
     "header": "How should we contact you about your eVisa?"
   },
-  "someone-else": {
-    "header": "Are you completing this form on behalf of someone else?"
+  "someone-else-details": {
+    "header": "What are your details?",
+    "intro": "We will attempt to contact the requestor directly. We will only use these details to contact you if needed.",
+    "consent": "By continuing, you confirm that you have consent to send this request on their behalf."
   },
   "check-answers": {
     "header": "Check your answers before sending your request"

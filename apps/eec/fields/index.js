@@ -124,10 +124,10 @@ module.exports = {
       value: 'problem-valid-until'
     }
   },
-  'reporter-full-name': {
+  'requestor-full-name': {
     validate: ['required', validateText]
   },
-  'reporter-dob': dateComponent('reporter-dob', {
+  'requestor-dob': dateComponent('requestor-dob', {
     mixin: 'input-date',
     validate: [
       'required',
@@ -135,37 +135,37 @@ module.exports = {
       { type: 'before', arguments: ['0', 'days'] }
     ]
   }),
-  'reporter-nationality': {
+  'requestor-nationality': {
     mixin: 'select',
     className: ['typeahead'],
     validate: ['required'],
     options: [{
       value: '',
-      label: 'fields.reporter-nationality.options.none_selected'
+      label: 'fields.requestor-nationality.options.none_selected'
     }].concat(countries)
   },
-  'reporter-reference-type': {
+  'requestor-reference-type': {
     mixin: 'radio-group',
     validate: 'required',
     options: [
       {
         value: 'brp',
-        toggle: 'reporter-brp',
+        toggle: 'requestor-brp',
         child: 'input-text'
       },
       {
         value: 'gwf',
-        toggle: 'reporter-gwf',
+        toggle: 'requestor-gwf',
         child: 'input-text'
       },
       {
         value: 'uan',
-        toggle: 'reporter-uan',
+        toggle: 'requestor-uan',
         child: 'input-text'
       },
       {
         value: 'passport',
-        toggle: 'reporter-passport',
+        toggle: 'requestor-passport',
         child: 'input-text'
       },
       {
@@ -173,40 +173,133 @@ module.exports = {
       }
     ]
   },
-  'reporter-brp': {
+  'requestor-brp': {
     mixin: 'input-text',
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
     validate: ['required', BRPValidator],
     dependent: {
-      field: 'reporter-reference-type',
+      field: 'requestor-reference-type',
       value: 'brp'
     }
   },
-  'reporter-gwf': {
+  'requestor-gwf': {
     mixin: 'input-text',
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
     validate: ['required', GWFValidator],
     dependent: {
-      field: 'reporter-reference-type',
+      field: 'requestor-reference-type',
       value: 'gwf'
     }
   },
-  'reporter-uan': {
+  'requestor-uan': {
     mixin: 'input-text',
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
     validate: ['required', UANValidator],
     dependent: {
-      field: 'reporter-reference-type',
+      field: 'requestor-reference-type',
       value: 'uan'
     }
   },
-  'reporter-passport': {
+  'requestor-passport': {
     mixin: 'input-text',
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
     validate: ['required'],
     dependent: {
-      field: 'reporter-reference-type',
+      field: 'requestor-reference-type',
       value: 'passport'
     }
+  },
+  'requestor-contact-method': {
+    mixin: 'radio-group',
+    validate: ['required'],
+    options: [
+      {
+        value: 'email',
+        toggle: 'requestor-email',
+        child: 'input-text'
+      },
+      {
+        value: 'uk-address',
+        toggle: 'address-details-fieldset',
+        child: 'partials/address-details'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
+  'requestor-email': {
+    validate: [
+      'required',
+      'email',
+      { type: 'maxlength', arguments: 254 }
+    ],
+    dependent: {
+      field: 'requestor-contact-method',
+      value: 'email'
+    }
+  },
+  'requestor-address-line-1': {
+    validate: ['required'],
+    dependent: {
+      field: 'requestor-contact-method',
+      value: 'uk-address'
+    }
+  },
+  'requestor-address-line-2': {},
+  'requestor-town-or-city': {
+    validate: ['required'],
+    dependent: {
+      field: 'requestor-contact-method',
+      value: 'uk-address'
+    }
+  },
+  'requestor-county': {
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
+  },
+  'requestor-postcode': {
+    formatter: ['ukPostcode'],
+    validate: ['required', 'postcode'],
+    className: ['govuk-input', 'govuk-!-width-one-third'],
+    dependent: {
+      field: 'requestor-contact-method',
+      value: 'uk-address'
+    }
+  },
+  'completing-for-someone-else': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
+    validate: 'required',
+    options: [
+      {
+        value: 'yes'
+      },
+      {
+        value: 'no'
+      }
+    ]
+  },
+  'representative-name': {
+    mixin: 'input-text',
+    validate: ['required', validateText]
+  },
+  'representative-email': {
+    mixin: 'input-text',
+    validate: [
+      'required',
+      'email',
+      { type: 'maxlength', arguments: 254 }
+    ]
+  },
+  'representative-type': {
+    mixin: 'radio-group',
+    validate: 'required',
+    options: [
+      { value: 'sponsor' },
+      { value: 'legal-representative' },
+      { value: 'friend-or-relative' },
+      { value: 'support-organisation' }
+    ]
   }
 };

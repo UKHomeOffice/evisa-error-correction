@@ -1,0 +1,9 @@
+{{<partials-page}}
+  {{$page-content}}
+    {{#input-text}}representative-name{{/input-text}}
+    {{#input-text}}representative-email{{/input-text}}
+    {{#radio-group}}representative-type{{/radio-group}}
+    <p>{{#t}}pages.someone-else-details.consent{{/t}}</p>
+    {{#input-submit}}continue{{/input-submit}}
+  {{/page-content}}
+{{/partials-page}}

@@ -8,34 +8,67 @@
   "detail-restrictions": {
     "maxlength": "You have exceeded the 500 character limit"
   },
-  "reporter-full-name": {
+  "requestor-full-name": {
     "required": "Enter your full name",
     "validateText": "Full name must only include letters a to z, spaces, hyphens and apostrophes"
   },
-  "reporter-dob": {
+  "requestor-dob": {
     "required": "Enter your date of birth",
     "date": "The date must only contain numbers. For example, 31 3 1980",
     "before": "Date of birth must be in the past"
   },
-  "reporter-nationality": {
+  "requestor-nationality": {
     "required": "Enter a country of nationality"
   },
-  "reporter-reference-type": {
+  "requestor-reference-type": {
     "required": "Enter a reference number"
   },
-  "reporter-brp": {
+  "requestor-brp": {
     "required": "What is your BRP number?",
     "regex": "Enter your BRP number in the correct format; for example RZX123456 or RZ1234567"
   },
-  "reporter-gwf": {
+  "requestor-gwf": {
     "required": "What is your GWF number?",
     "regex": "Enter your GWF number in the correct format; for example, GWF012345678"
   },
-  "reporter-uan": {
+  "requestor-uan": {
     "required": "What is your UAN number?",
     "regex": "Enter your UAN in the correct format; for example, 1234-1234-1234-1234"
   },
-  "reporter-passport": {
+  "requestor-passport": {
     "required": "What is your passport number?"
+  },
+  "requestor-contact-method": {
+    "required": "Select how you want to be contacted"
+  },
+  "requestor-email": {
+    "required": "Enter an email address",
+    "email": "Enter an email address in the correct format, like name@example.com",
+    "maxlength": "Email address must be less than 254 characters"
+  },
+  "requestor-address-line-1": {
+    "required": "Enter address line 1, typically your building and street"
+  },
+  "requestor-town-or-city": {
+    "required": "Enter your town or city"
+  },
+  "requestor-postcode": {
+    "required": "Enter your postcode",
+    "postcode": "Enter a valid UK postcode"
+  },
+  "completing-for-someone-else": {
+    "required": "Select if you are completing this form on behalf of someone else"
+  },
+  "representative-name": {
+    "required": "Enter your full name",
+    "validateText": "Full name must only include letters a to z, spaces, hyphens and apostrophes"
+  },
+  "representative-email": {
+    "required": "Enter your email address",
+    "email": "Enter an email address in the correct format, like name@example.com",
+    "maxlength": "Email address must be less than 254 characters"
+  },
+  "representative-type": {
+    "required": "Select which type of support you are to the requestor"
   }
 }
