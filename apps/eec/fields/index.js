@@ -269,6 +269,7 @@ module.exports = {
   'completing-for-someone-else': {
     isPageHeading: 'true',
     mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
     validate: 'required',
     options: [
       {
