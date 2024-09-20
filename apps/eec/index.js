@@ -18,7 +18,9 @@ module.exports = {
         'detail-nin',
         'detail-restrictions',
         'detail-status',
-        'detail-valid-until'
+        'detail-valid-until',
+        'detail-signin-email',
+        'detail-signin-phone'
       ]
     },
     '/personal-details': {
@@ -31,7 +33,8 @@ module.exports = {
         'requestor-brp',
         'requestor-gwf',
         'requestor-uan',
-        'requestor-passport'
+        'requestor-passport',
+        'requestor-ukvi'
       ]
     },
     '/contact': {

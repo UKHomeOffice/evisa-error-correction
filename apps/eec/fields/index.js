@@ -4,6 +4,7 @@ const dateComponent = require('hof').components.date;
 const UANValidator = { type: 'regex', arguments: /^(\d{4}-\d{4}-\d{4}-\d{4})$/ };
 const BRPValidator = { type: 'regex', arguments: /^r[a-z](\d|X)\d{6}$/gi };
 const GWFValidator = { type: 'regex', arguments: /^gwf\d{9}$/gi };
+const UKVIValidator = { type: 'regex', arguments: /^.{1,10}$/ };
 
 /**
  * Validates that the given value only includes letters (a to z), spaces, hyphens, and apostrophes.
@@ -65,6 +66,16 @@ module.exports = {
         value: 'problem-valid-until',
         toggle: 'detail-valid-until',
         child: 'input-text'
+      },
+      {
+        value: 'problem-signin-email',
+        toggle: 'detail-signin-email',
+        child: 'input-text'
+      },
+      {
+        value: 'problem-signin-phone',
+        toggle: 'detail-signin-phone',
+        child: 'input-text'
       }
     ]
   },
@@ -124,6 +135,26 @@ module.exports = {
       value: 'problem-valid-until'
     }
   },
+  'detail-signin-email': {
+    mixin: 'input-text',
+    validate: [
+      'email',
+      { type: 'maxlength', arguments: 254 }
+    ],
+    className: ['govuk-input', 'govuk-!-width-two-thirds'],
+    dependent: {
+      field: 'problem',
+      value: 'problem-signin-email'
+    }
+  },
+  'detail-signin-phone': {
+    mixin: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-one-third'],
+    dependent: {
+      field: 'problem',
+      value: 'problem-signin-phone'
+    }
+  },
   'requestor-full-name': {
     validate: ['required', validateText]
   },
@@ -169,6 +200,11 @@ module.exports = {
         child: 'input-text'
       },
       {
+        value: 'ukvi',
+        toggle: 'requestor-ukvi',
+        child: 'input-text'
+      },
+      {
         value: 'no-reference'
       }
     ]
@@ -207,6 +243,15 @@ module.exports = {
     dependent: {
       field: 'requestor-reference-type',
       value: 'passport'
+    }
+  },
+  'requestor-ukvi': {
+    mixin: 'input-text',
+    className: ['govuk-input', 'govuk-!-width-two-thirds'],
+    validate: ['required', UKVIValidator],
+    dependent: {
+      field: 'requestor-reference-type',
+      value: 'ukvi'
     }
   },
   'requestor-contact-method': {
