@@ -255,7 +255,7 @@ module.exports = {
     }
   },
   'requestor-county': {
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
+    className: ['govuk-input', 'govuk-!-width-two-thirds']
   },
   'requestor-postcode': {
     formatter: ['ukPostcode'],
