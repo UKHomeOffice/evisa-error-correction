@@ -81,6 +81,7 @@ module.exports = {
   },
   'detail-full-name': {
     mixin: 'input-text',
+    validate: 'required',
     dependent: {
       field: 'problem',
       value: 'problem-full-name'
@@ -88,6 +89,7 @@ module.exports = {
   },
   'detail-sponsor-ref': {
     mixin: 'input-text',
+    validate: 'required',
     dependent: {
       field: 'problem',
       value: 'problem-sponsor-ref'
@@ -95,7 +97,7 @@ module.exports = {
   },
   'detail-photo': {
     mixin: 'textarea',
-    validate: [{ type: 'maxlength', arguments: 500 }],
+    validate: ['required', { type: 'maxlength', arguments: 500 }],
     attributes: [{ attribute: 'rows', value: 5 }],
     dependent: {
       field: 'problem',
@@ -104,6 +106,7 @@ module.exports = {
   },
   'detail-nin': {
     mixin: 'input-text',
+    validate: 'required',
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
     dependent: {
       field: 'problem',
@@ -112,7 +115,7 @@ module.exports = {
   },
   'detail-restrictions': {
     mixin: 'textarea',
-    validate: [{ type: 'maxlength', arguments: 500 }],
+    validate: ['required', { type: 'maxlength', arguments: 500 }],
     attributes: [{ attribute: 'rows', value: 5 }],
     dependent: {
       field: 'problem',
@@ -121,6 +124,7 @@ module.exports = {
   },
   'detail-status': {
     mixin: 'input-text',
+    validate: 'required',
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
     dependent: {
       field: 'problem',
@@ -129,6 +133,7 @@ module.exports = {
   },
   'detail-valid-until': {
     mixin: 'input-text',
+    validate: 'required',
     className: ['govuk-input', 'govuk-!-width-one-third'],
     dependent: {
       field: 'problem',
@@ -138,6 +143,7 @@ module.exports = {
   'detail-signin-email': {
     mixin: 'input-text',
     validate: [
+      'required',
       'email',
       { type: 'maxlength', arguments: 254 }
     ],
@@ -150,6 +156,7 @@ module.exports = {
   'detail-signin-phone': {
     mixin: 'input-text',
     className: ['govuk-input', 'govuk-!-width-one-third'],
+    validate: ['required', 'internationalPhoneNumber'],
     dependent: {
       field: 'problem',
       value: 'problem-signin-phone'
