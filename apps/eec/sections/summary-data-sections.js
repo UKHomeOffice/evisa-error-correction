@@ -31,6 +31,14 @@ module.exports = {
       {
         step: '/problem',
         field: 'detail-valid-until'
+      },
+      {
+        step: '/problem',
+        field: 'detail-signin-email'
+      },
+      {
+        step: '/problem',
+        field: 'detail-signin-phone'
       }
     ]
   },

@@ -1,7 +1,7 @@
 {
   "personal-details": {
     "header": "Personal details",
-    "intro": "You must enter these details exactly as they are appear on your eVisa so we can review the problem."
+    "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
   },
   "contact": {
     "header": "How should we contact you about your eVisa?"
@@ -56,6 +56,12 @@
       },
       "detail-valid-until": {
         "label": "Valid until"
+      },
+      "detail-signin-email": {
+        "label": "Account email"
+      },
+      "detail-signin-phone": {
+        "label": "Account phone"
       },
       "requestor-full-name": {
         "label": "Full name"

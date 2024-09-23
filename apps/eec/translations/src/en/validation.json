@@ -2,11 +2,37 @@
   "problem": {
     "required": "Select what the problem is"
   },
+  "detail-full-name": {
+    "required": "Enter your correct full name"
+  },
+  "detail-sponsor-ref": {
+    "required": "Enter the correct sponsor reference number"
+  },
   "detail-photo": {
+    "required": "Enter what is wrong with your photo",
     "maxlength": "You have exceeded the 500 character limit"
   },
+  "detail-nin": {
+    "required": "Enter your correct National Insurance number"
+  },
   "detail-restrictions": {
+    "required": "Enter what is wrong with the restrictions of your visa",
     "maxlength": "You have exceeded the 500 character limit"
+  },
+  "detail-status": {
+    "required": "Enter your correct immigration status"
+  },
+  "detail-valid-until": {
+    "required": "Enter the correct date your visa is valid to"
+  },
+  "detail-signin-email": {
+    "required": "Enter the correct email address where you can receive security codes",
+    "email": "Enter an email address in the correct format, like name@example.com",
+    "maxlength": "Email address must be less than 254 characters"
+  },
+  "detail-signin-phone": {
+    "required": "Enter the correct phone number where you can receive security codes",
+    "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
   "requestor-full-name": {
     "required": "Enter your full name",
@@ -37,6 +63,11 @@
   },
   "requestor-passport": {
     "required": "What is your passport number?"
+  },
+  "requestor-ukvi": {
+    "required": "What is your UKVI customer number?",
+    "regex": "UKVI customer number must start with KX",
+    "exactlength": "UKVI customer number must be 10 characters long"
   },
   "requestor-contact-method": {
     "required": "Select how you want to be contacted"
