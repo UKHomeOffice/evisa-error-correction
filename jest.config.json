@@ -8,7 +8,9 @@
     "!**/assets/js/*.js",
     "!**/public/js/*.js",
     "!apps/**/fields/*.js",
-    "!apps/**/index.js"
+    "!apps/**/index.js",
+    "!apps/eec/sections/*",
+    "!server.js"
   ],
   "setupFiles": ["<rootDir>/jest.env.js"]
 }
