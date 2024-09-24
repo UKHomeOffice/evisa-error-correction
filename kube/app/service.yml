@@ -20,4 +20,3 @@ spec:
     port: 10080
   - name: https
     port: 10443
-    
