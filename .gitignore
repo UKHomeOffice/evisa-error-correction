@@ -6,7 +6,7 @@ coverage
 .env
 output/
 *.iml
-anchore-reports
+.trivyignore.yaml
 .nyc_output
 .vscode
 .vscode-server
