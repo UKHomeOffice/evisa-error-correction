@@ -13,4 +13,10 @@ const formatDate = date => {
   return new Intl.DateTimeFormat(config.dateLocales).format(dateObj);
 };
 
-module.exports = { getLabel, formatDate };
+const genErrorMsg = error => {
+  const errorDetails = error.response?.data ? `Cause: ${JSON.stringify(error.response.data)}` : '';
+  const errorCode = error.code ? `${error.code} -` : '';
+  return `${errorCode} ${error.message}; ${errorDetails}`;
+};
+
+module.exports = { getLabel, formatDate, genErrorMsg };
