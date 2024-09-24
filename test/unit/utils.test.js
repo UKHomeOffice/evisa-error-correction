@@ -9,6 +9,10 @@ describe('Utilities \'getLabel\'', () => {
     expect(getLabel('requestor-reference-type', 'no-reference')).toBe('I do not have a reference number');
   });
 
+  test('returns the correct string if the input value was an array', () => {
+    expect(getLabel('requestor-reference-type', ['brp', 'gwf'])).toBe('BRP number, GWF number');
+  });
+
   test('returns undefined when an unexpected fieldKey parameter is passed', () => {
     expect(getLabel('cheese', 'brp')).toBe(undefined);
     expect(getLabel(null, 'brp')).toBe(undefined);
