@@ -8,22 +8,14 @@ const {
   replyToId
 } = config.govukNotify;
 
-const { getLabel, formatDate } = require('../../../utils');
+const { getLabel, formatDate, genErrorMsg } = require('../../../utils');
 
 const NotifyClient = require('notifications-node-client').NotifyClient;
 const Notify = new NotifyClient(notifyApiKey);
 
-const genErrorMsg = error => {
-  const errorDetails = error.response?.data ? `Cause: ${JSON.stringify(error.response.data)}` : '';
-  const errorCode = error.code ? `${error.code} -` : '';
-  return `${errorCode} ${error.message}; ${errorDetails}`;
-};
-
 class EmailProps {
-  constructor(req) {
-    this.personalisation = {
-      full_name: req.sessionModel.get('detail-full-name') || req.sessionModel.get('requestor-full-name')
-    };
+  constructor() {
+    this.personalisation = {};
     if (replyToId) {
       this.emailReplyToId = replyToId;
     }
@@ -52,13 +44,14 @@ const buildProblemNotes = req => {
 
 module.exports = superclass => class extends superclass {
   async saveValues(req, res, next) {
-    const businessEmailProps = new EmailProps(req);
+    const businessEmailProps = new EmailProps;
 
     businessEmailProps.addPersonalisation({
       full_name: req.sessionModel.get('requestor-full-name'),
       date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
       nationality: req.sessionModel.get('requestor-nationality'),
       reference: req.sessionModel.get('formatted-reference'),
+      is_refugee: req.sessionModel.get('is-refugee'),
       problem_notes: buildProblemNotes(req),
       contact_email: req.sessionModel.get('requestor-email') || 'none provided',
       contact_address: req.sessionModel.get('formatted-address') || 'none provided',
@@ -78,10 +71,14 @@ module.exports = superclass => class extends superclass {
       return next(error);
     }
 
-    const userContactEmail = req.sessionModel.get('requestor-email') || req.sessionModel.get('representative-email');
+    const userContactEmail = req.sessionModel.get('requestor-email');
 
     if (userContactEmail) {
-      const userEmailProps = new EmailProps(req);
+      const userEmailProps = new EmailProps;
+
+      userEmailProps.addPersonalisation({
+        full_name: req.sessionModel.get('detail-full-name') || req.sessionModel.get('requestor-full-name')
+      });
 
       try {
         await Notify.sendEmail(userConfirmationTemplateId, userContactEmail, userEmailProps);
