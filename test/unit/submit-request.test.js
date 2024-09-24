@@ -49,7 +49,7 @@ describe('submit-feedback behaviour', () => {
       NotifyClient.prototype.sendEmail = jest.fn().mockResolvedValue({data: {}});
 
       req.sessionModel = new Model({
-        'problem': ['problem-photo', 'problem-nin'],
+        problem: ['problem-photo', 'problem-nin'],
         'detail-photo': 'photo bad',
         'detail-nin': 'QQ123456A',
         'requestor-full-name': 'test user',
@@ -58,7 +58,7 @@ describe('submit-feedback behaviour', () => {
         'formatted-reference': 'I do not have a reference',
         'requestor-email': 'sas-hof-test@digital.homeoffice.gov.uk',
         'formatted-address': 'fake address',
-        'completing-for-someone-else': 'no',
+        'completing-for-someone-else': 'no'
       });
     });
 
@@ -85,7 +85,7 @@ describe('submit-feedback behaviour', () => {
     test('Notify sendEmail to user is called with the correct props', async () => {
       emailProps = {
         personalisation: {
-          full_name: 'test user',
+          full_name: 'test user'
         },
         emailReplyToId: '789-123'
       };
@@ -119,8 +119,9 @@ describe('submit-feedback behaviour', () => {
     test('Business sendEmail is called with the correct props if only one problem had been added', async () => {
       req.sessionModel.set('problem', 'problem-full-name');
       req.sessionModel.set('detail-full-name', 'Corrected name');
-      req.sessionModel.unset('detail-photo'),
-      req.sessionModel.unset('detail-nin'),
+      req.sessionModel.unset('detail-photo');
+      req.sessionModel.unset('detail-nin');
+
       emailProps = {
         personalisation: {
           full_name: 'test user',
