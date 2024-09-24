@@ -30,6 +30,7 @@ const buildProblemNotes = req => {
   let problems = req.sessionModel.get('problem');
   let concatProblems = '';
 
+  // A single checked box will be stored as a string not an array of length 1 so...
   if (typeof problems === 'string') {
     problems = Array.of(problems);
   }
