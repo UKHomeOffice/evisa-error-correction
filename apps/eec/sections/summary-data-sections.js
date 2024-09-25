@@ -63,7 +63,8 @@ module.exports = {
           const refType = req.sessionModel.get('requestor-reference-type');
           const refNumber = refType !== 'no-reference' ? req.sessionModel.get(`requestor-${refType}`) : undefined;
 
-          const formattedReference = refNumber ? `${refType.toUpperCase()} ${refNumber}` : getLabel('requestor-reference-type', refType);
+          const formattedReference = refNumber ?
+            `${refType.toUpperCase()} ${refNumber}` : getLabel('requestor-reference-type', refType);
           req.sessionModel.set('formatted-reference', formattedReference);
 
           return formattedReference;
