@@ -9,7 +9,7 @@
     "!**/public/js/*.js",
     "!apps/**/fields/*.js",
     "!apps/**/index.js",
-    "!apps/eec/sections/*",
+    "!apps/**/sections/*",
     "!server.js"
   ],
   "setupFiles": ["<rootDir>/jest.env.js"]

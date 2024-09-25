@@ -6,8 +6,8 @@ const env = process.env.NODE_ENV || 'production';
 module.exports = {
   dateLocales: 'en-GB',
   dateFormat: {
-    day: '2-digit',
-    month: 'long',
+    day: 'numeric',
+    month: 'numeric',
     year: 'numeric'
   },
   env: env,

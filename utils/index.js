@@ -10,7 +10,7 @@ const getLabel = (fieldKey, fieldValue) => {
 
 const formatDate = date => {
   const dateObj = new Date(date);
-  return new Intl.DateTimeFormat(config.dateLocales).format(dateObj);
+  return new Intl.DateTimeFormat(config.dateLocales, config.dateFormat).format(dateObj);
 };
 
 const genErrorMsg = error => {
