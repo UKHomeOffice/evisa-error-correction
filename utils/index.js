@@ -13,10 +13,19 @@ const formatDate = date => {
   return new Intl.DateTimeFormat(config.dateLocales, config.dateFormat).format(dateObj);
 };
 
-const genErrorMsg = error => {
+/**
+ * Generates a useful error message from a typical GovUk Notify Node.js client error reponse object
+ *
+ * This function is relatively specific to Error objects created by notifications-node-client.
+ * It will return at a minimum error.message from the Error object passed in.
+ *
+ * @param {object} error - An Error object.
+ * @returns {string} - An error message for GovUK Notify containing key causal information.
+ */
+const genNotifyErrorMsg = error => {
   const errorDetails = error.response?.data ? `Cause: ${JSON.stringify(error.response.data)}` : '';
   const errorCode = error.code ? `${error.code} -` : '';
   return `${errorCode} ${error.message}; ${errorDetails}`;
 };
 
-module.exports = { getLabel, formatDate, genErrorMsg };
+module.exports = { getLabel, formatDate, genNotifyErrorMsg };

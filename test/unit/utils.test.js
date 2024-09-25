@@ -1,4 +1,4 @@
-const { getLabel, formatDate, genErrorMsg } = require('../../utils');
+const { getLabel, formatDate, genNotifyErrorMsg } = require('../../utils');
 
 describe('Utilities \'getLabel\'', () => {
   test('replaces the correct label from value for \'requestor-reference-type\' field', () => {
@@ -40,7 +40,7 @@ describe('Utilities \'formatDate\'', () => {
   });
 });
 
-describe('Utilities \'genErrorMsg\'', () => {
+describe('Utilities \'genNotifyErrorMsg\'', () => {
   let error;
 
   beforeEach(() => {
@@ -50,26 +50,26 @@ describe('Utilities \'genErrorMsg\'', () => {
         prop: 'test data...'
       }
     };
-    error.code = 404;
+    error.code = 'ERR_BAD_REQUEST';
   });
 
   test('parses an error with the expected Notify format into an expected message string', () => {
-    expect(genErrorMsg(error)).toBe('404 - Template not found; Cause: {"prop":"test data..."}');
+    expect(genNotifyErrorMsg(error)).toBe('ERR_BAD_REQUEST - Template not found; Cause: {"prop":"test data..."}');
   });
 
   test('parses an error into an expected message string when error.response.data is not present', () => {
     delete error.response;
-    expect(genErrorMsg(error)).toBe('404 - Template not found; ');
+    expect(genNotifyErrorMsg(error)).toBe('ERR_BAD_REQUEST - Template not found; ');
   });
 
   test('parses an error into an expected message string when error.code is not present', () => {
     delete error.code;
-    expect(genErrorMsg(error)).toBe(' Template not found; Cause: {"prop":"test data..."}');
+    expect(genNotifyErrorMsg(error)).toBe(' Template not found; Cause: {"prop":"test data..."}');
   });
 
   test('parses an error into an expected message string when error.code and error.response are not present', () => {
     delete error.code;
     delete error.response;
-    expect(genErrorMsg(error)).toBe(' Template not found; ');
+    expect(genNotifyErrorMsg(error)).toBe(' Template not found; ');
   });
 });

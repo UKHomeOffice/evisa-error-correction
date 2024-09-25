@@ -8,7 +8,7 @@ const {
   replyToId
 } = config.govukNotify;
 
-const { getLabel, formatDate, genErrorMsg } = require('../../../utils');
+const { getLabel, formatDate, genNotifyErrorMsg } = require('../../../utils');
 
 const NotifyClient = require('notifications-node-client').NotifyClient;
 const Notify = new NotifyClient(notifyApiKey);
@@ -67,7 +67,7 @@ module.exports = superclass => class extends superclass {
       await Notify.sendEmail(businessConfirmationTemplateId, caseworkerEmail, businessEmailProps);
       logger.info('EEC request caseworker email sent successfully');
     } catch (error) {
-      logger.error(`Failed to send EEC request email: ${genErrorMsg(error)}`);
+      logger.error(`Failed to send EEC request email: ${genNotifyErrorMsg(error)}`);
       return next(error);
     }
 
@@ -84,7 +84,7 @@ module.exports = superclass => class extends superclass {
         await Notify.sendEmail(userConfirmationTemplateId, userContactEmail, userEmailProps);
         logger.info('EEC requestor acknowledgement email sent successfully');
       } catch (error) {
-        logger.warn(`Failed to send EEC user acknowledgement email: ${genErrorMsg(error)}`);
+        logger.warn(`Failed to send EEC user acknowledgement email: ${genNotifyErrorMsg(error)}`);
       }
     }
 
