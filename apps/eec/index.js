@@ -23,7 +23,7 @@ module.exports = {
       ]
     },
     '/personal-details': {
-      next: '/contact',
+      next: '/refugee',
       fields: [
         'requestor-full-name',
         'requestor-dob',
@@ -35,6 +35,10 @@ module.exports = {
         'requestor-passport',
         'requestor-ukvi'
       ]
+    },
+    '/refugee': {
+      next: '/contact',
+      fields: ['is-refugee']
     },
     '/contact': {
       next: '/someone-else',

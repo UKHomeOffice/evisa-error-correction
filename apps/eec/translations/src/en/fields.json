@@ -59,6 +59,17 @@
   "detail-signin-phone": {
     "label": "What is the correct phone number where you can receive security codes?"
   },
+  "is-refugee": {
+    "legend": "Do you have permission to stay in the UK as a refugee?",
+    "options": {
+      "yes": {
+          "label": "Yes"
+      },
+      "no": {
+          "label": "No"
+      }
+    }
+  },
   "requestor-full-name": {
     "label": "Full name"
   },

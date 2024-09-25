@@ -71,6 +71,10 @@ module.exports = {
         }
       },
       {
+        step: '/refugee',
+        field: 'is-refugee'
+      },
+      {
         step: '/contact',
         field: 'contact-details',
         parse: (val, req) => {

@@ -162,6 +162,23 @@ module.exports = {
       value: 'problem-signin-phone'
     }
   },
+  'is-refugee': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
+    validate: 'required',
+    options: [
+      {
+        value: 'yes'
+      },
+      {
+        value: 'no'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
   'requestor-full-name': {
     validate: ['required', validateText]
   },
@@ -334,7 +351,10 @@ module.exports = {
       {
         value: 'no'
       }
-    ]
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
   },
   'representative-name': {
     mixin: 'input-text',
