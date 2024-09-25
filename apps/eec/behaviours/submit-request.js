@@ -1,5 +1,4 @@
 const config = require('../../../config');
-const logger = require('hof/lib/logger')({ env: config.env });
 const {
   notifyApiKey,
   caseworkerEmail,
@@ -65,9 +64,9 @@ module.exports = superclass => class extends superclass {
       });
 
       await Notify.sendEmail(businessConfirmationTemplateId, caseworkerEmail, businessEmailProps);
-      logger.info('EEC request caseworker email sent successfully');
+      req.log('info', 'EEC request caseworker email sent successfully');
     } catch (error) {
-      logger.error(`Failed to send EEC request email: ${genNotifyErrorMsg(error)}`);
+      req.log('error', `Failed to send EEC request email: ${genNotifyErrorMsg(error)}`);
       return next(error);
     }
 
@@ -82,9 +81,9 @@ module.exports = superclass => class extends superclass {
         });
 
         await Notify.sendEmail(userConfirmationTemplateId, userContactEmail, userEmailProps);
-        logger.info('EEC requestor acknowledgement email sent successfully');
+        req.log('info', 'EEC requestor acknowledgement email sent successfully');
       } catch (error) {
-        logger.warn(`Failed to send EEC user acknowledgement email: ${genNotifyErrorMsg(error)}`);
+        req.log('warn', `Failed to send EEC user acknowledgement email: ${genNotifyErrorMsg(error)}`);
       }
     }
 
