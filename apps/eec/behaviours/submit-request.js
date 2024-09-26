@@ -52,6 +52,7 @@ module.exports = superclass => class extends superclass {
         date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
         nationality: req.sessionModel.get('requestor-nationality'),
         reference: req.sessionModel.get('formatted-reference'),
+        is_refugee: getLabel('is-refugee', req.sessionModel.get('is-refugee')),
         problem_notes: buildProblemNotes(req),
         contact_email: req.sessionModel.get('requestor-email') || 'none provided',
         contact_address: req.sessionModel.get('formatted-address') || 'none provided',

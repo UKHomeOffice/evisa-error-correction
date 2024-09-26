@@ -56,6 +56,7 @@ describe('submit-feedback behaviour', () => {
         'requestor-dob': '1987-08-14',
         'requestor-nationality': 'France',
         'formatted-reference': 'I do not have a reference',
+        'is-refugee': 'yes',
         'requestor-email': 'sas-hof-test@digital.homeoffice.gov.uk',
         'formatted-address': 'fake address',
         'completing-for-someone-else': 'no'
@@ -101,6 +102,7 @@ describe('submit-feedback behaviour', () => {
           date_of_birth: '14/08/1987',
           nationality: 'France',
           reference: 'I do not have a reference',
+          is_refugee: 'Yes',
           problem_notes: 'Photo: photo bad\n\nNational Insurance number: QQ123456A\n\n',
           contact_email: 'sas-hof-test@digital.homeoffice.gov.uk',
           contact_address: 'fake address',
@@ -128,6 +130,7 @@ describe('submit-feedback behaviour', () => {
           date_of_birth: '14/08/1987',
           nationality: 'France',
           reference: 'I do not have a reference',
+          is_refugee: 'Yes',
           problem_notes: 'Full name: Corrected name\n\n',
           contact_email: 'sas-hof-test@digital.homeoffice.gov.uk',
           contact_address: 'fake address',
