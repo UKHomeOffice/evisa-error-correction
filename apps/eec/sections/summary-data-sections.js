@@ -1,5 +1,4 @@
-const config = require('../../../config');
-const { getLabel } = require('../../../utils');
+const { getLabel, formatDate } = require('../../../utils');
 
 module.exports = {
   'corrected-details': {
@@ -51,11 +50,7 @@ module.exports = {
       {
         step: '/personal-details',
         field: 'requestor-dob',
-        parse: val => {
-          const date = new Date(val);
-          const formatter = new Intl.DateTimeFormat(config.dateLocales, config.dateFormat);
-          return formatter.format(date);
-        }
+        parse: val => formatDate(val)
       },
       {
         step: '/personal-details',
@@ -67,27 +62,33 @@ module.exports = {
         parse: (val, req) => {
           const refType = req.sessionModel.get('requestor-reference-type');
           const refNumber = refType !== 'no-reference' ? req.sessionModel.get(`requestor-${refType}`) : undefined;
-          return refNumber ? `${refType.toUpperCase()} ${refNumber}` : getLabel('requestor-reference-type', refType);
+
+          const formattedReference = refNumber ?
+            `${refType.toUpperCase()} ${refNumber}` : getLabel('requestor-reference-type', refType);
+          req.sessionModel.set('formatted-reference', formattedReference);
+
+          return formattedReference;
         }
       },
       {
         step: '/contact',
         field: 'contact-details',
         parse: (val, req) => {
-          return req.sessionModel.get('requestor-contact-method') === 'email' ?
-            req.sessionModel.get('requestor-email') :
-            Array(
-              req.sessionModel.get('requestor-address-line-1'),
-              req.sessionModel.get('requestor-address-line-2'),
-              req.sessionModel.get('requestor-town-or-city'),
-              req.sessionModel.get('requestor-county'),
-              req.sessionModel.get('requestor-postcode')
-            ).filter(x => x).join('\n');
+          if (req.sessionModel.get('requestor-contact-method') === 'email') {
+            return req.sessionModel.get('requestor-email');
+          }
+
+          const formattedAddress = Array(
+            req.sessionModel.get('requestor-address-line-1'),
+            req.sessionModel.get('requestor-address-line-2'),
+            req.sessionModel.get('requestor-town-or-city'),
+            req.sessionModel.get('requestor-county'),
+            req.sessionModel.get('requestor-postcode')
+          ).filter(x => x).join('\n');
+
+          req.sessionModel.set('formatted-address', formattedAddress);
+          return formattedAddress;
         }
-      },
-      {
-        step: '/someone-else',
-        field: 'completing-for-someone-else'
       }
     ]
   },

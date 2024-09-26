@@ -6,8 +6,8 @@ const env = process.env.NODE_ENV || 'production';
 module.exports = {
   dateLocales: 'en-GB',
   dateFormat: {
-    day: '2-digit',
-    month: 'long',
+    day: 'numeric',
+    month: 'numeric',
     year: 'numeric'
   },
   env: env,
@@ -15,7 +15,8 @@ module.exports = {
     notifyApiKey: process.env.NOTIFY_KEY,
     caseworkerEmail: process.env.CASEWORKER_EMAIL,
     userConfirmationTemplateId: process.env.USER_CONFIRMATION_TEMPLATE_ID,
-    businessConfirmationTemplateId: process.env.BUSINESS_CONFIRMATION_TEMPLATE_ID
+    businessConfirmationTemplateId: process.env.BUSINESS_CONFIRMATION_TEMPLATE_ID,
+    replyToId: process.env.EMAIL_REPLY_TO_ID
   },
   redis: {
     port: process.env.REDIS_PORT || '6379',
