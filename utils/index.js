@@ -1,3 +1,4 @@
+const config = require('../config');
 const translations = require('../apps/eec/translations/src/en/fields.json');
 
 const getLabel = (fieldKey, fieldValue) => {
@@ -7,4 +8,24 @@ const getLabel = (fieldKey, fieldValue) => {
   return translations[fieldKey]?.options[fieldValue]?.label || undefined;
 };
 
-module.exports = { getLabel };
+const formatDate = date => {
+  const dateObj = new Date(date);
+  return new Intl.DateTimeFormat(config.dateLocales, config.dateFormat).format(dateObj);
+};
+
+/**
+ * Generates a useful error message from a typical GovUk Notify Node.js client error reponse object
+ *
+ * This function is relatively specific to Error objects created by notifications-node-client.
+ * It will return at a minimum error.message from the Error object passed in.
+ *
+ * @param {object} error - An Error object.
+ * @returns {string} - An error message for GovUK Notify containing key causal information.
+ */
+const genNotifyErrorMsg = error => {
+  const errorDetails = error.response?.data ? `Cause: ${JSON.stringify(error.response.data)}` : '';
+  const errorCode = error.code ? `${error.code} -` : '';
+  return `${errorCode} ${error.message}; ${errorDetails}`;
+};
+
+module.exports = { getLabel, formatDate, genNotifyErrorMsg };

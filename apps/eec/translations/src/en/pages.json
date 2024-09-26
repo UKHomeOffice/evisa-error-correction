@@ -21,7 +21,7 @@
     }
   },
   "request-sent": {
-    "header": "Request sent"
+    "confirmation": "Request sent"
   },
   "confirm": {
     "sections": {
