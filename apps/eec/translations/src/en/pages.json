@@ -75,6 +75,9 @@
       "reference-number": {
         "label": "Reference number"
       },
+      "is-refugee": {
+        "label": "Refugee"
+      },
       "contact-details": {
         "label": "Contact details"
       },
