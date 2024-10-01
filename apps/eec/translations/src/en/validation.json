@@ -32,7 +32,8 @@
   },
   "detail-signin-phone": {
     "required": "Enter the correct phone number where you can receive security codes",
-    "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+    "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
+    "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
   "is-refugee": {
     "required": "Select if you have permission to stay in the UK as a refugee"
