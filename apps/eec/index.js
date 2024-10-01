@@ -37,7 +37,7 @@ module.exports = {
         'requestor-passport',
         'requestor-ukvi'
       ],
-      behaviours: [autocompleteHook]
+      behaviours: [autocompleteHook('requestor-nationality')]
     },
     '/refugee': {
       next: '/contact',

@@ -48,7 +48,8 @@
     "before": "Date of birth must be in the past"
   },
   "requestor-nationality": {
-    "required": "Enter a country of nationality"
+    "required": "Enter a country of nationality",
+    "invalidOption": "You must choose an option from the provided list"
   },
   "requestor-reference-type": {
     "required": "Enter a reference number"
