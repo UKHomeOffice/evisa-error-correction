@@ -12,7 +12,7 @@ environment:
   PRODUCTION_URL:  www.report-error-evisa.homeoffice.gov.uk
   IMAGE_URL: 340268328991.dkr.ecr.eu-west-2.amazonaws.com
   IMAGE_REPO: sas/eec
-  GIT_REPO: UKHomeOffice/eec
+  GIT_REPO: UKHomeOffice/evisa-error-correction
   HOF_CONFIG: hof-services-config/E_Visa_Error_Correction
   NON_PROD_AVAILABILITY: Mon-Sun 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
