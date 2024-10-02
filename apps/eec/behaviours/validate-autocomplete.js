@@ -1,32 +1,18 @@
 const countries = require('hof').utils.countries();
 
 module.exports = selectField => superclass => class extends superclass {
-  configure(req, res, next) {
-    if ((req.body[`${selectField}-auto`] ?? null) !== null) {
-      if (!countries.some(country => country.value === req.body[`${selectField}-auto`])) {
-        req.sessionModel.set('invalid-autocomplete', {
-          field: selectField,
-          value: req.body[`${selectField}-auto`]
-        });
-      }
-    }
-    return super.configure(req, res, next)
-  }
-
   validate(req, res, next) {
-    const invalidAutocomplete = req.sessionModel.get('invalid-autocomplete');
-    console.log('INVALID: ', invalidAutocomplete)
-    req.sessionModel.unset('invalid-autocomplete');
+    const autoField = req.body[`${selectField}-auto`] ?? undefined;
+    const autoFieldIsInvalid = !countries.some(country => country.value === autoField)
+    if (autoFieldIsInvalid) {
+      if (autoField === '') {
+        return next({[selectField]: new this.ValidationError(selectField, {
+          type: 'required',
+          redirect: undefined
+        })});
+      }
 
-    if (invalidAutocomplete?.field && invalidAutocomplete?.value === '') {
-      return next({[invalidAutocomplete.field]: new this.ValidationError(invalidAutocomplete.field, {
-        type: 'required',
-        redirect: undefined
-      })});
-    }
-
-    if (invalidAutocomplete?.field) {
-      return next({[invalidAutocomplete.field]: new this.ValidationError(invalidAutocomplete.field, {
+      return next({[selectField]: new this.ValidationError(selectField, {
         type: 'invalidOption',
         redirect: undefined
       })});
