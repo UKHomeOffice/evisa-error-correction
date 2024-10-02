@@ -1,7 +1,7 @@
 const hof = require('hof');
 const Summary = hof.components.summary;
 const submitRequest = require('./behaviours/submit-request');
-const autocompleteHook = require('./behaviours/autocomplete-hook');
+const validateAutocomplete = require('./behaviours/validate-autocomplete');
 
 module.exports = {
   name: 'eec',
@@ -37,7 +37,7 @@ module.exports = {
         'requestor-passport',
         'requestor-ukvi'
       ],
-      behaviours: [autocompleteHook('requestor-nationality')]
+      behaviours: [validateAutocomplete('requestor-nationality')]
     },
     '/refugee': {
       next: '/contact',

@@ -2,7 +2,6 @@ const countries = require('hof').utils.countries();
 
 module.exports = selectField => superclass => class extends superclass {
   configure(req, res, next) {
-    console.log(req.body)
     if ((req.body[`${selectField}-auto`] ?? null) !== null) {
       if (!countries.some(country => country.value === req.body[`${selectField}-auto`])) {
         req.sessionModel.set('invalid-autocomplete', {
