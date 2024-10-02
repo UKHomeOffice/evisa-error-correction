@@ -12,6 +12,6 @@ document.querySelectorAll('.typeahead').forEach(function applyTypeahead(element)
   });
 });
 
-document.querySelectorAll('.autocomplete__input').forEach(function(element) {
+document.querySelectorAll('.autocomplete__input').forEach(function (element) {
   element.setAttribute('name', element.id + '-auto');
-})
+});
