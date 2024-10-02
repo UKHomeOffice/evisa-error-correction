@@ -2,10 +2,16 @@ const countries = require('hof').utils.countries();
 
 module.exports = selectField => superclass => class extends superclass {
   validate(req, res, next) {
-    const autoField = req.body[`${selectField}-auto`] ?? undefined;
-    const autoFieldIsInvalid = !countries.some(country => country.value === autoField);
+    const autoFieldValue = req.body[`${selectField}-auto`] ?? undefined;
+
+    if (!selectField || autoFieldValue === undefined) {
+      return super.validate(req, res, next);
+    }
+
+    const autoFieldIsInvalid = !countries.some(country => country.value === autoFieldValue);
+
     if (autoFieldIsInvalid) {
-      if (autoField === '') {
+      if (autoFieldValue === '') {
         return next({[selectField]: new this.ValidationError(selectField, {
           type: 'required',
           redirect: undefined
