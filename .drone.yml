@@ -9,7 +9,7 @@ environment:
   UAT_ENV: sas-eec-uat
   STG_ENV: sas-eec-stg
   PROD_ENV: sas-eec-prod
-  PRODUCTION_URL:  www.report-error-evisa.homeoffice.gov.uk
+  PRODUCTION_URL: www.report-error-evisa.homeoffice.gov.uk
   IMAGE_URL: 340268328991.dkr.ecr.eu-west-2.amazonaws.com
   IMAGE_REPO: sas/eec
   GIT_REPO: UKHomeOffice/evisa-error-correction
