@@ -88,5 +88,8 @@ module.exports = {
       backLink: false,
       isNeedHelpHidden: true
     }
+  },
+  pages: {
+    '/accessibility': 'static/accessibility'
   }
 };
