@@ -22,7 +22,8 @@ module.exports = {
         'detail-valid-until',
         'detail-signin-email',
         'detail-signin-phone'
-      ]
+      ],
+      showNeedHelp: true
     },
     '/personal-details': {
       next: '/refugee',
@@ -37,11 +38,13 @@ module.exports = {
         'requestor-passport',
         'requestor-ukvi'
       ],
-      behaviours: [validateAutocomplete('requestor-nationality')]
+      behaviours: [validateAutocomplete('requestor-nationality')],
+      showNeedHelp: true
     },
     '/refugee': {
       next: '/contact',
-      fields: ['is-refugee']
+      fields: ['is-refugee'],
+      showNeedHelp: true
     },
     '/contact': {
       next: '/someone-else',
@@ -53,7 +56,8 @@ module.exports = {
         'requestor-town-or-city',
         'requestor-county',
         'requestor-postcode'
-      ]
+      ],
+      showNeedHelp: true
     },
     '/someone-else': {
       next: '/check-answers',
@@ -66,7 +70,8 @@ module.exports = {
             value: 'yes'
           }
         }
-      ]
+      ],
+      showNeedHelp: true
     },
     '/someone-else-details': {
       next: '/check-answers',
@@ -74,19 +79,18 @@ module.exports = {
         'representative-name',
         'representative-email',
         'representative-type'
-      ]
+      ],
+      showNeedHelp: true
     },
     '/check-answers': {
       behaviours: [Summary, submitRequest],
       sections: require('./sections/summary-data-sections'),
       template: 'summary',
-      isNeedHelpHidden: true,
       next: '/request-sent'
     },
     '/request-sent': {
       clearSession: true,
-      backLink: false,
-      isNeedHelpHidden: true
+      backLink: false
     }
   },
   pages: {
