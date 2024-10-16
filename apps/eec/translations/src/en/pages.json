@@ -94,5 +94,8 @@
         "label": "Type of support"
       }
     }
+  },
+  "accessibility": {
+    "header": "Accessibility statement for Ask a question about getting access to your eVisa"
   }
 }

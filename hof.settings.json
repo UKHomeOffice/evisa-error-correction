@@ -11,5 +11,5 @@
   "session": {
     "name": "eec.hof.sid"
   },
-  "getAccessibility": true
+  "getAccessibility": false
 }

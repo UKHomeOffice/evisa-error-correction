@@ -2,8 +2,18 @@
 
 @import "hof/frontend/themes/gov-uk/styles/govuk";
 
+h2 {
+  @extend .govuk-heading-m;
+  margin-top: 40px;
+}
+
+h3 {
+  @extend .govuk-heading-s;
+  margin-top: 20px;
+}
+
 ul {
-  @extend .govuk-list--bullet;
+  @extend .govuk-list, .govuk-list--bullet;
 }
 
 p {
@@ -188,6 +198,11 @@ pre.looped-records {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
+}
+
+.govuk-radios fieldset {
+  width: auto;
+  max-width: 100%;
 }
 
 .panel-indent{
