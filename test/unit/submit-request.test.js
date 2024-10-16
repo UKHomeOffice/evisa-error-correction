@@ -57,6 +57,7 @@ describe('submit-feedback behaviour', () => {
         'requestor-nationality': 'France',
         'formatted-reference': 'I do not have a reference',
         'is-refugee': 'yes',
+        'requestor-contact-method': 'email',
         'requestor-email': 'sas-hof-test@digital.homeoffice.gov.uk',
         'formatted-address': 'fake address',
         'completing-for-someone-else': 'no'
@@ -105,7 +106,7 @@ describe('submit-feedback behaviour', () => {
           is_refugee: 'Yes',
           problem_notes: 'Photo: photo bad\n\nNational Insurance number: QQ123456A\n\n',
           contact_email: 'sas-hof-test@digital.homeoffice.gov.uk',
-          contact_address: 'fake address',
+          contact_address: 'none provided',
           completing_for_someone_else: 'No',
           representative_name: '',
           representative_email: '',
@@ -133,6 +134,31 @@ describe('submit-feedback behaviour', () => {
           is_refugee: 'Yes',
           problem_notes: 'Full name: Corrected name\n\n',
           contact_email: 'sas-hof-test@digital.homeoffice.gov.uk',
+          contact_address: 'none provided',
+          completing_for_someone_else: 'No',
+          representative_name: '',
+          representative_email: '',
+          representative_type: ''
+        },
+        emailReplyToId: '789-123'
+      };
+      await instance.saveValues(req, res, next);
+      expect(NotifyClient.prototype.sendEmail)
+        .toHaveBeenCalledWith('456-789', 'sas-hof-test@digital.homeoffice.gov.uk', emailProps);
+    });
+
+    test('Business sendEmail is called with the correct props if contact method is address', async () => {
+      req.sessionModel.set('requestor-contact-method', 'uk-address');
+
+      emailProps = {
+        personalisation: {
+          full_name: 'test user',
+          date_of_birth: '14/08/1987',
+          nationality: 'France',
+          reference: 'I do not have a reference',
+          is_refugee: 'Yes',
+          problem_notes: 'Photo: photo bad\n\nNational Insurance number: QQ123456A\n\n',
+          contact_email: 'none provided',
           contact_address: 'fake address',
           completing_for_someone_else: 'No',
           representative_name: '',
@@ -141,6 +167,7 @@ describe('submit-feedback behaviour', () => {
         },
         emailReplyToId: '789-123'
       };
+
       await instance.saveValues(req, res, next);
       expect(NotifyClient.prototype.sendEmail)
         .toHaveBeenCalledWith('456-789', 'sas-hof-test@digital.homeoffice.gov.uk', emailProps);
