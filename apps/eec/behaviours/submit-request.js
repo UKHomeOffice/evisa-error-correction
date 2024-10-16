@@ -54,8 +54,10 @@ module.exports = superclass => class extends superclass {
         reference: req.sessionModel.get('formatted-reference'),
         is_refugee: getLabel('is-refugee', req.sessionModel.get('is-refugee')),
         problem_notes: buildProblemNotes(req),
-        contact_email: req.sessionModel.get('requestor-email') || 'none provided',
-        contact_address: req.sessionModel.get('formatted-address') || 'none provided',
+        contact_email: req.sessionModel.get('requestor-contact-method') === 'email' ?
+          req.sessionModel.get('requestor-email') : 'none provided',
+        contact_address: req.sessionModel.get('requestor-contact-method') === 'uk-address' ?
+          req.sessionModel.get('formatted-address') : 'none provided',
         completing_for_someone_else: getLabel(
           'completing-for-someone-else', req.sessionModel.get('completing-for-someone-else')
         ),
