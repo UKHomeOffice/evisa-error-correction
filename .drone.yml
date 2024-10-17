@@ -94,7 +94,7 @@ steps:
         memory: 1024Mi
     environment:
       IMAGE_NAME: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
-      SERVICE_URL: https://acp-trivy.acp-trivy.svc.cluster.local:443
+      SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
       SEVERITY: MEDIUM,HIGH,CRITICAL  --dependency-tree --format table
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: false
@@ -387,8 +387,8 @@ steps:
     pull: always
     environment:
         IMAGE_NAME: sas/eec:${DRONE_COMMIT_SHA}
-        SERVICE_URL: https://acp-trivy.acp-trivy.svc.cluster.local:443
-        SEVERITY: UNKOWN,LOW,MEDIUM,HIGH,CRITICAL   --dependency-tree --format table
+        SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
+        SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL   --dependency-tree --format table
         FAIL_ON_DETECTION: false
         IGNORE_UNFIXED: false
         ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
