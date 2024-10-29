@@ -23,15 +23,21 @@ trigger:
     - feature/*
     - master
 
-linting: &linting
+trivy-client-image: &trivy-client-image
+  pull: always
+  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+
+node_image: &node_image
   pull: if-not-exists
   image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+
+linting: &linting
+  <<: *node_image
   commands:
     - yarn run test:lint
 
 unit_tests: &unit_tests
-  pull: if-not-exists
-  image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+  <<: *node_image
   environment:
     NOTIFY_STUB: true
   commands:
@@ -44,8 +50,7 @@ sonar_scanner: &sonar_scanner
     - sonar-scanner -Dproject.settings=./sonar-project.properties
 
 ui_integration_tests: &ui_integration_tests
-  pull: if-not-exists
-  image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+  <<: *node_image
   environment:
     NOTIFY_STUB: true
   commands:
@@ -86,8 +91,7 @@ steps:
 
   # Trivy Security Scannner for scanning OS related vulnerabilities in Base image of Dockerfile
   - name: scan_base_image_os
-    pull: always
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    <<: *trivy-client-image
     resources:
       limits:
         cpu: 1000
@@ -95,16 +99,18 @@ steps:
     environment:
       IMAGE_NAME: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
       SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
-      SEVERITY: MEDIUM,HIGH,CRITICAL  --dependency-tree --format table
+      SEVERITY: MEDIUM,HIGH,CRITICAL  --dependency-tree
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: false
       ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
+    volumes:
+      - name: dockersock
+        path: /root/.dockersock
     when:
       event: [push, pull_request]
 
   - name: setup_deploy
-    pull: if-not-exists
-    image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+    <<: *node_image
     environment:
       NOTIFY_STUB: true
     commands:
@@ -115,6 +121,8 @@ steps:
         include:
         - master
       event: [push, pull_request]
+    depends_on:
+      - clone_repos
 
   - name: linting
     <<: *linting
@@ -124,6 +132,8 @@ steps:
           - master
           - feature/*
       event: [push, pull_request]
+    depends_on:
+      - setup
 
   - name: unit_tests
     <<: *unit_tests
@@ -133,14 +143,17 @@ steps:
           - master
           - feature/*
       event: [push, pull_request]
+    depends_on:
+      - setup
 
-  - name: sonar_scanner_deploy
+  - name: sonar_scanner
     <<: *sonar_scanner
     when:
       branch:
         include:
           - master
-      event: push
+          - feature/*
+      event: [push, pull_request]
 
   - name: build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
@@ -156,6 +169,9 @@ steps:
           - master
           - feature/*
       event: [push, pull_request]
+    depends_on:
+      - linting
+      - unit_tests
 
   - name: image_to_ecr
     image: plugins/ecr
@@ -175,11 +191,13 @@ steps:
           - master
           - feature/*
       event: [push, pull_request]
+    depends_on:
+      - linting
+      - unit_tests
 
   # Trivy Security Scannner for scanning nodejs packages in Yarn
   - name: scan_node_packages
-    pull: always
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    <<: *trivy-client-image
     resources:
       limits:
         cpu: 1000
@@ -190,8 +208,13 @@ steps:
       FAIL_ON_DETECTION: false
       IGNORE_UNFIXED: false
       ALLOW_CVE_LIST_FILE: hof-services-config/E_Visa_Contact_Us/trivy/.trivyignore.yaml
+    volumes:
+      - name: dockersock
+        path: /root/.dockersock
     when:
       event: [push, pull_request]
+    depends_on:
+      - build_image
 
   # Deploy to pull request UAT environment
   - name: deploy_to_branch
@@ -211,15 +234,9 @@ steps:
           - master
           - feature/*
       event: pull_request
-
-  - name: sonar_scanner_branch
-    <<: *sonar_scanner
-    when:
-      branch:
-        include:
-          - master
-          - feature/*
-      event: pull_request
+    depends_on:
+      - clone_repos
+      - image_to_ecr
 
   - name: deploy_to_uat
     pull: if-not-exists
@@ -236,17 +253,9 @@ steps:
         include:
           - master
       event: push
-
-  # - name: acceptance_tests_uat
-  #   <<: *acceptance_tests
-  #   commands:
-  #     - export ACCEPTANCE_HOST_NAME=https://eec.internal.uat.sas-notprod.homeoffice.gov.uk
-  #     - npx playwright install
-  #     - npm run test:acceptance
-  #   when:
-  #     branch: master
-  #     event: push
-
+    depends_on:
+      - clone_repos
+      - image_to_ecr
 
   # Get pull request branch so correct PR UAT environment is torn down in the tear_down_branch step that follows
   - name: get_pr_branch
@@ -283,8 +292,10 @@ steps:
     when:
       branch: master
       event: push
-      
-   # Deploy to Staging environment
+    depends_on:
+      - get_pr_branch
+
+  # Deploy to Staging environment
   - name: deploy_to_stg
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -298,8 +309,11 @@ steps:
     when:
       branch: master
       event: push
+    depends_on:
+      - clone_repos
+      - image_to_ecr
 
-  ## Checks a build being promoted has passed, is on master which effectively means a healthy build on Staging
+  # Checks a build being promoted has passed, is on master which effectively means a healthy build on Staging
   - name: sanity_check_build_prod
     pull: if-not-exists
     image: drone/cli:alpine@sha256:14409f7f7247befb9dd2effdb2f61ac40d1f5fbfb1a80566cf6f2f8d21f3be11
@@ -326,6 +340,8 @@ steps:
     when:
       target: PROD
       event: promote
+    depends_on:
+      - sanity_check_build_prod
 
   # Deploy to Production environment
   - name: deploy_to_prod
@@ -341,6 +357,8 @@ steps:
     when:
       target: PROD
       event: promote
+    depends_on:
+      - clone_repos_prod
 
   # CRON job step that tears down our pull request UAT environments
   - name: cron_tear_down
@@ -383,8 +401,7 @@ steps:
       event: cron
 
   - name: cron_trivy_scan_node_packages
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
-    pull: always
+    <<: *trivy-client-image
     environment:
         IMAGE_NAME: sas/eec:${DRONE_COMMIT_SHA}
         SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
@@ -397,8 +414,7 @@ steps:
       event: cron
 
   - name: cron_trivy_scan_image_os
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
-    pull: always
+    <<: *trivy-client-image
     environment:
         IMAGE_NAME: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
         SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL  --dependency-tree --format table
