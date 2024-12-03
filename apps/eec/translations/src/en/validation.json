@@ -1,4 +1,10 @@
 {
+  "in-uk": {
+    "required": "Select if you are currently in the UK"
+  },
+  "viewing-evisa": {
+    "required": "Select if you are having problems viewing your eVisa"
+  },
   "problem": {
     "required": "Select what the problem is"
   },

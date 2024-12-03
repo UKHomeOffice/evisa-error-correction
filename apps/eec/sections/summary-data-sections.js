@@ -1,43 +1,64 @@
 const { getLabel, formatDate } = require('../../../utils');
 
+function isViewingEvisa(req) {
+  return req.sessionModel.get('viewing-evisa') === 'yes';
+}
+
 module.exports = {
   'corrected-details': {
     steps: [
       {
-        step: '/problem',
-        field: 'detail-full-name'
+        step: '/in-uk',
+        field: 'in-uk'
+      },
+      {
+        step: '/viewing-evisa',
+        field: 'viewing-evisa'
       },
       {
         step: '/problem',
-        field: 'detail-sponsor-ref'
+        field: 'detail-full-name',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
-        field: 'detail-photo'
+        field: 'detail-sponsor-ref',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
-        field: 'detail-nin'
+        field: 'detail-photo',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
-        field: 'detail-restrictions'
+        field: 'detail-nin',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
-        field: 'detail-status'
+        field: 'detail-restrictions',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
-        field: 'detail-valid-until'
+        field: 'detail-status',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
-        field: 'detail-signin-email'
+        field: 'detail-valid-until',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
-        field: 'detail-signin-phone'
+        field: 'detail-signin-email',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
+      },
+      {
+        step: '/problem',
+        field: 'detail-signin-phone',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
       }
     ]
   },

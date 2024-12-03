@@ -9,6 +9,25 @@ module.exports = {
   params: '/:action?/:id?/:edit?',
   confirmStep: '/check-answers',
   steps: {
+    '/in-uk': {
+      next: '/viewing-evisa',
+      fields: ['in-uk'],
+      showNeedHelp: true
+    },
+    '/viewing-evisa': {
+      next: '/problem',
+      fields: ['viewing-evisa'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/personal-details',
+          condition: {
+            field: 'viewing-evisa',
+            value: 'yes'
+          }
+        }
+      ]
+    },
     '/problem': {
       next: '/personal-details',
       fields: [
