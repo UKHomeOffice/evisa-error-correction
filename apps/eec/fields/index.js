@@ -214,6 +214,23 @@ module.exports = {
       className: 'govuk-!-margin-bottom-6'
     }
   },
+  'asylum-support': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
+    validate: 'required',
+    options: [
+      {
+        value: 'yes'
+      },
+      {
+        value: 'no'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
   'requestor-full-name': {
     validate: ['required', validateText]
   },

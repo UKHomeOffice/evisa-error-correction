@@ -96,6 +96,11 @@ module.exports = {
         field: 'is-refugee'
       },
       {
+        step: '/asylum-support',
+        field: 'asylum-support',
+        parse: (val, req) => req.sessionModel.get('refugee') === 'no' ? null : val
+      },
+      {
         step: '/contact',
         field: 'contact-details',
         parse: (val, req) => {

@@ -44,6 +44,9 @@
   "is-refugee": {
     "required": "Select if you have permission to stay in the UK as a refugee"
   },
+  "asylum-support": {
+    "required": "Select if you are receiving asylum support"
+  },
   "requestor-full-name": {
     "required": "Enter your full name",
     "validateText": "Full name must only include letters a to z, spaces, hyphens and apostrophes"
