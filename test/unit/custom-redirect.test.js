@@ -29,7 +29,8 @@ describe('custom-redirect behaviour', () => {
       instance = new CustomRedirect({ template: 'index', route: '/refugee' });
     });
 
-    test('should redirect to /asylum-support/edit if currentRoute is /refugee, action is edit, and is-refugee is yes', () => {
+    test('should redirect to /asylum-support/edit if ' +
+         'currentRoute is /refugee, action is edit, and is-refugee is yes', () => {
       req.form.options.route = '/refugee';
       req.params.action = 'edit';
       req.sessionModel.get = jest.fn().mockReturnValue('yes');
