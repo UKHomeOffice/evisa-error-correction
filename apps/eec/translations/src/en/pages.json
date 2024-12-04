@@ -45,9 +45,6 @@
       "detail-full-name": {
         "label": "Full name"
       },
-      "detail-sponsor-ref": {
-        "label": "Sponsor reference"
-      },
       "detail-photo": {
         "label": "Photo"
       },

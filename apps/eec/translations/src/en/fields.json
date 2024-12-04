@@ -28,9 +28,6 @@
       "problem-full-name": {
         "label": "Full name"
       },
-      "problem-sponsor-ref": {
-        "label": "Sponsor reference"
-      },
       "problem-photo": {
         "label": "Photo"
       },
@@ -56,9 +53,6 @@
   },
   "detail-full-name": {
     "label": "What is your correct full name?"
-  },
-  "detail-sponsor-ref": {
-    "label": "What is the correct sponsor reference number?"
   },
   "detail-photo": {
     "label": "What is wrong with your photo?"

@@ -22,11 +22,6 @@ module.exports = {
       },
       {
         step: '/problem',
-        field: 'detail-sponsor-ref',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
-      },
-      {
-        step: '/problem',
         field: 'detail-photo',
         parse: (val, req) => isViewingEvisa(req) ? '' : val
       },

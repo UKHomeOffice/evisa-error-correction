@@ -73,11 +73,6 @@ module.exports = {
         child: 'input-text'
       },
       {
-        value: 'problem-sponsor-ref',
-        toggle: 'detail-sponsor-ref',
-        child: 'input-text'
-      },
-      {
         value: 'problem-photo',
         toggle: 'detail-photo',
         child: 'textarea'
@@ -120,14 +115,6 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-full-name'
-    }
-  },
-  'detail-sponsor-ref': {
-    mixin: 'input-text',
-    validate: 'required',
-    dependent: {
-      field: 'problem',
-      value: 'problem-sponsor-ref'
     }
   },
   'detail-photo': {

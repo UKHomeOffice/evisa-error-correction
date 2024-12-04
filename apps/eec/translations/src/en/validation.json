@@ -11,9 +11,6 @@
   "detail-full-name": {
     "required": "Enter your correct full name"
   },
-  "detail-sponsor-ref": {
-    "required": "Enter the correct sponsor reference number"
-  },
   "detail-photo": {
     "required": "Enter what is wrong with your photo",
     "maxlength": "You have exceeded the 500 character limit"

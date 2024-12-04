@@ -33,7 +33,6 @@ module.exports = {
       fields: [
         'problem',
         'detail-full-name',
-        'detail-sponsor-ref',
         'detail-photo',
         'detail-nin',
         'detail-restrictions',
