@@ -2,7 +2,6 @@ const hof = require('hof');
 const Summary = hof.components.summary;
 const submitRequest = require('./behaviours/submit-request');
 const validateAutocomplete = require('./behaviours/validate-autocomplete');
-const customRedirect = require('./behaviours/custom-redirect');
 
 module.exports = {
   name: 'eec',
@@ -62,7 +61,6 @@ module.exports = {
       showNeedHelp: true
     },
     '/refugee': {
-      behaviours: [customRedirect],
       next: '/contact',
       fields: ['is-refugee'],
       showNeedHelp: true,
