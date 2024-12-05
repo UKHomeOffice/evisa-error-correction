@@ -56,6 +56,8 @@ module.exports = superclass => class extends superclass {
         nationality: req.sessionModel.get('requestor-nationality'),
         reference: req.sessionModel.get('formatted-reference'),
         is_refugee: getLabel('is-refugee', req.sessionModel.get('is-refugee')),
+        asylum_support: req.sessionModel.get('is-refugee') === 'yes' ?
+          getLabel('asylum-support', req.sessionModel.get('asylum-support')) : '',
         problem_notes: req.sessionModel.get('viewing-evisa') === 'no' ? buildProblemNotes(req) : '',
         contact_email: req.sessionModel.get('requestor-contact-method') === 'email' ?
           req.sessionModel.get('requestor-email') : 'none provided',

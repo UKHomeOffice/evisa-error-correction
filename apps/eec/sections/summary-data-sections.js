@@ -96,6 +96,10 @@ module.exports = {
         field: 'is-refugee'
       },
       {
+        step: '/asylum-support',
+        field: 'asylum-support'
+      },
+      {
         step: '/contact',
         field: 'contact-details',
         parse: (val, req) => {

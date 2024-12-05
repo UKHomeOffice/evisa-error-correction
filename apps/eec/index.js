@@ -63,6 +63,20 @@ module.exports = {
     '/refugee': {
       next: '/contact',
       fields: ['is-refugee'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/asylum-support',
+          condition: {
+            field: 'is-refugee',
+            value: 'yes'
+          }
+        }
+      ]
+    },
+    '/asylum-support': {
+      next: '/contact',
+      fields: ['asylum-support'],
       showNeedHelp: true
     },
     '/contact': {

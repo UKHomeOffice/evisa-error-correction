@@ -84,6 +84,9 @@
       "is-refugee": {
         "label": "Refugee"
       },
+      "asylum-support": {
+        "label": "Asylum support"
+      },
       "contact-details": {
         "label": "Contact details"
       },

@@ -92,6 +92,18 @@
       }
     }
   },
+  "asylum-support": {
+    "legend": "Do you get asylum support?",
+    "hint": "This is housing or money to support you if you are waiting to find out if you will be given asylum.",
+    "options": {
+      "yes": {
+          "label": "Yes"
+      },
+      "no": {
+          "label": "No"
+      }
+    }
+  },
   "requestor-full-name": {
     "label": "Full name"
   },
