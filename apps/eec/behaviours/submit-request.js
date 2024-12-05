@@ -48,12 +48,15 @@ module.exports = superclass => class extends superclass {
 
     try {
       businessEmailProps.addPersonalisation({
+        in_uk: getLabel('in-uk', req.sessionModel.get('in-uk')),
+        is_not_viewing_evisa: req.sessionModel.get('viewing-evisa') === 'no' ? 'yes' : 'no',
+        viewing_evisa: getLabel('viewing-evisa', req.sessionModel.get('viewing-evisa')),
         full_name: req.sessionModel.get('requestor-full-name'),
         date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
         nationality: req.sessionModel.get('requestor-nationality'),
         reference: req.sessionModel.get('formatted-reference'),
         is_refugee: getLabel('is-refugee', req.sessionModel.get('is-refugee')),
-        problem_notes: buildProblemNotes(req),
+        problem_notes: req.sessionModel.get('viewing-evisa') === 'no' ? buildProblemNotes(req) : '',
         contact_email: req.sessionModel.get('requestor-contact-method') === 'email' ?
           req.sessionModel.get('requestor-email') : 'none provided',
         contact_address: req.sessionModel.get('requestor-contact-method') === 'uk-address' ?

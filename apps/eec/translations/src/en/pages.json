@@ -36,6 +36,12 @@
       }
     },
     "fields": {
+      "in-uk": {
+        "label": "In UK"
+      },
+      "viewing-evisa": {
+        "label": "Problem viewing eVisa"
+      },
       "detail-full-name": {
         "label": "Full name"
       },

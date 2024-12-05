@@ -1,4 +1,26 @@
 {
+  "in-uk": {
+    "legend": "Are you currently in the UK?",
+    "options": {
+      "yes": {
+          "label": "Yes"
+      },
+      "no": {
+          "label": "No"
+      }
+    }
+  },
+  "viewing-evisa": {
+    "legend": "Are you having problems viewing your eVisa?",
+    "options": {
+      "yes": {
+          "label": "Yes, I cannot see my eVisa when I sign in to my UKVI account"
+      },
+      "no": {
+          "label": "No, the problem is something else"
+      }
+    }
+  },
   "problem": {
     "legend": "What is the problem with your eVisa?",
     "hint": "You can select more than one option",
