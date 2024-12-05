@@ -4,7 +4,7 @@ eVisa error correction (EEC) used by the public to register that details of thei
 
 ## Description
 
-- The service allows the user to register that details of their new eVisa are incorrect - for example: name, sponsor reference, photo, NIN or restrictions and dates on the eVisa.
+- The service allows the user to register that details of their new eVisa are incorrect - for example: name, date of birth, nationality, photo, NIN or restrictions, share code and dates on the eVisa.
 - The EEC form should not be used to register changes to previously correct information such as name, contact information or identity documents.
 - The user is able to review all the answers provided to confirm their details prior to submission.
 - Once the application is submitted, automated notifications are sent to the business and the user.
@@ -24,7 +24,7 @@ eVisa error correction (EEC) used by the public to register that details of thei
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) - v.20.17.0
+- [Node.js](https://nodejs.org/en/) - v.20.18.0
 - [Redis server](http://redis.io/download) running on default port 6379
 
 ### Setup

@@ -18,10 +18,18 @@ environment:
   READY_FOR_TEST_DELAY: 20s
   NOTIFY_STUB: stub
 
+include_default_branch: &include_default_branch
+  include:
+    - master
+
+include_default_and_feature_branches: &include_default_and_feature_branches
+  include:
+    - master
+    - feature/*
+
 trigger:
   branch:
-    - feature/*
-    - master
+    <<: *include_default_and_feature_branches
 
 trivy-client-image: &trivy-client-image
   pull: if-not-exists
@@ -29,7 +37,7 @@ trivy-client-image: &trivy-client-image
 
 node_image: &node_image
   pull: if-not-exists
-  image: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+  image: node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
 
 linting: &linting
   <<: *node_image
@@ -84,9 +92,7 @@ steps:
       - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
     when:
       branch:
-        include:
-        - master
-        - feature/*
+        <<: *include_default_and_feature_branches
       event: [push, pull_request]
 
   # Trivy Security Scannner for scanning OS related vulnerabilities in Base image of Dockerfile
@@ -97,7 +103,7 @@ steps:
         cpu: 1000
         memory: 1024Mi
     environment:
-      IMAGE_NAME: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+      IMAGE_NAME: node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
       SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
       SEVERITY: MEDIUM,HIGH,CRITICAL --dependency-tree
       FAIL_ON_DETECTION: false
@@ -118,8 +124,7 @@ steps:
       - yarn run postinstall
     when:
       branch:
-        include:
-        - master
+        <<: *include_default_branch
       event: [push, pull_request]
     depends_on:
       - clone_repos
@@ -128,9 +133,7 @@ steps:
     <<: *linting
     when:
       branch:
-        include:
-          - master
-          - feature/*
+        <<: *include_default_and_feature_branches
       event: [push, pull_request]
     depends_on:
       - setup
@@ -139,9 +142,7 @@ steps:
     <<: *unit_tests
     when:
       branch:
-        include:
-          - master
-          - feature/*
+        <<: *include_default_and_feature_branches
       event: [push, pull_request]
     depends_on:
       - setup
@@ -150,9 +151,7 @@ steps:
     <<: *sonar_scanner
     when:
       branch:
-        include:
-          - master
-          - feature/*
+        <<: *include_default_and_feature_branches
       event: [push, pull_request]
 
   - name: build_image
@@ -165,9 +164,7 @@ steps:
         path: /var/run
     when:
       branch:
-        include:
-          - master
-          - feature/*
+        <<: *include_default_and_feature_branches
       event: [push, pull_request]
     depends_on:
       - linting
@@ -187,9 +184,7 @@ steps:
         - ${DRONE_COMMIT_SHA}
     when:
       branch: 
-        include: 
-          - master
-          - feature/*
+        <<: *include_default_and_feature_branches
       event: [push, pull_request]
     depends_on:
       - linting
@@ -230,9 +225,7 @@ steps:
       - bin/deploy.sh $${BRANCH_ENV}
     when:
       branch:
-        include:
-          - master
-          - feature/*
+        <<: *include_default_and_feature_branches
       event: pull_request
     depends_on:
       - clone_repos
@@ -250,8 +243,7 @@ steps:
       - sh bin/deploy.sh $${UAT_ENV}
     when:
       branch:
-        include:
-          - master
+        <<: *include_default_branch
       event: push
     depends_on:
       - clone_repos
@@ -272,7 +264,8 @@ steps:
     commands:
       - drone build info $GIT_REPO $DRONE_BUILD_NUMBER --format {{.Message}} | grep -o '[^ ]\+$' -m1 | sed 's|UKHomeOffice/||g' | tr '[:upper:]' '[:lower:]' | tr '/' '-' > /root/.dockersock/branch_name.txt
     when:
-      branch: master
+      branch:
+        <<: *include_default_branch
       event: push
 
   # Tear down pull request UAT environment
@@ -290,7 +283,8 @@ steps:
     commands:
       - bin/deploy.sh tear_down
     when:
-      branch: master
+      branch:
+        <<: *include_default_branch
       event: push
     depends_on:
       - get_pr_branch
@@ -307,7 +301,8 @@ steps:
     commands:
       - bin/deploy.sh $${STG_ENV}
     when:
-      branch: master
+      branch:
+        <<: *include_default_branch
       event: push
     depends_on:
       - clone_repos
@@ -416,7 +411,7 @@ steps:
   - name: cron_trivy_scan_image_os
     <<: *trivy-client-image
     environment:
-        IMAGE_NAME: node:20.17.0-alpine3.20@sha256:2cc3d19887bfea8bf52574716d5f16d4668e35158de866099711ddfb2b16b6e0
+        IMAGE_NAME: node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
         SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
         FAIL_ON_DETECTION: false
         IGNORE_UNFIXED: false
