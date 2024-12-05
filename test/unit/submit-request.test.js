@@ -140,7 +140,7 @@ describe('submit-feedback behaviour', () => {
           nationality: 'France',
           reference: 'I do not have a reference',
           is_refugee: 'Yes',
-          problem_notes: 'Full name: Corrected name\n\n',
+          problem_notes: 'Name: Corrected name\n\n',
           contact_email: 'sas-hof-test@digital.homeoffice.gov.uk',
           contact_address: 'none provided',
           completing_for_someone_else: 'No',

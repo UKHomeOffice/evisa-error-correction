@@ -36,7 +36,11 @@ const buildProblemNotes = req => {
 
   for (const problem of problems) {
     concatProblems += getLabel('problem', problem) + ': ';
-    concatProblems += req.sessionModel.get(problem.replace('problem', 'detail')) + '\n\n';
+    let detail = req.sessionModel.get(problem.replace('problem', 'detail'));
+    if (problem === 'problem-dob') {
+      detail = formatDate(detail);
+    }
+    concatProblems += detail + '\n\n';
   }
 
   return concatProblems;

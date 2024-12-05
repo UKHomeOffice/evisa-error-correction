@@ -33,14 +33,18 @@ module.exports = {
       fields: [
         'problem',
         'detail-full-name',
-        'detail-sponsor-ref',
-        'detail-photo',
-        'detail-nin',
-        'detail-restrictions',
+        'detail-dob',
+        'detail-nationality',
         'detail-status',
+        'detail-valid-from',
         'detail-valid-until',
+        'detail-nin',
+        'detail-photo',
+        'detail-restrictions',
+        'detail-share-code',
         'detail-signin-email',
-        'detail-signin-phone'
+        'detail-signin-phone',
+        'detail-other'
       ],
       showNeedHelp: true
     },

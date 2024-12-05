@@ -43,10 +43,13 @@
         "label": "Problem viewing eVisa"
       },
       "detail-full-name": {
-        "label": "Full name"
+        "label": "Name"
       },
-      "detail-sponsor-ref": {
-        "label": "Sponsor reference"
+      "detail-dob": {
+        "label": "Date of birth"
+      },
+      "detail-nationality": {
+        "label": "Nationality"
       },
       "detail-photo": {
         "label": "Photo"
@@ -55,19 +58,28 @@
         "label": "National Insurance number"
       },
       "detail-restrictions": {
-        "label": "Restrictions"
+        "label": "What you can and cannot do in the UK"
+      },
+      "detail-share-code": {
+        "label": "Share code"
       },
       "detail-status": {
-        "label": "Status title"
+        "label": "Status"
+      },
+      "detail-valid-from": {
+        "label": "Valid from"
       },
       "detail-valid-until": {
-        "label": "Valid until"
+        "label": "Valid to"
       },
       "detail-signin-email": {
         "label": "Account email"
       },
       "detail-signin-phone": {
         "label": "Account phone"
+      },
+      "detail-other": {
+        "label": "My problem isn't listed"
       },
       "requestor-full-name": {
         "label": "Full name"
