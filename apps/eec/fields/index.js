@@ -200,7 +200,6 @@ module.exports = {
   'detail-status': {
     mixin: 'input-text',
     validate: 'required',
-    
     dependent: {
       field: 'problem',
       value: 'problem-status'
