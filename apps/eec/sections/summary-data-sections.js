@@ -23,7 +23,7 @@ module.exports = {
       {
         step: '/problem',
         field: 'detail-dob',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isViewingEvisa(req) || !val ? '' : formatDate(val)
       },
       {
         step: '/problem',

@@ -148,14 +148,21 @@ module.exports = {
       'required',
       'date',
       { type: 'before', arguments: ['0', 'days'] }
-    ]
+    ],
+    validationLink: {
+      field: 'problem',
+      value: 'problem-dob'
+    }
   }),
   'detail-nationality': {
     mixin: 'select',
     className: ['typeahead'],
     formGroupClassName: ['govuk-!-width-two-thirds'],
     validate: ['required'],
-    options: countries,
+    options: [{
+      value: '',
+      label: 'fields.detail-nationality.options.none_selected'
+    }].concat(countries),
     validationLink: {
       field: 'problem',
       value: 'problem-nationality'

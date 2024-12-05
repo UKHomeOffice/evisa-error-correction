@@ -74,7 +74,10 @@
     "hint": "For example, 27 3 2007"
   },
   "detail-nationality": {
-    "label": "What is your correct nationality?"
+    "label": "What is your correct nationality?",
+    "options": {
+      "none_selected": "Select a country"
+    }
   },
   "detail-photo": {
     "label": "What is wrong with your photo?"
