@@ -9,10 +9,15 @@
     "required": "Select what the problem is"
   },
   "detail-full-name": {
-    "required": "Enter your correct full name"
+    "required": "Enter your correct name"
   },
-  "detail-sponsor-ref": {
-    "required": "Enter the correct sponsor reference number"
+  "detail-dob": {
+    "required": "Enter your correct date of birth",
+    "date": "The date must only contain numbers. For example, 31 3 1980",
+    "before": "Date of birth must be in the past"
+  },
+  "detail-nationality": {
+    "required": "Enter your correct nationality"
   },
   "detail-photo": {
     "required": "Enter what is wrong with your photo",
@@ -22,14 +27,20 @@
     "required": "Enter your correct National Insurance number"
   },
   "detail-restrictions": {
-    "required": "Enter what is wrong with the restrictions of your visa",
+    "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
     "maxlength": "You have exceeded the 500 character limit"
   },
+  "detail-share-code": {
+    "required": "Enter which share code you are unable to create"
+  },
   "detail-status": {
-    "required": "Enter your correct immigration status"
+    "required": "Enter what is wrong with your status"
+  },
+  "detail-valid-from": {
+    "required": "Enter the correct valid from date"
   },
   "detail-valid-until": {
-    "required": "Enter the correct date your visa is valid to"
+    "required": "Enter the correct valid to date"
   },
   "detail-signin-email": {
     "required": "Enter the correct email address where you can receive security codes",
@@ -41,8 +52,15 @@
     "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
     "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
+  "detail-other": {
+    "required": "Enter the problem that isn't listed",
+    "maxlength": "You have exceeded the 500 character limit"
+  },
   "is-refugee": {
     "required": "Select if you have permission to stay in the UK as a refugee"
+  },
+  "asylum-support": {
+    "required": "Select if you are receiving asylum support"
   },
   "requestor-full-name": {
     "required": "Enter your full name",

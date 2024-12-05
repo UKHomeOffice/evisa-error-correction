@@ -73,8 +73,33 @@ module.exports = {
         child: 'input-text'
       },
       {
-        value: 'problem-sponsor-ref',
-        toggle: 'detail-sponsor-ref',
+        value: 'problem-dob',
+        toggle: 'detail-dob-toggle-content',
+        child: 'partials/detail-dob'
+      },
+      {
+        value: 'problem-nationality',
+        toggle: 'detail-nationality-toggle-content',
+        child: 'partials/detail-nationality'
+      },
+      {
+        value: 'problem-status',
+        toggle: 'detail-status',
+        child: 'input-text'
+      },
+      {
+        value: 'problem-valid-from',
+        toggle: 'detail-valid-from',
+        child: 'input-text'
+      },
+      {
+        value: 'problem-valid-until',
+        toggle: 'detail-valid-until',
+        child: 'input-text'
+      },
+      {
+        value: 'problem-nin',
+        toggle: 'detail-nin',
         child: 'input-text'
       },
       {
@@ -83,23 +108,13 @@ module.exports = {
         child: 'textarea'
       },
       {
-        value: 'problem-nin',
-        toggle: 'detail-nin',
-        child: 'input-text'
-      },
-      {
         value: 'problem-restrictions',
         toggle: 'detail-restrictions',
         child: 'textarea'
       },
       {
-        value: 'problem-status',
-        toggle: 'detail-status',
-        child: 'input-text'
-      },
-      {
-        value: 'problem-valid-until',
-        toggle: 'detail-valid-until',
+        value: 'problem-share-code',
+        toggle: 'detail-share-code',
         child: 'input-text'
       },
       {
@@ -111,6 +126,11 @@ module.exports = {
         value: 'problem-signin-phone',
         toggle: 'detail-signin-phone',
         child: 'input-text'
+      },
+      {
+        value: 'problem-other',
+        toggle: 'detail-other',
+        child: 'textarea'
       }
     ]
   },
@@ -122,12 +142,30 @@ module.exports = {
       value: 'problem-full-name'
     }
   },
-  'detail-sponsor-ref': {
-    mixin: 'input-text',
-    validate: 'required',
-    dependent: {
+  'detail-dob': dateComponent('detail-dob', {
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date',
+      { type: 'before', arguments: ['0', 'days'] }
+    ],
+    validationLink: {
       field: 'problem',
-      value: 'problem-sponsor-ref'
+      value: 'problem-dob'
+    }
+  }),
+  'detail-nationality': {
+    mixin: 'select',
+    className: ['typeahead'],
+    formGroupClassName: ['govuk-!-width-two-thirds'],
+    validate: ['required'],
+    options: [{
+      value: '',
+      label: 'fields.detail-nationality.options.none_selected'
+    }].concat(countries),
+    validationLink: {
+      field: 'problem',
+      value: 'problem-nationality'
     }
   },
   'detail-photo': {
@@ -157,13 +195,30 @@ module.exports = {
       value: 'problem-restrictions'
     }
   },
-  'detail-status': {
+  'detail-share-code': {
     mixin: 'input-text',
     validate: 'required',
     className: ['govuk-input', 'govuk-!-width-two-thirds'],
     dependent: {
       field: 'problem',
+      value: 'problem-share-code'
+    }
+  },
+  'detail-status': {
+    mixin: 'input-text',
+    validate: 'required',
+    dependent: {
+      field: 'problem',
       value: 'problem-status'
+    }
+  },
+  'detail-valid-from': {
+    mixin: 'input-text',
+    validate: 'required',
+    className: ['govuk-input', 'govuk-!-width-one-third'],
+    dependent: {
+      field: 'problem',
+      value: 'problem-valid-from'
     }
   },
   'detail-valid-until': {
@@ -197,7 +252,33 @@ module.exports = {
       value: 'problem-signin-phone'
     }
   },
+  'detail-other': {
+    mixin: 'textarea',
+    validate: ['required', { type: 'maxlength', arguments: 500 }],
+    attributes: [{ attribute: 'rows', value: 5 }],
+    dependent: {
+      field: 'problem',
+      value: 'problem-other'
+    }
+  },
   'is-refugee': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
+    validate: 'required',
+    options: [
+      {
+        value: 'yes'
+      },
+      {
+        value: 'no'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
+  'asylum-support': {
     isPageHeading: 'true',
     mixin: 'radio-group',
     className: ['govuk-radios', 'govuk-radios--inline'],

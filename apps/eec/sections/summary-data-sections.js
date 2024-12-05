@@ -22,22 +22,12 @@ module.exports = {
       },
       {
         step: '/problem',
-        field: 'detail-sponsor-ref',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        field: 'detail-dob',
+        parse: (val, req) => isViewingEvisa(req) || !val ? '' : formatDate(val)
       },
       {
         step: '/problem',
-        field: 'detail-photo',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
-      },
-      {
-        step: '/problem',
-        field: 'detail-nin',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
-      },
-      {
-        step: '/problem',
-        field: 'detail-restrictions',
+        field: 'detail-nationality',
         parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
@@ -47,7 +37,32 @@ module.exports = {
       },
       {
         step: '/problem',
+        field: 'detail-valid-from',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
+      },
+      {
+        step: '/problem',
         field: 'detail-valid-until',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
+      },
+      {
+        step: '/problem',
+        field: 'detail-nin',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
+      },
+      {
+        step: '/problem',
+        field: 'detail-photo',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
+      },
+      {
+        step: '/problem',
+        field: 'detail-restrictions',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
+      },
+      {
+        step: '/problem',
+        field: 'detail-share-code',
         parse: (val, req) => isViewingEvisa(req) ? '' : val
       },
       {
@@ -58,6 +73,11 @@ module.exports = {
       {
         step: '/problem',
         field: 'detail-signin-phone',
+        parse: (val, req) => isViewingEvisa(req) ? '' : val
+      },
+      {
+        step: '/problem',
+        field: 'detail-other',
         parse: (val, req) => isViewingEvisa(req) ? '' : val
       }
     ]
@@ -94,6 +114,10 @@ module.exports = {
       {
         step: '/refugee',
         field: 'is-refugee'
+      },
+      {
+        step: '/asylum-support',
+        field: 'asylum-support'
       },
       {
         step: '/contact',

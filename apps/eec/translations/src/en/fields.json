@@ -26,10 +26,13 @@
     "hint": "You can select more than one option",
     "options": {
       "problem-full-name": {
-        "label": "Full name"
+        "label": "Name"
       },
-      "problem-sponsor-ref": {
-        "label": "Sponsor reference"
+      "problem-dob": {
+        "label": "Date of birth"
+      },
+      "problem-nationality": {
+        "label": "Nationality"
       },
       "problem-photo": {
         "label": "Photo"
@@ -38,27 +41,43 @@
         "label": "National Insurance number"
       },
       "problem-restrictions": {
-        "label": "Restrictions"
+        "label": "What you can and cannot do in the UK"
+      },
+      "problem-share-code": {
+        "label": "Share code"
       },
       "problem-status": {
         "label": "Status"
       },
+      "problem-valid-from": {
+        "label": "Valid from"
+      },
       "problem-valid-until": {
-        "label": "Valid until"
+        "label": "Valid to"
       },
       "problem-signin-email": {
         "label": "Email address to sign in to your account"
       },
       "problem-signin-phone": {
         "label": "Phone number to sign in to your account"
+      },
+      "problem-other": {
+        "label": "My problem isn't listed"
       }
     }
   },
   "detail-full-name": {
-    "label": "What is your correct full name?"
+    "label": "What is your correct name?"
   },
-  "detail-sponsor-ref": {
-    "label": "What is the correct sponsor reference number?"
+  "detail-dob": {
+    "legend": "What is your correct date of birth?",
+    "hint": "For example, 27 3 2007"
+  },
+  "detail-nationality": {
+    "label": "What is your correct nationality?",
+    "options": {
+      "none_selected": "Select a country"
+    }
   },
   "detail-photo": {
     "label": "What is wrong with your photo?"
@@ -67,10 +86,18 @@
     "label": "What is your correct National Insurance number?"
   },
   "detail-restrictions": {
-    "label": "What is wrong with the restrictions of your visa?"
+    "label": "What is wrong with the details of what you can and cannot do in the UK?"
+  },
+  "detail-share-code": {
+    "label": "Which share code are you unable to create?",
+    "hint": "This could be for right to work, right to rent or something else"
   },
   "detail-status": {
-    "label": "What is your correct immigration status?"
+    "label": "What problem are you having with your immigration status?",
+    "hint": "This could be because your status is old, incorrect or you cannot view it"
+  },
+  "detail-valid-from": {
+    "label": "What is the correct date your visa is valid from?"
   },
   "detail-valid-until": {
     "label": "What is the correct date your visa is valid to?"
@@ -81,8 +108,23 @@
   "detail-signin-phone": {
     "label": "What is the correct phone number where you can receive security codes?"
   },
+  "detail-other": {
+    "label": "Describe the problem you are having"
+  },
   "is-refugee": {
     "legend": "Do you have permission to stay in the UK as a refugee?",
+    "options": {
+      "yes": {
+          "label": "Yes"
+      },
+      "no": {
+          "label": "No"
+      }
+    }
+  },
+  "asylum-support": {
+    "legend": "Do you get asylum support?",
+    "hint": "This is housing or money to support you if you are waiting to find out if you will be given asylum.",
     "options": {
       "yes": {
           "label": "Yes"
