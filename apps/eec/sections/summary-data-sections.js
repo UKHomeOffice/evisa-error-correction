@@ -1,7 +1,7 @@
 const { getLabel, formatDate } = require('../../../utils');
 
-function isViewingEvisa(req) {
-  return req.sessionModel.get('viewing-evisa') === 'yes';
+function isAccessingEvisa(req) {
+  return req.sessionModel.get('accessing-evisa') === 'yes';
 }
 
 module.exports = {
@@ -12,73 +12,73 @@ module.exports = {
         field: 'in-uk'
       },
       {
-        step: '/viewing-evisa',
-        field: 'viewing-evisa'
+        step: '/accessing-evisa',
+        field: 'accessing-evisa'
       },
       {
         step: '/problem',
         field: 'detail-full-name',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-dob',
-        parse: (val, req) => isViewingEvisa(req) || !val ? '' : formatDate(val)
+        parse: (val, req) => isAccessingEvisa(req) || !val ? '' : formatDate(val)
       },
       {
         step: '/problem',
         field: 'detail-nationality',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-status',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-valid-from',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-valid-until',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-nin',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-photo',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-restrictions',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-share-code',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-signin-email',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-signin-phone',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       },
       {
         step: '/problem',
         field: 'detail-other',
-        parse: (val, req) => isViewingEvisa(req) ? '' : val
+        parse: (val, req) => isAccessingEvisa(req) ? '' : val
       }
     ]
   },

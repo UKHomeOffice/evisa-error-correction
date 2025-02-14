@@ -10,7 +10,7 @@
       }
     }
   },
-  "viewing-evisa": {
+  "accessing-evisa": {
     "legend": "Are you having problems accessing your eVisa?",
     "options": {
       "yes": {

@@ -2,7 +2,7 @@
   "in-uk": {
     "required": "Select if you are currently in the UK"
   },
-  "viewing-evisa": {
+  "accessing-evisa": {
     "required": "Select if you are having problems accessing your eVisa"
   },
   "problem": {
