@@ -4,4 +4,4 @@ If you provided your email address we will send you an email to confirm that we 
 
 We will review the information you have provided to correct your eVisa.
 
-We will contact you to confirm when we have corrected the details, or to let you know if we need more information. This can take up to 10 working days.
+We will contact you to confirm when we have corrected the details, or to let you know if we need more information.
