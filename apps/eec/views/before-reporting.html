@@ -1,0 +1,15 @@
+{{<partials-page}}
+  {{$page-content}}
+    <p class="govuk-body">{{#t}}pages.before-reporting.check-three-steps-for-access{{/t}}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{#t}}pages.before-reporting.step1{{/t}}</li>
+      <li>{{#t}}pages.before-reporting.step2{{/t}}</li>
+      <li>{{#t}}pages.before-reporting.step3{{/t}}</li>
+    </ul>
+    <p class="govuk-body">{{#t}}pages.before-reporting.once-you-have-access{{/t}}</p>
+    <h2 class="govuk-heading-m">{{#t}}pages.before-reporting.header2{{/t}}</h2>
+
+    <p class="govuk-body">{{#t}}pages.before-reporting.get-help{{/t}}</p>
+    {{#input-submit}}continue-to-report-an-error{{/input-submit}}
+  {{/page-content}}
+{{/partials-page}}

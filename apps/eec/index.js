@@ -20,13 +20,17 @@ module.exports = {
       showNeedHelp: true,
       forks: [
         {
-          target: '/personal-details',
+          target: '/before-reporting',
           condition: {
             field: 'viewing-evisa',
             value: 'yes'
           }
         }
       ]
+    },
+    '/before-reporting': {
+      next: '/personal-details',
+      showNeedHelp: true
     },
     '/problem': {
       next: '/personal-details',
