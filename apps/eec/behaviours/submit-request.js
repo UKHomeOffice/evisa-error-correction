@@ -55,6 +55,7 @@ module.exports = superclass => class extends superclass {
         in_uk: getLabel('in-uk', req.sessionModel.get('in-uk')),
         is_not_accessing_evisa: req.sessionModel.get('accessing-evisa') === 'no' ? 'yes' : 'no',
         accessing_evisa: getLabel('accessing-evisa', req.sessionModel.get('accessing-evisa')),
+        accessing_evisa_yesOrNo: req.sessionModel.get('accessing-evisa'),
         full_name: req.sessionModel.get('requestor-full-name'),
         date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
         nationality: req.sessionModel.get('requestor-nationality'),
