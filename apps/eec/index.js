@@ -10,19 +10,19 @@ module.exports = {
   confirmStep: '/check-answers',
   steps: {
     '/in-uk': {
-      next: '/viewing-evisa',
+      next: '/accessing-evisa',
       fields: ['in-uk'],
       showNeedHelp: true
     },
-    '/viewing-evisa': {
+    '/accessing-evisa': {
       next: '/problem',
-      fields: ['viewing-evisa'],
+      fields: ['accessing-evisa'],
       showNeedHelp: true,
       forks: [
         {
           target: '/personal-details',
           condition: {
-            field: 'viewing-evisa',
+            field: 'accessing-evisa',
             value: 'yes'
           }
         }

@@ -45,7 +45,7 @@ module.exports = {
       className: 'govuk-!-margin-bottom-6'
     }
   },
-  'viewing-evisa': {
+  'accessing-evisa': {
     isPageHeading: 'true',
     mixin: 'radio-group',
     className: ['govuk-radios', 'govuk-radios--inline'],
