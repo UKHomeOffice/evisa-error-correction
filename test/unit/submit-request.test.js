@@ -51,7 +51,7 @@ describe('submit-feedback behaviour', () => {
       req.sessionModel = new Model({
         problem: ['problem-photo', 'problem-nin'],
         'in-uk': 'yes',
-        'viewing-evisa': 'no',
+        'accessing-evisa': 'no',
         'detail-photo': 'photo bad',
         'detail-nin': 'QQ123456A',
         'requestor-full-name': 'test user',
@@ -102,8 +102,9 @@ describe('submit-feedback behaviour', () => {
       emailProps = {
         personalisation: {
           in_uk: 'Yes',
-          is_not_viewing_evisa: 'yes',
-          viewing_evisa: 'No, the problem is something else',
+          is_not_accessing_evisa: 'yes',
+          accessing_evisa: 'No, the problem is something else',
+          accessing_evisa_yesOrNo: 'no',
           full_name: 'test user',
           date_of_birth: '14/08/1987',
           nationality: 'France',
@@ -133,8 +134,9 @@ describe('submit-feedback behaviour', () => {
       emailProps = {
         personalisation: {
           in_uk: 'Yes',
-          is_not_viewing_evisa: 'yes',
-          viewing_evisa: 'No, the problem is something else',
+          is_not_accessing_evisa: 'yes',
+          accessing_evisa: 'No, the problem is something else',
+          accessing_evisa_yesOrNo: 'no',
           full_name: 'test user',
           date_of_birth: '14/08/1987',
           nationality: 'France',
@@ -161,8 +163,9 @@ describe('submit-feedback behaviour', () => {
       emailProps = {
         personalisation: {
           in_uk: 'Yes',
-          is_not_viewing_evisa: 'yes',
-          viewing_evisa: 'No, the problem is something else',
+          is_not_accessing_evisa: 'yes',
+          accessing_evisa: 'No, the problem is something else',
+          accessing_evisa_yesOrNo: 'no',
           full_name: 'test user',
           date_of_birth: '14/08/1987',
           nationality: 'France',

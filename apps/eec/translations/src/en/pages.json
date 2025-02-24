@@ -39,8 +39,8 @@
       "in-uk": {
         "label": "In UK"
       },
-      "viewing-evisa": {
-        "label": "Problem viewing eVisa"
+      "accessing-evisa": {
+        "label": "Problem accessing eVisa"
       },
       "detail-full-name": {
         "label": "Name"

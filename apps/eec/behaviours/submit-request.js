@@ -53,8 +53,9 @@ module.exports = superclass => class extends superclass {
     try {
       businessEmailProps.addPersonalisation({
         in_uk: getLabel('in-uk', req.sessionModel.get('in-uk')),
-        is_not_viewing_evisa: req.sessionModel.get('viewing-evisa') === 'no' ? 'yes' : 'no',
-        viewing_evisa: getLabel('viewing-evisa', req.sessionModel.get('viewing-evisa')),
+        is_not_accessing_evisa: req.sessionModel.get('accessing-evisa') === 'no' ? 'yes' : 'no',
+        accessing_evisa: getLabel('accessing-evisa', req.sessionModel.get('accessing-evisa')),
+        accessing_evisa_yesOrNo: req.sessionModel.get('accessing-evisa'),
         full_name: req.sessionModel.get('requestor-full-name'),
         date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
         nationality: req.sessionModel.get('requestor-nationality'),
@@ -62,7 +63,7 @@ module.exports = superclass => class extends superclass {
         is_refugee: getLabel('is-refugee', req.sessionModel.get('is-refugee')),
         asylum_support: req.sessionModel.get('is-refugee') === 'yes' ?
           getLabel('asylum-support', req.sessionModel.get('asylum-support')) : '',
-        problem_notes: req.sessionModel.get('viewing-evisa') === 'no' ? buildProblemNotes(req) : '',
+        problem_notes: req.sessionModel.get('accessing-evisa') === 'no' ? buildProblemNotes(req) : '',
         contact_email: req.sessionModel.get('requestor-contact-method') === 'email' ?
           req.sessionModel.get('requestor-email') : 'none provided',
         contact_address: req.sessionModel.get('requestor-contact-method') === 'uk-address' ?
