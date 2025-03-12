@@ -1,6 +1,6 @@
 # eVisa error correction (EEC)
 
-eVisa error correction (EEC) used by the public to register that details of their eVisa are incorrect.
+eVisa error correction (EEC) is used by the public to register that details of their eVisa are incorrect.
 
 ## Description
 
