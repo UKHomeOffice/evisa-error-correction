@@ -39,8 +39,6 @@ The content listed below is non-accessible for the following reasons.
 On the start page and the privacy policy page, the screen reader does not read out links, where there are any, if the cursor hovers over the paragraph or sentence. The screen reader will read out the links if the keyboard is used to navigate the page. This does not meet the following WCAG standards and guidelines:
 2.4.4 - Link purpose in context
 
-The session timeout of 30 minutes cannot be changed and the user is not alerted when it is running out. This is for each individual page of the form, not the form overall. This does not meet WCAG2.2 – Enough Time.
-
 If you find an issue that we have yet to identify, please contact us using one of the routes described in the ‘Reporting accessibility problems with this website’ section of this statement.
 
 ### Disproportionate burden
@@ -53,7 +51,7 @@ At this time, this service does not contain any content that is exempt from the 
 
 ### Preparation of this accessibility statement
 
-This statement was prepared on 10 October 2024. It was last reviewed on 10 October 2024.
+This statement was prepared on 10 October 2024. It was last reviewed on 18 March 2025.
 
 This website was last tested on 10 October 2024. The test was carried out internally by the Home Office.
 
