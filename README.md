@@ -18,7 +18,7 @@ eVisa error correction (EEC) is used by the public to register that details of t
 ### Dependencies
 
 - This form is built using the [HOF framework](https://github.com/UKHomeOfficeForms/hof)
-- [Gov.uk Notify](https://www.notifications.service.gov.uk) to send notification emails
+- [Gov.uk Notify](https://www.notifications.service.gov.uk) is used to send notification emails
 
 ## Install & Run the Application locally
 
