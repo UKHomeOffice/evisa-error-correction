@@ -170,7 +170,7 @@ steps:
       - linting
       - unit_tests
 
-  - name: image_to_ecr
+  - name: build_image_and_push_to_ecr
     image: plugins/ecr
     settings:
       access_key:
@@ -189,7 +189,6 @@ steps:
     depends_on:
       - linting
       - unit_tests
-      - build_image
 
   # Trivy Security Scannner for scanning nodejs packages in Yarn
   - name: scan_node_packages
@@ -230,7 +229,7 @@ steps:
       event: pull_request
     depends_on:
       - clone_repos
-      - image_to_ecr
+      - build_image_and_push_to_ecr
 
   - name: deploy_to_uat
     pull: if-not-exists
@@ -248,7 +247,7 @@ steps:
       event: push
     depends_on:
       - clone_repos
-      - image_to_ecr
+      - build_image_and_push_to_ecr
 
   # Get pull request branch so correct PR UAT environment is torn down in the tear_down_branch step that follows
   - name: get_pr_branch
@@ -307,7 +306,7 @@ steps:
       event: push
     depends_on:
       - clone_repos
-      - image_to_ecr
+      - build_image_and_push_to_ecr
 
   # Checks a build being promoted has passed, is on master which effectively means a healthy build on Staging
   - name: sanity_check_build_prod
