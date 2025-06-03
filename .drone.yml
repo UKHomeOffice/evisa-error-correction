@@ -189,6 +189,7 @@ steps:
     depends_on:
       - linting
       - unit_tests
+      - build_image
 
   # Trivy Security Scannner for scanning nodejs packages in Yarn
   - name: scan_node_packages
