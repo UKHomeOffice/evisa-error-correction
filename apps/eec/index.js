@@ -2,6 +2,15 @@ const hof = require('hof');
 const Summary = hof.components.summary;
 const submitRequest = require('./behaviours/submit-request');
 const validateAutocomplete = require('./behaviours/validate-autocomplete');
+const { disallowIndexing } = require('../../config');
+
+const pages = {
+  '/accessibility': 'static/accessibility'
+};
+
+if (disallowIndexing) {
+  pages['/robots.txt'] = 'static/robots';
+}
 
 module.exports = {
   name: 'eec',
@@ -134,7 +143,5 @@ module.exports = {
       backLink: false
     }
   },
-  pages: {
-    '/accessibility': 'static/accessibility'
-  }
+  pages: pages
 };
