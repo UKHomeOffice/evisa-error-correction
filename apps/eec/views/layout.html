@@ -1,6 +1,11 @@
 {{<govuk-template}}
   {{$head}}
     {{> partials-head}}
+
+    {{#disallowIndexing}}
+      {{> partials-disallow-indexing}}
+    {{/disallowIndexing}}
+
   {{/head}}
   {{$pageTitle}}
     {{#errorlist.length}}{{#t}}errorlist.prefix{{/t}}{{/errorlist.length}} {{title}} &ndash; {{#t}}journey.serviceName{{/t}} &ndash; GOV.UK
