@@ -21,6 +21,23 @@ module.exports = {
     '/in-uk': {
       next: '/accessing-evisa',
       fields: ['in-uk'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/booked-travel',
+          condition: {
+            field: 'in-uk',
+            value: 'no'
+          }
+        }
+      ]
+    },
+    '/booked-travel': {
+      next: '/accessing-evisa',
+      fields: [
+        'booked-travel',
+        'booked-travel-date-to-uk'
+      ],
       showNeedHelp: true
     },
     '/accessing-evisa': {

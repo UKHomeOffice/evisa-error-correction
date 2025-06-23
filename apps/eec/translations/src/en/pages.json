@@ -49,6 +49,9 @@
       "in-uk": {
         "label": "In UK"
       },
+      "booked-travel": {
+        "label": "Booked travel"
+      },
       "accessing-evisa": {
         "label": "Problem accessing eVisa"
       },

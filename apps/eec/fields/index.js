@@ -45,6 +45,29 @@ module.exports = {
       className: 'govuk-!-margin-bottom-6'
     }
   },
+  'booked-travel': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    validate: ['required'],
+    options: [
+      {
+        value: 'yes',
+        toggle: 'booked-travel-date-to-uk-content',
+        child: 'partials/booked-travel-date-to-uk'
+      },
+      {
+        value: 'no'
+      }
+    ]
+  },
+   'booked-travel-date-to-uk': dateComponent('booked-travel-date-to-uk', {
+    mixin: 'input-date',
+    validate: ['required'],
+    validationLink: {
+      field: 'booked-travel',
+      value: 'yes'
+    }
+  }),
   'accessing-evisa': {
     isPageHeading: 'true',
     mixin: 'radio-group',

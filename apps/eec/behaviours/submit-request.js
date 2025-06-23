@@ -53,6 +53,7 @@ module.exports = superclass => class extends superclass {
     try {
       businessEmailProps.addPersonalisation({
         in_uk: getLabel('in-uk', req.sessionModel.get('in-uk')),
+        booked_travel: getLabel('booked-travel', req.sessionModel.get('booked-travel')),
         is_not_accessing_evisa: req.sessionModel.get('accessing-evisa') === 'no' ? 'yes' : 'no',
         accessing_evisa: getLabel('accessing-evisa', req.sessionModel.get('accessing-evisa')),
         accessing_evisa_yesOrNo: req.sessionModel.get('accessing-evisa'),
