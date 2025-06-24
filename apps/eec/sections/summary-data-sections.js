@@ -4,17 +4,34 @@ function isAccessingEvisa(req) {
   return req.sessionModel.get('accessing-evisa') === 'yes';
 }
 
+function isTravelToUKNotBooked(req) {
+  return req.sessionModel.get('booked-travel') === 'no';
+}
+
 module.exports = {
-  'corrected-details': {
+  'customer-type': {
     steps: [
       {
         step: '/in-uk',
         field: 'in-uk'
       },
       {
+        step: '/booked-travel',
+        field: 'booked-travel'
+      },
+      {
+        step: '/booked-travel',
+        field: 'booked-travel-date-to-uk',
+        parse: (val, req) => isTravelToUKNotBooked(req) || !val ? '' : formatDate(val)
+      },
+      {
         step: '/accessing-evisa',
         field: 'accessing-evisa'
-      },
+      }
+    ]
+  },
+  'corrected-details': {
+    steps: [
       {
         step: '/problem',
         field: 'detail-full-name',

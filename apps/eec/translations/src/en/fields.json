@@ -10,6 +10,20 @@
       }
     }
   },
+  "booked-travel": {
+    "legend": "Have you booked your travel to the UK?",
+    "options": {
+      "yes": {
+          "label": "Yes, I have booked my travel"
+      },
+      "no": {
+          "label": "No, I have not booked my travel"
+      }
+    }
+  },
+  "booked-travel-date-to-uk": {
+    "legend": "What date you are leaving to travel to the UK?"
+  },
   "accessing-evisa": {
     "legend": "Are you having problems accessing your eVisa?",
     "options": {
