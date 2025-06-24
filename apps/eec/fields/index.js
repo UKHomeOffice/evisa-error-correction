@@ -62,7 +62,10 @@ module.exports = {
   },
    'booked-travel-date-to-uk': dateComponent('booked-travel-date-to-uk', {
     mixin: 'input-date',
-    validate: ['required'],
+    validate: [
+      'required',
+      'date'
+    ],
     validationLink: {
       field: 'booked-travel',
       value: 'yes'

@@ -35,6 +35,9 @@
   },
   "confirm": {
     "sections": {
+      "customer-type": {
+        "header": "Customer type"
+      },
       "corrected-details": {
         "header": "Corrected eVisa details"
       },
@@ -51,6 +54,9 @@
       },
       "booked-travel": {
         "label": "Booked travel"
+      },
+      "booked-travel-date-to-uk": {
+        "label": "Booked travel date to the UK"
       },
       "accessing-evisa": {
         "label": "Problem accessing eVisa"
