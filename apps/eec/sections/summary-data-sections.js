@@ -25,6 +25,10 @@ module.exports = {
         parse: (val, req) => isTravelToUKNotBooked(req) || !val ? '' : formatDate(val)
       },
       {
+        step: '/premium',
+        field: 'premium'
+      },
+      {
         step: '/accessing-evisa',
         field: 'accessing-evisa'
       }

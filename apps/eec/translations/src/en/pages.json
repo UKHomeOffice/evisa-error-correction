@@ -53,10 +53,13 @@
         "label": "In UK"
       },
       "booked-travel": {
-        "label": "Booked travel"
+        "label": "Booked travel to UK"
       },
       "booked-travel-date-to-uk": {
-        "label": "Booked travel date to the UK"
+        "label": "Travel date"
+      },
+      "premium": {
+        "label": "Priority or Super Priority"
       },
       "accessing-evisa": {
         "label": "Problem accessing eVisa"

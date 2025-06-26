@@ -48,6 +48,7 @@ module.exports = {
   'booked-travel': {
     isPageHeading: 'true',
     mixin: 'radio-group',
+    className: ['govuk-radios'],
     validate: ['required'],
     options: [
       {
@@ -58,7 +59,10 @@ module.exports = {
       {
         value: 'no'
       }
-    ]
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
   },
    'booked-travel-date-to-uk': dateComponent('booked-travel-date-to-uk', {
     mixin: 'input-date',
@@ -71,6 +75,26 @@ module.exports = {
       value: 'yes'
     }
   }),
+  'premium': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
+    validate: 'required',
+    options: [
+      {
+        value: 'premium-priority'
+      },
+      {
+        value: 'premium-super-priority'
+      },
+      {
+        value: 'premium-none'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
   'accessing-evisa': {
     isPageHeading: 'true',
     mixin: 'radio-group',

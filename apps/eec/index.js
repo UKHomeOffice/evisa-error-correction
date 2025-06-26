@@ -33,10 +33,17 @@ module.exports = {
       ]
     },
     '/booked-travel': {
-      next: '/accessing-evisa',
+      next: '/premium',
       fields: [
         'booked-travel',
         'booked-travel-date-to-uk'
+      ],
+      showNeedHelp: true
+    },
+    '/premium': {
+      next: '/accessing-evisa',
+      fields: [
+        'premium'
       ],
       showNeedHelp: true
     },
