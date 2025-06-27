@@ -16,6 +16,14 @@ module.exports = {
         field: 'in-uk'
       },
       {
+        step: '/accessing-evisa',
+        field: 'accessing-evisa'
+      }
+    ]
+  },
+  'travel-details': {
+    steps: [
+      {
         step: '/booked-travel',
         field: 'booked-travel'
       },
@@ -27,10 +35,6 @@ module.exports = {
       {
         step: '/premium',
         field: 'premium'
-      },
-      {
-        step: '/accessing-evisa',
-        field: 'accessing-evisa'
       }
     ]
   },

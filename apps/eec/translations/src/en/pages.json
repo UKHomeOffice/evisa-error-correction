@@ -38,6 +38,9 @@
       "customer-type": {
         "header": "Customer type"
       },
+      "travel-details": {
+        "header": "Travel details"
+      },
       "corrected-details": {
         "header": "Corrected eVisa details"
       },
