@@ -2,6 +2,16 @@
   "in-uk": {
     "required": "Select if you are currently in the UK"
   },
+  "booked-travel": {
+    "required": "Select if you have booked your travel to the UK"
+  },
+  "booked-travel-date-to-uk": {
+    "required": "Enter the correct date your travel was booked",
+    "date": "Enter the correct travel booked date"
+  },
+  "premium": {
+    "required": "Select if you have paid for a priority or super priority service"
+  },
   "accessing-evisa": {
     "required": "Select if you are having problems accessing your eVisa"
   },

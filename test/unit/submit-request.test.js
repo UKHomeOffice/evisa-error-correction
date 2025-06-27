@@ -50,7 +50,10 @@ describe('submit-feedback behaviour', () => {
 
       req.sessionModel = new Model({
         problem: ['problem-photo', 'problem-nin'],
-        'in-uk': 'yes',
+        premium: ['premium-super-priority'],
+        'in-uk': 'no',
+        'booked-travel': 'yes',
+        'booked-travel-date-to-uk': '2025-06-24',
         'accessing-evisa': 'no',
         'detail-photo': 'photo bad',
         'detail-nin': 'QQ123456A',
@@ -101,7 +104,12 @@ describe('submit-feedback behaviour', () => {
     test('Notify sendEmail to business is called with the correct props', async () => {
       emailProps = {
         personalisation: {
-          in_uk: 'Yes',
+          in_uk: 'No',
+          is_not_in_uk: 'yes',
+          booked_travel: 'Yes, I have booked my travel',
+          is_booked_travel: 'yes',
+          booked_travel_date_to_uk: '24/06/2025',
+          premium: 'I paid for a super priority service',
           is_not_accessing_evisa: 'yes',
           accessing_evisa: 'No, the problem is something else',
           accessing_evisa_yesOrNo: 'no',
@@ -133,7 +141,12 @@ describe('submit-feedback behaviour', () => {
 
       emailProps = {
         personalisation: {
-          in_uk: 'Yes',
+          in_uk: 'No',
+          is_not_in_uk: 'yes',
+          booked_travel: 'Yes, I have booked my travel',
+          is_booked_travel: 'yes',
+          booked_travel_date_to_uk: '24/06/2025',
+          premium: 'I paid for a super priority service',
           is_not_accessing_evisa: 'yes',
           accessing_evisa: 'No, the problem is something else',
           accessing_evisa_yesOrNo: 'no',
@@ -162,7 +175,12 @@ describe('submit-feedback behaviour', () => {
 
       emailProps = {
         personalisation: {
-          in_uk: 'Yes',
+          in_uk: 'No',
+          is_not_in_uk: 'yes',
+          booked_travel: 'Yes, I have booked my travel',
+          is_booked_travel: 'yes',
+          booked_travel_date_to_uk: '24/06/2025',
+          premium: 'I paid for a super priority service',
           is_not_accessing_evisa: 'yes',
           accessing_evisa: 'No, the problem is something else',
           accessing_evisa_yesOrNo: 'no',

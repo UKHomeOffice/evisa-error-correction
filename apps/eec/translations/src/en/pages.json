@@ -35,6 +35,12 @@
   },
   "confirm": {
     "sections": {
+      "customer-type": {
+        "header": "Customer type"
+      },
+      "travel-details": {
+        "header": "Travel details"
+      },
       "corrected-details": {
         "header": "Corrected eVisa details"
       },
@@ -48,6 +54,15 @@
     "fields": {
       "in-uk": {
         "label": "In UK"
+      },
+      "booked-travel": {
+        "label": "Booked travel to UK"
+      },
+      "booked-travel-date-to-uk": {
+        "label": "Travel date"
+      },
+      "premium": {
+        "label": "Priority or super priority"
       },
       "accessing-evisa": {
         "label": "Problem accessing eVisa"
