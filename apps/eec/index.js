@@ -33,11 +33,21 @@ module.exports = {
       ]
     },
     '/booked-travel': {
-      next: '/premium',
+      next: '/travel-document-details',
       fields: [
         'booked-travel',
         'booked-travel-date-to-uk'
       ],
+      showNeedHelp: true
+    },
+    '/travel-document-details': {
+      next: '/premium',
+      fields: [
+        'travel-doc-number',
+        'travel-doc-nationality',
+        'travel-doc-dob'
+      ],
+      behaviours: [validateAutocomplete('requestor-nationality')],
       showNeedHelp: true
     },
     '/premium': {

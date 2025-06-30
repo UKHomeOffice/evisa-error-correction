@@ -8,7 +8,11 @@
     "once-you-have-access": "Once you have access to your eVisa, you can sign in to your UKVI account to <a href='https://www.gov.uk/view-prove-immigration-status'>view your eVisa and prove your immigration status</a>.",
     "header2": "If you cannot get into your account",
     "get-help": "Get help if you're having <a href='https://update-your-details.homeoffice.gov.uk/account-recovery/help'>problems signing into your account</a>."
-  }, 
+  },
+  "travel-document-details": {
+    "header": "Enter your travel document details",
+    "intro": "Tell us the details of the document you will use to travel to the UK."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -60,6 +64,15 @@
       },
       "booked-travel-date-to-uk": {
         "label": "Travel date"
+      },
+      "travel-doc-number": {
+        "label": "Travel document number"
+      },
+      "travel-doc-nationality": {
+        "label": "Country of nationality"
+      },
+      "travel-doc-dob": {
+        "label": "Date of birth"
       },
       "premium": {
         "label": "Priority or super priority"

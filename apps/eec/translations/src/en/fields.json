@@ -24,6 +24,21 @@
   "booked-travel-date-to-uk": {
     "legend": "What date you are leaving to travel to the UK?"
   },
+  "travel-doc-number": {
+    "label": "Document number",
+    "hint": "Passport or Home Office Travel Document Number. This can contain letters and numbers. For example, 120383978A"
+  },
+  "travel-doc-nationality": {
+    "label": "Country of nationality",
+    "hint": "This is the country of nationality shown on your travel document. Use the English spelling or the countyu code",
+    "options": {
+      "none_selected": "Select a country"
+    }
+  },
+  "travel-doc-dob": {
+    "legend": "Date of birth",
+    "hint": "For example, 27 3 2007"
+  },
   "premium": {
     "legend": "Did you pay for a priority or super priority service?",
     "options": {

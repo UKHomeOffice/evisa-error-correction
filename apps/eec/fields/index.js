@@ -75,6 +75,31 @@ module.exports = {
       value: 'yes'
     }
   }),
+  'travel-doc-number': {
+    validate: [
+      'required',
+      'alphanum',
+      { type: 'minlength', arguments: 9 },
+      { type: 'maxlength', arguments: 13 }
+    ]
+  },
+  'travel-doc-nationality': {
+    mixin: 'select',
+    className: ['typeahead'],
+    validate: ['required'],
+    options: [{
+      value: '',
+      label: 'fields.travel-doc-nationality.options.none_selected'
+    }].concat(countries)
+  },
+  'travel-doc-dob': dateComponent('travel-doc-dob', {
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date',
+      { type: 'before', arguments: ['0', 'days'] }
+    ]
+  }),
   'premium': {
     isPageHeading: 'true',
     mixin: 'radio-group',
