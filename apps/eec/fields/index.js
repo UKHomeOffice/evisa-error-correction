@@ -76,6 +76,7 @@ module.exports = {
     }
   }),
   'travel-doc-number': {
+    className: ['govuk-input', 'govuk-!-width-one-third'],
     validate: [
       'required',
       'alphanum',
