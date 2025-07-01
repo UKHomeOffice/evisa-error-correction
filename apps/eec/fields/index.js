@@ -64,7 +64,7 @@ module.exports = {
       className: 'govuk-!-margin-bottom-6'
     }
   },
-   'booked-travel-date-to-uk': dateComponent('booked-travel-date-to-uk', {
+  'booked-travel-date-to-uk': dateComponent('booked-travel-date-to-uk', {
     mixin: 'input-date',
     validate: [
       'required',
@@ -101,7 +101,7 @@ module.exports = {
       { type: 'before', arguments: ['0', 'days'] }
     ]
   }),
-  'premium': {
+  premium: {
     isPageHeading: 'true',
     mixin: 'radio-group',
     className: ['govuk-radios', 'govuk-radios--inline'],

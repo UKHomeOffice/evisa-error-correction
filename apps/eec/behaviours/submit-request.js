@@ -57,7 +57,7 @@ module.exports = superclass => class extends superclass {
         booked_travel: req.sessionModel.get('in-uk') === 'no' ?
           getLabel('booked-travel', req.sessionModel.get('booked-travel')) : '',
         is_booked_travel: req.sessionModel.get('in-uk') === 'no' ?
-          req.sessionModel.get('booked-travel'): '',
+          req.sessionModel.get('booked-travel') : '',
         booked_travel_date_to_uk: req.sessionModel.get('booked-travel') === 'yes' ?
           formatDate(req.sessionModel.get('booked-travel-date-to-uk')) : '',
         premium: req.sessionModel.get('in-uk') === 'no' ?
