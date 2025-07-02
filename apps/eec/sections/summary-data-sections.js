@@ -12,6 +12,10 @@ function isInUK(req) {
   return req.sessionModel.get('in-uk') === 'yes';
 }
 
+function truncate(str = '', maxLen = 0) {
+  return str.slice(0, maxLen) + (str.length >= maxLen ? '...' : '');
+}
+
 module.exports = {
   'customer-type': {
     steps: [
@@ -22,6 +26,11 @@ module.exports = {
       {
         step: '/accessing-evisa',
         field: 'accessing-evisa'
+      },
+      {
+        step: '/more-details',
+        field: 'describe-evisa-error',
+        parse: val => truncate(val, 500)
       }
     ]
   },

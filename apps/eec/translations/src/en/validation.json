@@ -156,5 +156,9 @@
   },
   "representative-type": {
     "required": "Select which type of support you are to the requestor"
+  },
+  "describe-evisa-error" : {
+    "required": "Enter the error with your eVisa",
+    "maxlength": "You have exceeded the 2000 character limit"
   }
 }
