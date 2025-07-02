@@ -1,4 +1,4 @@
-const { getLabel, formatDate } = require('../../../utils');
+const { getLabel, formatDate, truncate } = require('../../../utils');
 
 function isAccessingEvisa(req) {
   return req.sessionModel.get('accessing-evisa') === 'yes';
@@ -22,6 +22,11 @@ module.exports = {
       {
         step: '/accessing-evisa',
         field: 'accessing-evisa'
+      },
+      {
+        step: '/more-details',
+        field: 'describe-evisa-error',
+        parse: val => truncate(val, 500)
       }
     ]
   },

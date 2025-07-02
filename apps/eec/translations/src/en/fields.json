@@ -22,11 +22,11 @@
     }
   },
   "booked-travel-date-to-uk": {
-    "legend": "What date you are leaving to travel to the UK?"
+    "legend": "What date are you leaving to travel the UK?"
   },
   "travel-doc-number": {
     "label": "Document number",
-    "hint": "Passport or Home Office Travel Document Number. This can contain letters and numbers. For example, 120383978A"
+    "hint": "Passport or Home Office Travel Document number. This can contain letters and numbers. For example, 120383978A"
   },
   "travel-doc-nationality": {
     "label": "Country of nationality",
@@ -298,5 +298,8 @@
             "label": "Support organisation"
         }
     }
+  },
+  "describe-evisa-error": {
+    "label": "Describe the error"
   }
 }

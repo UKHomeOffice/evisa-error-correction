@@ -13,6 +13,15 @@
     "header": "Enter your travel document details",
     "intro": "Tell us the details of the document you will use to travel to the UK."
   },
+  "more-details": {
+    "header": "Provide more details about the error with your eVisa",
+    "intro": "Tell us what you were trying to do and what went wrong.",
+    "you-should-include": "You should include:",
+    "step1": "what visa or immigration status you expected to see",
+    "step2": "what your account shows instead",
+    "step3": "any error messages or problems you saw",
+    "intro-continued": "This helps us understand the issue and how to fix it."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -151,6 +160,9 @@
       },
       "representative-type": {
         "label": "Type of support"
+      },
+      "describe-evisa-error": {
+        "label": "Provide more details about the error with your eVisa"
       }
     }
   },
