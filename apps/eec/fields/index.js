@@ -578,5 +578,11 @@ module.exports = {
       { value: 'friend-or-relative' },
       { value: 'support-organisation' }
     ]
+  },
+  'describe-evisa-error': {
+    mixin: 'textarea',
+    validate: ['required', { type: 'maxlength', arguments: 2000 }],
+    attributes: [{ attribute: 'rows', value: 5 }],
+    includeInSummary: true
   }
 };

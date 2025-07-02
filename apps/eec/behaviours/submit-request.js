@@ -62,6 +62,7 @@ module.exports = superclass => class extends superclass {
           formatDate(req.sessionModel.get('booked-travel-date-to-uk')) : '',
         premium: req.sessionModel.get('in-uk') === 'no' ?
           getLabel('premium', req.sessionModel.get('premium')) : '',
+        describe_evisa_error: req.sessionModel.get('describe-evisa-error') || '',
         travel_doc_number: req.sessionModel.get('in-uk') === 'no' ?
           req.sessionModel.get('travel-doc-number') : '',
         travel_doc_nationality: req.sessionModel.get('in-uk') === 'no' ?

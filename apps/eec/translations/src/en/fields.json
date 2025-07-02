@@ -298,5 +298,8 @@
             "label": "Support organisation"
         }
     }
+  },
+  "describe-evisa-error": {
+    "label": "Describe the error"
   }
 }

@@ -72,7 +72,12 @@ module.exports = {
       ]
     },
     '/before-reporting': {
+      next: '/more-details',
+      showNeedHelp: true
+    },
+    '/more-details': {
       next: '/personal-details',
+      fields: ['describe-evisa-error'],
       showNeedHelp: true
     },
     '/problem': {
