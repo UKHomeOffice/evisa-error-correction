@@ -76,7 +76,7 @@ module.exports = {
     }
   }),
   'travel-doc-number': {
-    className: ['govuk-input', 'govuk-!-width-one-third'],
+    className: ['govuk-input', 'govuk-input--width-10'],
     validate: [
       'required',
       'alphanum',
@@ -98,7 +98,8 @@ module.exports = {
     validate: [
       'required',
       'date',
-      { type: 'before', arguments: ['0', 'days'] }
+      { type: 'before', arguments: ['0', 'days'] },
+      { type: 'after', arguments: ['120', 'years'] }
     ]
   }),
   premium: {

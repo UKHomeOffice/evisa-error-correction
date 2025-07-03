@@ -30,7 +30,7 @@
   },
   "travel-doc-nationality": {
     "label": "Country of nationality",
-    "hint": "This is the country of nationality shown on your travel document. Use the English spelling or the countyu code",
+    "hint": "This is the country of nationality shown on your travel document. Use the English spelling or the country code",
     "options": {
       "none_selected": "Select a country"
     }
