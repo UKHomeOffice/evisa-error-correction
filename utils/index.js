@@ -13,6 +13,10 @@ const formatDate = date => {
   return new Intl.DateTimeFormat(config.dateLocales, config.dateFormat).format(dateObj);
 };
 
+function truncate(str = '', maxLen = str.length + 1) {
+  return str.length >= maxLen ? str.slice(0, maxLen).trimEnd() + '...' : str;
+}
+
 /**
  * Generates a useful error message from a typical GovUk Notify Node.js client error reponse object
  *
@@ -28,4 +32,4 @@ const genNotifyErrorMsg = error => {
   return `${errorCode} ${error.message}; ${errorDetails}`;
 };
 
-module.exports = { getLabel, formatDate, genNotifyErrorMsg };
+module.exports = { getLabel, formatDate, genNotifyErrorMsg, truncate };

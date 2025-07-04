@@ -10,6 +10,49 @@
       }
     }
   },
+  "booked-travel": {
+    "legend": "Have you booked your travel to the UK?",
+    "options": {
+      "yes": {
+          "label": "Yes, I have booked my travel"
+      },
+      "no": {
+          "label": "No, I have not booked my travel"
+      }
+    }
+  },
+  "booked-travel-date-to-uk": {
+    "legend": "What date are you leaving to travel the UK?"
+  },
+  "travel-doc-number": {
+    "label": "Document number",
+    "hint": "Passport or Home Office Travel Document number. This can contain letters and numbers. For example, 120383978A"
+  },
+  "travel-doc-nationality": {
+    "label": "Country of nationality",
+    "hint": "This is the country of nationality shown on your travel document. Use the English spelling or the country code",
+    "options": {
+      "none_selected": "Select a country"
+    }
+  },
+  "travel-doc-dob": {
+    "legend": "Date of birth",
+    "hint": "For example, 27 3 2007"
+  },
+  "premium": {
+    "legend": "Did you pay for a priority or super priority service?",
+    "options": {
+      "premium-priority": {
+        "label": "I paid for a priority service"
+      },
+      "premium-super-priority": {
+        "label": "I paid for a super priority service"
+      },
+      "premium-none": {
+        "label": "No, I did not pay for a priority or super priority service"
+      }
+    }
+  },
   "accessing-evisa": {
     "legend": "Are you having problems accessing your eVisa?",
     "options": {
@@ -255,5 +298,8 @@
             "label": "Support organisation"
         }
     }
+  },
+  "describe-evisa-error": {
+    "label": "Describe the error"
   }
 }

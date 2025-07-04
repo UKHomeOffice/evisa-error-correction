@@ -21,6 +21,40 @@ module.exports = {
     '/in-uk': {
       next: '/accessing-evisa',
       fields: ['in-uk'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/booked-travel',
+          condition: {
+            field: 'in-uk',
+            value: 'no'
+          }
+        }
+      ]
+    },
+    '/booked-travel': {
+      next: '/travel-document-details',
+      fields: [
+        'booked-travel',
+        'booked-travel-date-to-uk'
+      ],
+      showNeedHelp: true
+    },
+    '/travel-document-details': {
+      next: '/premium',
+      fields: [
+        'travel-doc-number',
+        'travel-doc-nationality',
+        'travel-doc-dob'
+      ],
+      behaviours: [validateAutocomplete('requestor-nationality')],
+      showNeedHelp: true
+    },
+    '/premium': {
+      next: '/accessing-evisa',
+      fields: [
+        'premium'
+      ],
       showNeedHelp: true
     },
     '/accessing-evisa': {
@@ -38,7 +72,12 @@ module.exports = {
       ]
     },
     '/before-reporting': {
+      next: '/more-details',
+      showNeedHelp: true
+    },
+    '/more-details': {
       next: '/personal-details',
+      fields: ['describe-evisa-error'],
       showNeedHelp: true
     },
     '/problem': {

@@ -45,6 +45,83 @@ module.exports = {
       className: 'govuk-!-margin-bottom-6'
     }
   },
+  'booked-travel': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios'],
+    validate: ['required'],
+    options: [
+      {
+        value: 'yes',
+        toggle: 'booked-travel-date-to-uk-content',
+        child: 'partials/booked-travel-date-to-uk'
+      },
+      {
+        value: 'no'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
+  'booked-travel-date-to-uk': dateComponent('booked-travel-date-to-uk', {
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date'
+    ],
+    validationLink: {
+      field: 'booked-travel',
+      value: 'yes'
+    }
+  }),
+  'travel-doc-number': {
+    className: ['govuk-input', 'govuk-input--width-10'],
+    validate: [
+      'required',
+      'alphanum',
+      { type: 'minlength', arguments: 9 },
+      { type: 'maxlength', arguments: 13 }
+    ]
+  },
+  'travel-doc-nationality': {
+    mixin: 'select',
+    className: ['typeahead'],
+    validate: ['required'],
+    options: [{
+      value: '',
+      label: 'fields.travel-doc-nationality.options.none_selected'
+    }].concat(countries)
+  },
+  'travel-doc-dob': dateComponent('travel-doc-dob', {
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date',
+      { type: 'before', arguments: ['0', 'days'] },
+      { type: 'after', arguments: ['120', 'years'] }
+    ]
+  }),
+  premium: {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
+    validate: 'required',
+    options: [
+      {
+        value: 'premium-priority'
+      },
+      {
+        value: 'premium-super-priority'
+      },
+      {
+        value: 'premium-none'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
   'accessing-evisa': {
     isPageHeading: 'true',
     mixin: 'radio-group',
@@ -502,5 +579,11 @@ module.exports = {
       { value: 'friend-or-relative' },
       { value: 'support-organisation' }
     ]
+  },
+  'describe-evisa-error': {
+    mixin: 'textarea',
+    validate: ['required', { type: 'maxlength', arguments: 2000 }],
+    attributes: [{ attribute: 'rows', value: 5 }],
+    includeInSummary: true
   }
 };
