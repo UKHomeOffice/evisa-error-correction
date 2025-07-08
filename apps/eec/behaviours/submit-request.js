@@ -53,6 +53,22 @@ module.exports = superclass => class extends superclass {
     try {
       businessEmailProps.addPersonalisation({
         in_uk: getLabel('in-uk', req.sessionModel.get('in-uk')),
+        is_not_in_uk: req.sessionModel.get('in-uk') === 'no' ? 'yes' : 'no',
+        booked_travel: req.sessionModel.get('in-uk') === 'no' ?
+          getLabel('booked-travel', req.sessionModel.get('booked-travel')) : '',
+        is_booked_travel: req.sessionModel.get('in-uk') === 'no' ?
+          req.sessionModel.get('booked-travel') : '',
+        booked_travel_date_to_uk: req.sessionModel.get('booked-travel') === 'yes' ?
+          formatDate(req.sessionModel.get('booked-travel-date-to-uk')) : '',
+        premium: req.sessionModel.get('in-uk') === 'no' ?
+          getLabel('premium', req.sessionModel.get('premium')) : '',
+        describe_evisa_error: req.sessionModel.get('describe-evisa-error') || '',
+        travel_doc_number: req.sessionModel.get('in-uk') === 'no' ?
+          req.sessionModel.get('travel-doc-number') : '',
+        travel_doc_nationality: req.sessionModel.get('in-uk') === 'no' ?
+          req.sessionModel.get('travel-doc-nationality') : '',
+        travel_doc_dob: req.sessionModel.get('in-uk') === 'no' ?
+          formatDate(req.sessionModel.get('travel-doc-dob')) : '',
         is_not_accessing_evisa: req.sessionModel.get('accessing-evisa') === 'no' ? 'yes' : 'no',
         accessing_evisa: getLabel('accessing-evisa', req.sessionModel.get('accessing-evisa')),
         accessing_evisa_yesOrNo: req.sessionModel.get('accessing-evisa'),

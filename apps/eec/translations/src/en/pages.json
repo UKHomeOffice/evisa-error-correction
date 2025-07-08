@@ -8,7 +8,20 @@
     "once-you-have-access": "Once you have access to your eVisa, you can sign in to your UKVI account to <a href='https://www.gov.uk/view-prove-immigration-status'>view your eVisa and prove your immigration status</a>.",
     "header2": "If you cannot get into your account",
     "get-help": "Get help if you're having <a href='https://update-your-details.homeoffice.gov.uk/account-recovery/help'>problems signing into your account</a>."
-  }, 
+  },
+  "travel-document-details": {
+    "header": "Enter your travel document details",
+    "intro": "Tell us the details of the document you will use to travel to the UK."
+  },
+  "more-details": {
+    "header": "Provide more details about the error with your eVisa",
+    "intro": "Tell us what you were trying to do and what went wrong.",
+    "you-should-include": "You should include:",
+    "step1": "what visa or immigration status you expected to see",
+    "step2": "what your account shows instead",
+    "step3": "any error messages or problems you saw",
+    "intro-continued": "This helps us understand the issue and how to fix it."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -35,6 +48,12 @@
   },
   "confirm": {
     "sections": {
+      "customer-type": {
+        "header": "Customer type"
+      },
+      "travel-details": {
+        "header": "Travel details"
+      },
       "corrected-details": {
         "header": "Corrected eVisa details"
       },
@@ -48,6 +67,24 @@
     "fields": {
       "in-uk": {
         "label": "In UK"
+      },
+      "booked-travel": {
+        "label": "Booked travel to UK"
+      },
+      "booked-travel-date-to-uk": {
+        "label": "Travel date"
+      },
+      "travel-doc-number": {
+        "label": "Travel document number"
+      },
+      "travel-doc-nationality": {
+        "label": "Country of nationality"
+      },
+      "travel-doc-dob": {
+        "label": "Date of birth"
+      },
+      "premium": {
+        "label": "Priority or super priority"
       },
       "accessing-evisa": {
         "label": "Problem accessing eVisa"
@@ -123,6 +160,9 @@
       },
       "representative-type": {
         "label": "Type of support"
+      },
+      "describe-evisa-error": {
+        "label": "Provide more details about the error with your eVisa"
       }
     }
   },

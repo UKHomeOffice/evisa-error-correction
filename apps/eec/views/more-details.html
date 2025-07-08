@@ -1,0 +1,15 @@
+{{<partials-page}}
+  {{$page-content}}
+    <p class="govuk-body">{{#t}}pages.more-details.you-should-include{{/t}}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{#t}}pages.more-details.step1{{/t}}</li>
+      <li>{{#t}}pages.more-details.step2{{/t}}</li>
+      <li>{{#t}}pages.more-details.step3{{/t}}</li>
+    </ul>
+    <p class="govuk-body">{{#t}}pages.more-details.intro-continued{{/t}}</p>
+    {{#fields}}
+      {{#renderField}}{{/renderField}}
+    {{/fields}}
+    {{#input-submit}}continue{{/input-submit}}
+  {{/page-content}}
+{{/partials-page}}

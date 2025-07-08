@@ -1,11 +1,19 @@
-const { getLabel, formatDate } = require('../../../utils');
+const { getLabel, formatDate, truncate } = require('../../../utils');
 
 function isAccessingEvisa(req) {
   return req.sessionModel.get('accessing-evisa') === 'yes';
 }
 
+function isTravelToUKNotBooked(req) {
+  return req.sessionModel.get('booked-travel') === 'no';
+}
+
+function isInUK(req) {
+  return req.sessionModel.get('in-uk') === 'yes';
+}
+
 module.exports = {
-  'corrected-details': {
+  'customer-type': {
     steps: [
       {
         step: '/in-uk',
@@ -15,6 +23,15 @@ module.exports = {
         step: '/accessing-evisa',
         field: 'accessing-evisa'
       },
+      {
+        step: '/more-details',
+        field: 'describe-evisa-error',
+        parse: val => truncate(val, 500)
+      }
+    ]
+  },
+  'corrected-details': {
+    steps: [
       {
         step: '/problem',
         field: 'detail-full-name',
@@ -79,6 +96,36 @@ module.exports = {
         step: '/problem',
         field: 'detail-other',
         parse: (val, req) => isAccessingEvisa(req) ? '' : val
+      }
+    ]
+  },
+  'travel-details': {
+    steps: [
+      {
+        step: '/booked-travel',
+        field: 'booked-travel'
+      },
+      {
+        step: '/booked-travel',
+        field: 'booked-travel-date-to-uk',
+        parse: (val, req) => isTravelToUKNotBooked(req) || !val ? '' : formatDate(val)
+      },
+      {
+        step: '/travel-document-details',
+        field: 'travel-doc-number'
+      },
+      {
+        step: '/travel-document-details',
+        field: 'travel-doc-nationality'
+      },
+      {
+        step: '/travel-document-details',
+        field: 'travel-doc-dob',
+        parse: (val, req) => isInUK(req) || !val ? '' : formatDate(val)
+      },
+      {
+        step: '/premium',
+        field: 'premium'
       }
     ]
   },

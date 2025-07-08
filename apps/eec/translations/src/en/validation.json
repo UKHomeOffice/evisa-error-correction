@@ -2,6 +2,32 @@
   "in-uk": {
     "required": "Select if you are currently in the UK"
   },
+  "booked-travel": {
+    "required": "Select if you have booked your travel to the UK"
+  },
+  "booked-travel-date-to-uk": {
+    "required": "Enter the correct date your travel was booked",
+    "date": "Enter the correct travel booked date"
+  },
+  "travel-doc-number": {
+    "required": "Enter your document number",
+    "alphanum": "Document number must only include numbers and letters",
+    "minlength": "Document number must be between 9 and 13 characters",
+    "maxlength": "Document number must be between 9 and 13 characters"
+  },
+  "travel-doc-nationality": {
+    "required": "Enter your country of nationality",
+    "invalidOption": "You must choose an option from the provided list"
+  },
+  "travel-doc-dob": {
+    "required": "Enter your date of birth",
+    "date": "The date must only contain numbers. For example, 31 3 1980",
+    "before": "Date of birth must be in the past",
+    "after": "Enter a real date of birth"
+  },
+  "premium": {
+    "required": "Select if you have paid for a priority or super priority service"
+  },
   "accessing-evisa": {
     "required": "Select if you are having problems accessing your eVisa"
   },
@@ -130,5 +156,9 @@
   },
   "representative-type": {
     "required": "Select which type of support you are to the requestor"
+  },
+  "describe-evisa-error" : {
+    "required": "Enter the error with your eVisa",
+    "maxlength": "You have exceeded the 2000 character limit"
   }
 }
