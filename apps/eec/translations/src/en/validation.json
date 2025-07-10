@@ -34,6 +34,9 @@
   "trying-to-do": {
     "required": "Select what you are trying to do"
   },
+  "trying-to-do": {
+    "required": "Select what you are trying to do"
+  },
   "problem": {
     "required": "Select what the problem is"
   },
