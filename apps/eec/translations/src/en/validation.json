@@ -31,6 +31,9 @@
   "accessing-evisa": {
     "required": "Select if you are having problems accessing your eVisa"
   },
+  "trying-to-do": {
+    "required": "Select what you are trying to do"
+  },
   "problem": {
     "required": "Select what the problem is"
   },

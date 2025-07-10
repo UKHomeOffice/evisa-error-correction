@@ -58,7 +58,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/accessing-evisa': {
-      next: '/problem',
+      next: '/trying-to-do',
       fields: ['accessing-evisa'],
       showNeedHelp: true,
       forks: [
@@ -70,6 +70,13 @@ module.exports = {
           }
         }
       ]
+    },
+    '/trying-to-do': {
+      next: '/problem',
+      fields: [
+        'trying-to-do'
+      ],
+      showNeedHelp: true
     },
     '/before-reporting': {
       next: '/more-details',

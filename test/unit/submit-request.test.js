@@ -51,6 +51,7 @@ describe('submit-feedback behaviour', () => {
       req.sessionModel = new Model({
         problem: ['problem-photo', 'problem-nin'],
         premium: ['premium-super-priority'],
+        'trying-to-do': ['trying-to-report-error'],
         'in-uk': 'no',
         'booked-travel': 'yes',
         'booked-travel-date-to-uk': '2025-06-24',

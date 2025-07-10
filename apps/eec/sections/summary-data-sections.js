@@ -24,6 +24,10 @@ module.exports = {
         field: 'accessing-evisa'
       },
       {
+        step: '/trying-to-do',
+        field: 'trying-to-do'
+      },
+      {
         step: '/more-details',
         field: 'describe-evisa-error',
         parse: val => truncate(val, 500)
