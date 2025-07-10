@@ -54,13 +54,15 @@
     }
   },
   "accessing-evisa": {
-    "legend": "Are you having problems accessing your eVisa?",
+    "legend": "Can you access your eVisa?",
     "options": {
       "yes": {
-          "label": "Yes, I cannot see my eVisa when I sign in to my UKVI account"
+          "label": "Yes, I can see an eVisa in my UKVI account",
+          "hint": "You should still choose this if some details are incorrect"
       },
       "no": {
-          "label": "No, the problem is something else"
+          "label": "No, I cannot access my eVisa or UKVI account",
+          "hint": "This could be because you cannot see an eVisa in your account, you donot have an account or you cannot sign in"
       }
     }
   },

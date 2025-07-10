@@ -66,7 +66,7 @@ module.exports = {
           target: '/before-reporting',
           condition: {
             field: 'accessing-evisa',
-            value: 'yes'
+            value: 'no'
           }
         }
       ]
