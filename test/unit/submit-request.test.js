@@ -57,7 +57,8 @@ describe('submit-feedback behaviour', () => {
         'travel-doc-number': '120383978A',
         'travel-doc-nationality': 'France',
         'travel-doc-dob': '1987-08-14',
-        'accessing-evisa': 'no',
+        'accessing-evisa': 'yes',
+        'asylum-support': 'no',
         'detail-photo': 'photo bad',
         'detail-nin': 'QQ123456A',
         'requestor-full-name': 'test user',
@@ -105,7 +106,7 @@ describe('submit-feedback behaviour', () => {
         .toHaveBeenLastCalledWith('123-456', 'sas-hof-test@digital.homeoffice.gov.uk', emailProps);
     });
 
-    test('Notify sendEmail to business is called with the correct props', async () => {
+    test('Notify sendEmail to business is called with the correct props', async () => {      
       emailProps = {
         personalisation: {
           in_uk: 'No',
@@ -117,9 +118,10 @@ describe('submit-feedback behaviour', () => {
           travel_doc_nationality: 'France',
           travel_doc_dob: '14/08/1987',
           premium: 'I paid for a super priority service',
-          is_not_accessing_evisa: 'yes',
-          accessing_evisa: 'No, the problem is something else',
-          accessing_evisa_yesOrNo: 'no',
+          accessing_evisa: 'Yes, I can see an eVisa in my UKVI account',
+          accessing_evisa_not_possible: "no",
+          accessing_evisa_possible: "yes",
+          asylum_support: "No",
           full_name: 'test user',
           date_of_birth: '14/08/1987',
           describe_evisa_error: 'There is an error with my evisa',
@@ -144,6 +146,7 @@ describe('submit-feedback behaviour', () => {
     test('Business sendEmail is called with the correct props if only one problem had been added', async () => {
       req.sessionModel.set('problem', 'problem-full-name');
       req.sessionModel.set('detail-full-name', 'Corrected name');
+      req.sessionModel.set('asylum-support', 'Yes');
       req.sessionModel.unset('detail-photo');
       req.sessionModel.unset('detail-nin');
 
@@ -158,9 +161,9 @@ describe('submit-feedback behaviour', () => {
           travel_doc_nationality: 'France',
           travel_doc_dob: '14/08/1987',
           premium: 'I paid for a super priority service',
-          is_not_accessing_evisa: 'yes',
-          accessing_evisa: 'No, the problem is something else',
-          accessing_evisa_yesOrNo: 'no',
+          accessing_evisa: 'Yes, I can see an eVisa in my UKVI account',
+          accessing_evisa_not_possible: "no",
+          accessing_evisa_possible: "yes",
           full_name: 'test user',
           date_of_birth: '14/08/1987',
           describe_evisa_error: 'There is an error with my evisa',
@@ -196,9 +199,10 @@ describe('submit-feedback behaviour', () => {
           travel_doc_nationality: 'France',
           travel_doc_dob: '14/08/1987',
           premium: 'I paid for a super priority service',
-          is_not_accessing_evisa: 'yes',
-          accessing_evisa: 'No, the problem is something else',
-          accessing_evisa_yesOrNo: 'no',
+          accessing_evisa: "Yes, I can see an eVisa in my UKVI account",
+          accessing_evisa_not_possible: "no",
+          accessing_evisa_possible: "yes",
+          asylum_support: "No",
           full_name: 'test user',
           date_of_birth: '14/08/1987',
           describe_evisa_error: 'There is an error with my evisa',
