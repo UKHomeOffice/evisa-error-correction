@@ -1,4 +1,24 @@
 {
+  "prove-status-before-reporting": {
+    "header": "Before you report an error with your eVisa",
+    "prove-your-immigration-status": "You can <a href='https://www.gov.uk/evisa/view-evisa-get-share-code-prove-immigration-status' target='_blank'>view your eVisa and get a share code to prove your immigration status online (opens in new tab)</a>.",
+    "use-this-service": "You can use this service to:",
+    "step1": "view your eVisa (online immigration status) - this shows what rights you have in the UK, for example to work, rent or claim benefits",
+    "step2": "get a share code to prove your immigration status to other people, for example employers, landlords or airline staff",
+    "get-help": "You can also <a href='https://ukimmigration-support-webchat.homeoffice.gov.uk/evisa' target='_blank'>ask for help (opens in new tab)</a>.",
+    "header2": "If there is still a problem",
+    "continue-report-error": "You can continue to report an error with your eVisa.",
+    "finish-and-return": "<a class='govuk-link' href='https://www.gov.uk'>Finish and return to GOV.UK</a>"
+  },
+  "update-details-before-reporting": {
+    "header": "Before you report an error with your eVisa",
+    "update-your-ukvi-account-details": "You can <a href='https://www.gov.uk/evisa/update-ukvi-account' target='_blank'>update your UK Visas and Immigration account details (opens in new tab)</a>.",
+    "service-info": "This service will only update your UKVI account details. You cannot update any immigration details, for example change a visa or citizenship application.",
+    "get-help": "You can also <a href='https://ukimmigration-support-webchat.homeoffice.gov.uk/evisa' target='_blank'>ask for help (opens in new tab)</a> updating your UKVI account details.",
+    "header2": "If there is still a problem",
+    "continue-report-error": "You can continue to report an error with your eVisa.",
+    "finish-and-return": "<a class='govuk-link' href='https://www.gov.uk'>Finish and return to GOV.UK</a>"
+  },
   "before-reporting": {
     "header": "Before you report an error with your eVisa",
     "check-three-steps-for-access": "Check that you have completed the 3 steps to get <a href='https://www.gov.uk/get-access-evisa'>get access to your eVisa</a>.",

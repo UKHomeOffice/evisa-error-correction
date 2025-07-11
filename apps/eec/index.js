@@ -73,9 +73,31 @@ module.exports = {
     },
     '/trying-to-do': {
       next: '/problem',
-      fields: [
-        'trying-to-do'
-      ],
+      fields: ['trying-to-do'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/prove-status-before-reporting',
+          condition: {
+            field: 'trying-to-do',
+            value: 'trying-to-prove-status'
+          }
+        },
+        {
+          target: '/update-details-before-reporting',
+          condition: {
+            field: 'trying-to-do',
+            value: 'trying-to-update-details'
+          }
+        }
+      ]
+    },
+    '/prove-status-before-reporting': {
+      next: '/problem',
+      showNeedHelp: true
+    },
+    '/update-details-before-reporting': {
+      next: '/problem',
       showNeedHelp: true
     },
     '/before-reporting': {
