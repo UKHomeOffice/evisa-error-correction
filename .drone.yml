@@ -114,6 +114,8 @@ steps:
         path: /root/.dockersock
     when:
       event: [push, pull_request]
+    depends_on:
+      - clone_repos
 
   - name: setup
     <<: *node_image
@@ -154,10 +156,11 @@ steps:
         <<: *include_default_and_feature_branches
       event: [push, pull_request]
 
-  - name: build_image
+  - name: build_image_for_trivy
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     commands:
-      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
+      # wait for docker service to be up before running docker build
+      - /usr/local/bin/wait
       - docker build --no-cache -t $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} .
     volumes:
       - name: dockersock
@@ -171,6 +174,7 @@ steps:
       - unit_tests
 
   - name: build_image_and_push_to_ecr
+    pull: if-not-exists
     image: plugins/ecr
     settings:
       access_key:
@@ -189,6 +193,7 @@ steps:
     depends_on:
       - linting
       - unit_tests
+      - build_image_for_trivy
 
   # Trivy Security Scannner for scanning nodejs packages in Yarn
   - name: scan_node_packages
@@ -209,7 +214,7 @@ steps:
     when:
       event: [push, pull_request]
     depends_on:
-      - build_image
+      - build_image_for_trivy
 
   # Deploy to pull request UAT environment
   - name: deploy_to_branch
@@ -288,6 +293,7 @@ steps:
       event: push
     depends_on:
       - get_pr_branch
+      - deploy_to_uat
 
   # Deploy to Staging environment
   - name: deploy_to_stg
@@ -332,6 +338,7 @@ steps:
         from_secret: drone_git_token
     commands:
       - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+      - find hof-services-config/* | grep -v $HOF_CONFIG | grep -v 'infrastructure' | xargs rm -rf
     when:
       target: PROD
       event: promote
@@ -380,6 +387,7 @@ steps:
         from_secret: drone_git_token
     commands:
       - git clone https://$${DRONE_GIT_USERNAME}:$${DRONE_GIT_TOKEN}@github.com/UKHomeOfficeForms/hof-services-config.git
+      - find hof-services-config/* | grep -v $HOF_CONFIG | grep -v 'infrastructure' | xargs rm -rf
     when:
       cron: security_scans
       event: cron
@@ -387,6 +395,8 @@ steps:
   - name: cron_build_image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     commands:
+      # wait for docker service to be up before running docker build
+      - /usr/local/bin/wait
       - docker build --no-cache -t $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} .
     volumes:
       - name: dockersock
@@ -394,6 +404,22 @@ steps:
     when:
       cron: security_scans
       event: cron
+    depends_on:
+      - cron_clone_repos
+
+  - name: cron_trivy_scan_image_os
+    <<: *trivy-client-image
+    environment:
+        IMAGE_NAME: node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
+        SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
+        FAIL_ON_DETECTION: true
+        IGNORE_UNFIXED: false
+        ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
+    when:
+      cron: security_scans
+      event: cron
+    depends_on:
+      - cron_clone_repos
 
   - name: cron_trivy_scan_node_packages
     <<: *trivy-client-image
@@ -401,24 +427,17 @@ steps:
         IMAGE_NAME: sas/eec:${DRONE_COMMIT_SHA}
         SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
         SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
-        FAIL_ON_DETECTION: false
+        FAIL_ON_DETECTION: true
         IGNORE_UNFIXED: false
         ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     when:
       cron: security_scans
       event: cron
-
-  - name: cron_trivy_scan_image_os
-    <<: *trivy-client-image
-    environment:
-        IMAGE_NAME: node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
-        SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
-        FAIL_ON_DETECTION: false
-        IGNORE_UNFIXED: false
-        ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
-    when:
-      cron: security_scans
-      event: cron
+      status:
+        - success
+        - failure
+    depends_on:
+      - cron_build_image
 
   # Slack notification upon a CRON job fail
   - name: cron_notify_slack_tear_down_pr_envs
@@ -441,10 +460,12 @@ steps:
       cron: tear_down_pr_envs
       event: cron
       status: failure
+    depends_on:
+      - cron_tear_down
   
   - name: cron_notify_slack_security_scans
     pull: if-not-exists
-    image: plugins/slack
+    image: plugins/slack:1.4.1
     settings:
       channel: sas-hof-security
       failure: ignore
@@ -461,7 +482,11 @@ steps:
     when:
       cron: security_scans
       event: cron
-      status: failure
+      status:
+        - failure
+    depends_on:
+      - cron_trivy_scan_image_os
+      - cron_trivy_scan_node_packages
 
 services:
   - name: docker
