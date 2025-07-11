@@ -1,0 +1,18 @@
+{{<partials-page}}
+  {{$page-content}}
+    <p class="govuk-body">{{#t}}pages.prove-status-before-reporting.prove-your-immigration-status{{/t}}</p>
+    <p class="govuk-body">{{#t}}pages.prove-status-before-reporting.use-this-service{{/t}}</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>{{#t}}pages.prove-status-before-reporting.step1{{/t}}</li>
+      <li>{{#t}}pages.prove-status-before-reporting.step2{{/t}}</li>
+    </ul>
+    <p class="govuk-body">{{#t}}pages.prove-status-before-reporting.get-help{{/t}}</p>
+    <h2 class="govuk-heading-m">{{#t}}pages.prove-status-before-reporting.header2{{/t}}</h2>
+
+    <p class="govuk-body">{{#t}}pages.prove-status-before-reporting.continue-report-error{{/t}}</p>
+    <div class="govuk-button-group">
+      {{#input-submit}}continue-to-report-an-error{{/input-submit}}
+      {{#t}}pages.prove-status-before-reporting.finish-and-return{{/t}}
+    </div>
+  {{/page-content}}
+{{/partials-page}}
