@@ -107,7 +107,7 @@ describe('submit-feedback behaviour', () => {
         .toHaveBeenLastCalledWith('123-456', 'sas-hof-test@digital.homeoffice.gov.uk', emailProps);
     });
 
-    test('Notify sendEmail to business is called with the correct props', async () => {      
+    test('Notify sendEmail to business is called with the correct props', async () => {
       emailProps = {
         personalisation: {
           in_uk: 'No',
