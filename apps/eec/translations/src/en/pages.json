@@ -21,13 +21,21 @@
   },
   "before-reporting": {
     "header": "Before you report an error with your eVisa",
-    "check-three-steps-for-access": "Check that you have completed the 3 steps to get <a href='https://www.gov.uk/get-access-evisa'>get access to your eVisa</a>.",
-    "step1": "Create a UKVI account",
-    "step2": "Confirm your identity",
-    "step3": "Link your eVisa to your account",
-    "once-you-have-access": "Once you have access to your eVisa, you can sign in to your UKVI account to <a href='https://www.gov.uk/view-prove-immigration-status'>view your eVisa and prove your immigration status</a>.",
-    "header2": "If you cannot get into your account",
-    "get-help": "Get help if you're having <a href='https://update-your-details.homeoffice.gov.uk/account-recovery/help'>problems signing into your account</a>."
+    "header1-list-intro": "Check that you have completed the 3 steps to <a href='https://www.gov.uk/evisa/set-up-ukvi-account' target='_blank'>get access to your eVisa (opens in new tab)</a>.",
+    "step1": "Create a UKVI account.",
+    "step2": "Confirm your identity.",
+    "step3": "Link your eVisa to your account.",
+    "header1-paragraph1": "You can <a href='https://ukimmigration-support-webchat.homeoffice.gov.uk/evisa)' target='_blank'>ask for help (opens in new tab)</a> creating a UKVI account and getting access to an eVisa.",
+    "header1-paragraph2": "When you have linked your eVisa, you can sign in to your UKVI account to <a href='https://www.gov.uk/evisa/view-evisa-get-share-code-prove-immigration-status' target='_blank'>view your eVisa and prove your immigration status (opens in new tab)</a>.",
+    "header2": "If you have a UKVI account and have updated your details",
+    "header2-paragraph1": "The document you used to confirm your identity will have replaced your sign in details for your account.",
+    "header3": "If the Home Office set up your UKVI account and you have never been able to access it",
+    "header3-paragraph1": "You can <a href=''>tell us the correct email address and phone number you will use for your account</a>.",
+    "header4": "If you cannot sign in to your account",
+    "header4-paragraph1": "You can <a href='https://update-your-details.homeoffice.gov.uk/account-recovery/help' target='_blank'>recover your UKVI account (opens in new tab)</a> if you are having problems signing in.",
+    "header5": "If there is still a problem",
+    "header5-paragraph1": "You can continue to report an error with your eVisa.",
+    "finish-and-return": "Finish and return to GOV.UK"
   },
   "travel-document-details": {
     "header": "Enter your travel document details",
