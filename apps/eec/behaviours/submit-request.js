@@ -69,9 +69,9 @@ module.exports = superclass => class extends superclass {
           req.sessionModel.get('travel-doc-nationality') : '',
         travel_doc_dob: req.sessionModel.get('in-uk') === 'no' ?
           formatDate(req.sessionModel.get('travel-doc-dob')) : '',
-        is_not_accessing_evisa: req.sessionModel.get('accessing-evisa') === 'no' ? 'yes' : 'no',
         accessing_evisa: getLabel('accessing-evisa', req.sessionModel.get('accessing-evisa')),
-        accessing_evisa_yesOrNo: req.sessionModel.get('accessing-evisa'),
+        accessing_evisa_possible: req.sessionModel.get('accessing-evisa'),
+        accessing_evisa_not_possible: req.sessionModel.get('accessing-evisa') === 'no' ? 'yes' : 'no',
         full_name: req.sessionModel.get('requestor-full-name'),
         date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
         nationality: req.sessionModel.get('requestor-nationality'),
@@ -79,7 +79,7 @@ module.exports = superclass => class extends superclass {
         is_refugee: getLabel('is-refugee', req.sessionModel.get('is-refugee')),
         asylum_support: req.sessionModel.get('is-refugee') === 'yes' ?
           getLabel('asylum-support', req.sessionModel.get('asylum-support')) : '',
-        problem_notes: req.sessionModel.get('accessing-evisa') === 'no' ? buildProblemNotes(req) : '',
+        problem_notes: req.sessionModel.get('accessing-evisa') === 'yes' ? buildProblemNotes(req) : '',
         contact_email: req.sessionModel.get('requestor-contact-method') === 'email' ?
           req.sessionModel.get('requestor-email') : 'none provided',
         contact_address: req.sessionModel.get('requestor-contact-method') === 'uk-address' ?

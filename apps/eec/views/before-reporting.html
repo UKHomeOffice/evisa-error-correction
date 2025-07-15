@@ -1,15 +1,30 @@
 {{<partials-page}}
   {{$page-content}}
-    <p class="govuk-body">{{#t}}pages.before-reporting.check-three-steps-for-access{{/t}}</p>
-    <ul class="govuk-list govuk-list--bullet">
+    <p class="govuk-body">{{#t}}pages.before-reporting.header1-list-intro{{/t}}</p>
+    <ol class="govuk-list govuk-list--number">
       <li>{{#t}}pages.before-reporting.step1{{/t}}</li>
       <li>{{#t}}pages.before-reporting.step2{{/t}}</li>
       <li>{{#t}}pages.before-reporting.step3{{/t}}</li>
-    </ul>
-    <p class="govuk-body">{{#t}}pages.before-reporting.once-you-have-access{{/t}}</p>
-    <h2 class="govuk-heading-m">{{#t}}pages.before-reporting.header2{{/t}}</h2>
+    </ol>
 
-    <p class="govuk-body">{{#t}}pages.before-reporting.get-help{{/t}}</p>
-    {{#input-submit}}continue-to-report-an-error{{/input-submit}}
+    <p class="govuk-body">{{#t}}pages.before-reporting.header1-paragraph1{{/t}}</p>
+    <p class="govuk-body">{{#t}}pages.before-reporting.header1-paragraph2{{/t}}</p>
+
+    <h2 class="govuk-heading-m">{{#t}}pages.before-reporting.header2{{/t}}</h2>
+    <p class="govuk-body">{{#t}}pages.before-reporting.header2-paragraph1{{/t}}</p>
+
+    <h2 class="govuk-heading-m">{{#t}}pages.before-reporting.header3{{/t}}</h2>
+    <p class="govuk-body">{{#t}}pages.before-reporting.header3-paragraph1{{/t}}</p>
+
+    <h2 class="govuk-heading-m">{{#t}}pages.before-reporting.header4{{/t}}</h2>
+    <p class="govuk-body">{{#t}}pages.before-reporting.header4-paragraph1{{/t}}</p>
+
+    <h2 class="govuk-heading-m">{{#t}}pages.before-reporting.header5{{/t}}</h2>
+    <p class="govuk-body">{{#t}}pages.before-reporting.header5-paragraph1{{/t}}</p>
+
+    <div class="govuk-button-group">
+      {{#input-submit}}continue-to-report-an-error{{/input-submit}}  
+      <a class="govuk-link" href="https://www.gov.uk">{{#t}}pages.before-reporting.finish-and-return{{/t}}</a>
+    </div>
   {{/page-content}}
 {{/partials-page}}
