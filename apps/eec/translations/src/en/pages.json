@@ -30,7 +30,7 @@
     "header2": "If you have a UKVI account and have updated your details",
     "header2-paragraph1": "The document you used to confirm your identity will have replaced your sign in details for your account.",
     "header3": "If the Home Office set up your UKVI account and you have never been able to access it",
-    "header3-paragraph1": "You can <a href=''>tell us the correct email address and phone number you will use for your account</a>.",
+    "header3-paragraph1": "You can <button type='submit' value='yes' name='problem-redirect' class='link-button'><a class='govuk-link'>tell us the correct email address and phone number you will use for your account</a></button>.",
     "header4": "If you cannot sign in to your account",
     "header4-paragraph1": "You can <a href='https://update-your-details.homeoffice.gov.uk/account-recovery/help' target='_blank'>recover your UKVI account (opens in new tab)</a> if you are having problems signing in.",
     "header5": "If there is still a problem",
