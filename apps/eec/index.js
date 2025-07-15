@@ -102,7 +102,17 @@ module.exports = {
     },
     '/before-reporting': {
       next: '/more-details',
-      showNeedHelp: true
+      fields: ['problem-redirect'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/problem',
+          condition: {
+            field: 'problem-redirect',
+            value: 'yes'
+          }
+        }
+      ]
     },
     '/more-details': {
       next: '/personal-details',
