@@ -62,6 +62,7 @@ module.exports = superclass => class extends superclass {
           formatDate(req.sessionModel.get('booked-travel-date-to-uk')) : '',
         premium: req.sessionModel.get('in-uk') === 'no' ?
           getLabel('premium', req.sessionModel.get('premium')) : '',
+        described_evisa_error: req.sessionModel.get('describe-evisa-error') ? 'yes' : 'no',
         describe_evisa_error: req.sessionModel.get('describe-evisa-error') || '',
         travel_doc_number: req.sessionModel.get('in-uk') === 'no' ?
           req.sessionModel.get('travel-doc-number') : '',
@@ -71,7 +72,8 @@ module.exports = superclass => class extends superclass {
           formatDate(req.sessionModel.get('travel-doc-dob')) : '',
         accessing_evisa: getLabel('accessing-evisa', req.sessionModel.get('accessing-evisa')),
         accessing_evisa_possible: req.sessionModel.get('accessing-evisa'),
-        accessing_evisa_not_possible: req.sessionModel.get('accessing-evisa') === 'no' ? 'yes' : 'no',
+        trying_to_do: req.sessionModel.get('accessing-evisa') === 'yes' ?
+          getLabel('trying-to-do', req.sessionModel.get('trying-to-do')) : '',
         full_name: req.sessionModel.get('requestor-full-name'),
         date_of_birth: formatDate(req.sessionModel.get('requestor-dob')),
         nationality: req.sessionModel.get('requestor-nationality'),
@@ -79,7 +81,8 @@ module.exports = superclass => class extends superclass {
         is_refugee: getLabel('is-refugee', req.sessionModel.get('is-refugee')),
         asylum_support: req.sessionModel.get('is-refugee') === 'yes' ?
           getLabel('asylum-support', req.sessionModel.get('asylum-support')) : '',
-        problem_notes: req.sessionModel.get('accessing-evisa') === 'yes' ? buildProblemNotes(req) : '',
+        corrected_evisa_details: req.sessionModel.get('problem') ? 'yes' : 'no',
+        problem_notes: req.sessionModel.get('problem') ? buildProblemNotes(req) : '',
         contact_email: req.sessionModel.get('requestor-contact-method') === 'email' ?
           req.sessionModel.get('requestor-email') : 'none provided',
         contact_address: req.sessionModel.get('requestor-contact-method') === 'uk-address' ?
