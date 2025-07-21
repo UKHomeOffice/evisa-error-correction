@@ -148,7 +148,6 @@ describe('submit-feedback behaviour', () => {
         .toHaveBeenCalledWith('456-789', 'sas-hof-test@digital.homeoffice.gov.uk', emailProps);
     });
 
-
     test('Notify sendEmail to business is called with the correct props if has no access to eVisa', async () => {
       req.sessionModel.set('accessing-evisa', 'no');
       req.sessionModel.unset('trying-to-do');
