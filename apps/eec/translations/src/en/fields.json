@@ -83,23 +83,6 @@
       }
     }
   },
-  "trying-to-do": {
-    "legend": "What are you trying to do?",
-    "options": {
-      "trying-to-prove-status": {
-        "label": "View your eVisa or prove your immigration status",
-        "hint": "For example, check your permission or get a share code to send to a landlord or employer"
-      },
-      "trying-to-update-details": {
-        "label": "Update your UKVI account details",
-        "hint": "For example, your email address, phone number, photo or identity document"
-      },
-      "trying-to-report-error": {
-        "label": "Report an error with your eVisa",
-        "hint": "For example, there is a mistake with the details on your eVisa or something has gone wrong"
-      }
-    }
-  },
   "problem": {
     "legend": "What is the problem with your eVisa?",
     "hint": "You can select more than one option",
