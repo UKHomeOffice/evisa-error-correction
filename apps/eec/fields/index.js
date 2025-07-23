@@ -76,12 +76,12 @@ module.exports = {
     }
   }),
   'travel-doc-number': {
-    className: ['govuk-input', 'govuk-input--width-10'],
+    className: ['govuk-input', 'govuk-input--width-20'],
     validate: [
       'required',
       'alphanum',
-      { type: 'minlength', arguments: 9 },
-      { type: 'maxlength', arguments: 13 }
+      { type: 'minlength', arguments: 1 },
+      { type: 'maxlength', arguments: 22 }
     ]
   },
   'travel-doc-nationality': {

@@ -12,8 +12,8 @@
   "travel-doc-number": {
     "required": "Enter your document number",
     "alphanum": "Document number must only include numbers and letters",
-    "minlength": "Document number must be between 9 and 13 characters",
-    "maxlength": "Document number must be between 9 and 13 characters"
+    "minlength": "Document number must be between 1 and 22 characters",
+    "maxlength": "Document number must be between 1 and 22 characters"
   },
   "travel-doc-nationality": {
     "required": "Enter your country of nationality",
