@@ -62,7 +62,7 @@
       },
       "no": {
           "label": "No, I cannot access my eVisa or UKVI account",
-          "hint": "This could be because you cannot see an eVisa in your account, you donot have an account or you cannot sign in"
+          "hint": "This could be because you cannot see an eVisa in your account, you do not have an account or you cannot sign in"
       }
     }
   },
