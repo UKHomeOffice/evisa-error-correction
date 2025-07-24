@@ -1,14 +1,6 @@
 {
   "prove-status-before-reporting": {
-    "header": "Before you report an error with your eVisa",
-    "prove-your-immigration-status": "You can <a href='https://www.gov.uk/evisa/view-evisa-get-share-code-prove-immigration-status' target='_blank'>view your eVisa and get a share code to prove your immigration status online (opens in new tab)</a>.",
-    "use-this-service": "You can use this service to:",
-    "step1": "view your eVisa (online immigration status) - this shows what rights you have in the UK, for example to work, rent or claim benefits",
-    "step2": "get a share code to prove your immigration status to other people, for example employers, landlords or airline staff",
-    "get-help": "You can also <a href='https://ukimmigration-support-webchat.homeoffice.gov.uk/evisa' target='_blank'>ask for help (opens in new tab)</a> viewing and sharing your immigration status.",
-    "header2": "If there is still a problem",
-    "continue-report-error": "You can continue to report an error with your eVisa.",
-    "finish-and-return": "<a class='govuk-link' href='https://www.gov.uk'>Finish and return to GOV.UK</a>"
+    "header": "Before you report an error with your eVisa"
   },
   "update-details-before-reporting": {
     "header": "Before you report an error with your eVisa",
