@@ -34,8 +34,7 @@ module.exports = {
     steps: [
       {
         step: '/problem',
-        field: 'detail-full-name',
-        parse: val => !val ? '' : val
+        field: 'detail-full-name'
       },
       {
         step: '/problem',
@@ -44,58 +43,47 @@ module.exports = {
       },
       {
         step: '/problem',
-        field: 'detail-nationality',
-        parse: val => !val ? '' : val
+        field: 'detail-nationality'
       },
       {
         step: '/problem',
-        field: 'detail-status',
-        parse: val => !val ? '' : val
+        field: 'detail-status'
       },
       {
         step: '/problem',
-        field: 'detail-valid-from',
-        parse: val => !val ? '' : val
+        field: 'detail-valid-from'
       },
       {
         step: '/problem',
-        field: 'detail-valid-until',
-        parse: val => !val ? '' : val
+        field: 'detail-valid-until'
       },
       {
         step: '/problem',
-        field: 'detail-nin',
-        parse: val => !val ? '' : val
+        field: 'detail-nin'
       },
       {
         step: '/problem',
-        field: 'detail-photo',
-        parse: val => !val ? '' : val
+        field: 'detail-photo'
       },
       {
         step: '/problem',
-        field: 'detail-restrictions',
-        parse: val => !val ? '' : val
+        field: 'detail-restrictions'
       },
       {
         step: '/problem',
-        field: 'detail-share-code',
-        parse: val => !val ? '' : val
+        field: 'detail-share-code'
       },
       {
         step: '/problem',
-        field: 'detail-signin-email',
-        parse: val => !val ? '' : val
+        field: 'detail-signin-email'
       },
       {
         step: '/problem',
-        field: 'detail-signin-phone',
-        parse: val => !val ? '' : val
+        field: 'detail-signin-phone'
       },
       {
         step: '/problem',
-        field: 'detail-other',
-        parse: val => !val ? '' : val
+        field: 'detail-other'
       }
     ]
   },
