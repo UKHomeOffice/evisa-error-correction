@@ -3,13 +3,7 @@
     "header": "Before you report an error with your eVisa"
   },
   "update-details-before-reporting": {
-    "header": "Before you report an error with your eVisa",
-    "update-your-ukvi-account-details": "You can <a href='https://www.gov.uk/evisa/update-ukvi-account' target='_blank'>update your UK Visas and Immigration account details (opens in new tab)</a>.",
-    "service-info": "This service will only update your UKVI account details. You cannot update any immigration details, for example change a visa or citizenship application.",
-    "get-help": "You can also <a href='https://ukimmigration-support-webchat.homeoffice.gov.uk/evisa' target='_blank'>ask for help (opens in new tab)</a> updating your UKVI account details.",
-    "header2": "If there is still a problem",
-    "continue-report-error": "You can continue to report an error with your eVisa.",
-    "finish-and-return": "<a class='govuk-link' href='https://www.gov.uk'>Finish and return to GOV.UK</a>"
+    "header": "Before you report an error with your eVisa"
   },
   "before-reporting": {
     "header": "Before you report an error with your eVisa",
