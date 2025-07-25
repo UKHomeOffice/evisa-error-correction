@@ -215,8 +215,25 @@ pre.looped-records {
 }
 
 .link-button {
-  display: contents; 
+  all: unset;
   font: inherit;
+  cursor: pointer;
+  display: contents;
+}
+
+.link-button-text {
   color: #1d70b8;
-  background-color: rgba(255, 255, 255, 0);
+  text-decoration: underline;
+}
+
+.link-button-text:hover {
+  color: #003078;
+  text-decoration: underline;
+}
+
+.link-button-text:focus {
+  outline: 3px solid transparent;
+  background-color: #ffdd00;
+  box-shadow: 0 -2px #ffdd00, 0 4px #0b0c0c;
+  text-decoration: none;
 }
