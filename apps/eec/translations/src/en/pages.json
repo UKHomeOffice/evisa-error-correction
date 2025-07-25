@@ -1,13 +1,12 @@
 {
+  "prove-status-before-reporting": {
+    "header": "Before you report an error with your eVisa"
+  },
+  "update-details-before-reporting": {
+    "header": "Before you report an error with your eVisa"
+  },
   "before-reporting": {
-    "header": "Before you report an error with your eVisa",
-    "check-three-steps-for-access": "Check that you have completed the 3 steps to get <a href='https://www.gov.uk/get-access-evisa'>get access to your eVisa</a>.",
-    "step1": "Create a UKVI account",
-    "step2": "Confirm your identity",
-    "step3": "Link your eVisa to your account",
-    "once-you-have-access": "Once you have access to your eVisa, you can sign in to your UKVI account to <a href='https://www.gov.uk/view-prove-immigration-status'>view your eVisa and prove your immigration status</a>.",
-    "header2": "If you cannot get into your account",
-    "get-help": "Get help if you're having <a href='https://update-your-details.homeoffice.gov.uk/account-recovery/help'>problems signing into your account</a>."
+    "header": "Before you report an error with your eVisa"
   },
   "travel-document-details": {
     "header": "Enter your travel document details",
@@ -87,7 +86,10 @@
         "label": "Priority or super priority"
       },
       "accessing-evisa": {
-        "label": "Problem accessing eVisa"
+        "label": "Can you access your eVisa?"
+      },
+      "trying-to-do": {
+        "label": "What are you trying to do?"
       },
       "detail-full-name": {
         "label": "Name"

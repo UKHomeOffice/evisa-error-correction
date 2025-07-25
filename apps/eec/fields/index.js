@@ -139,6 +139,26 @@ module.exports = {
       className: 'govuk-!-margin-bottom-6'
     }
   },
+  'trying-to-do': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios', 'govuk-radios--inline'],
+    validate: 'required',
+    options: [
+      {
+        value: 'trying-to-prove-status'
+      },
+      {
+        value: 'trying-to-update-details'
+      },
+      {
+        value: 'trying-to-report-error'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
+  },
   problem: {
     mixin: 'checkbox-group',
     validate: ['required'],

@@ -54,13 +54,32 @@
     }
   },
   "accessing-evisa": {
-    "legend": "Are you having problems accessing your eVisa?",
+    "legend": "Can you access your eVisa?",
     "options": {
       "yes": {
-          "label": "Yes, I cannot see my eVisa when I sign in to my UKVI account"
+          "label": "Yes, I can see an eVisa in my UKVI account",
+          "hint": "You should still choose this if some details are incorrect"
       },
       "no": {
-          "label": "No, the problem is something else"
+          "label": "No, I cannot access my eVisa or UKVI account",
+          "hint": "This could be because you cannot see an eVisa in your account, you do not have an account or you cannot sign in"
+      }
+    }
+  },
+  "trying-to-do": {
+    "legend": "What are you trying to do?",
+    "options": {
+      "trying-to-prove-status": {
+        "label": "View your eVisa or prove your immigration status",
+        "hint": "For example, check your permission or get a share code to send to a landlord or employer"
+      },
+      "trying-to-update-details": {
+        "label": "Update your UKVI account details",
+        "hint": "For example, your email address, phone number, photo or identity document"
+      },
+      "trying-to-report-error": {
+        "label": "Report an error with your eVisa",
+        "hint": "For example, there is a mistake with the details on your eVisa or something has gone wrong"
       }
     }
   },
