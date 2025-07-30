@@ -16,7 +16,7 @@ The document you used to confirm your identity will have replaced your sign in d
 
 <h2 class="govuk-heading-m">If the Home Office set up your UKVI account and you have never been able to access it</h2>
 
-You can <button type='submit' value='yes' name='problem-redirect' class='link-button'><span class="link-button-text" tabindex="-1">tell us the correct email address and phone number you will use for your account</span></button>.
+<button type='submit' value='yes' name='problem-redirect' class='link-button'>You can tell us the correct email address and phone number you will use for your account.</button>
 
 <h2 class="govuk-heading-m">If you cannot sign in to your account</h2>
 
