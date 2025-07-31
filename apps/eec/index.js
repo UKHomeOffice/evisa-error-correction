@@ -219,7 +219,9 @@ module.exports = {
     '/request-sent': {
       clearSession: true,
       backLink: false
-    }
+    },
+    '/session-timeout': {},
+    '/exit': {}
   },
   pages: pages
 };
