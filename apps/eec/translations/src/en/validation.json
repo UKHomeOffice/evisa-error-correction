@@ -29,7 +29,7 @@
     "required": "Select if you have paid for a priority or super priority service"
   },
   "accessing-evisa": {
-    "required": "Select if you are having problems accessing your eVisa"
+    "required": "Select yes if you can access your eVisa"
   },
   "trying-to-do": {
     "required": "Select what you are trying to do"
