@@ -213,3 +213,28 @@ pre.looped-records {
 .govuk-fieldset__heading{
   font-family: "GDS Transport", arial, sans-serif;
 }
+
+.link-button {
+  all: unset;
+  font: inherit;
+  cursor: pointer;
+  display: inline;
+  color: #1d70b8;
+  text-decoration: underline;
+
+  &:hover {
+    color: #003078;
+    text-decoration: underline;
+  }
+
+  &:focus {
+    outline: 3px solid transparent;
+    background-color: #ffdd00;
+    box-shadow: 0 -2px #ffdd00, 0 4px #0b0c0c;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: #0b0c0c;
+  }
+}
