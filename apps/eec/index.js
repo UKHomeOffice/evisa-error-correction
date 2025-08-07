@@ -58,7 +58,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/accessing-evisa': {
-      next: '/problem',
+      next: '/trying-to-do',
       fields: ['accessing-evisa'],
       showNeedHelp: true,
       forks: [
@@ -66,14 +66,53 @@ module.exports = {
           target: '/before-reporting',
           condition: {
             field: 'accessing-evisa',
-            value: 'yes'
+            value: 'no'
           }
         }
       ]
     },
+    '/trying-to-do': {
+      next: '/problem',
+      fields: ['trying-to-do'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/prove-status-before-reporting',
+          condition: {
+            field: 'trying-to-do',
+            value: 'trying-to-prove-status'
+          }
+        },
+        {
+          target: '/update-details-before-reporting',
+          condition: {
+            field: 'trying-to-do',
+            value: 'trying-to-update-details'
+          }
+        }
+      ]
+    },
+    '/prove-status-before-reporting': {
+      next: '/problem',
+      showNeedHelp: true
+    },
+    '/update-details-before-reporting': {
+      next: '/problem',
+      showNeedHelp: true
+    },
     '/before-reporting': {
       next: '/more-details',
-      showNeedHelp: true
+      fields: ['problem-redirect'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/problem',
+          condition: {
+            field: 'problem-redirect',
+            value: 'yes'
+          }
+        }
+      ]
     },
     '/more-details': {
       next: '/personal-details',
@@ -180,7 +219,9 @@ module.exports = {
     '/request-sent': {
       clearSession: true,
       backLink: false
-    }
+    },
+    '/session-timeout': {},
+    '/exit': {}
   },
   pages: pages
 };
