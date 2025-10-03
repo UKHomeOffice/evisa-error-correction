@@ -358,6 +358,16 @@ module.exports = {
       value: 'problem-other'
     }
   },
+  // add checkbox for sponsor license number
+  'sponsor-licence-number': {
+    mixin: 'input-text',
+    validate: ['required', { type: 'maxlength', arguments: 20 }],
+    className: ['govuk-input', 'govuk-!-width-two-thirds'],
+    dependent: {
+      field: 'problem',
+      value: 'problem-sponsor-licence-number'
+    }
+  },
   'is-refugee': {
     isPageHeading: 'true',
     mixin: 'radio-group',
