@@ -85,6 +85,10 @@
     "required": "Enter the problem that isn't listed",
     "maxlength": "You have exceeded the 500 character limit"
   },
+  "detail-sponsor-licence-number": {
+    "required": "Enter your correct sponsor license number",
+    "maxlength": "Sponsor license number must be 20 characters or less"
+  },
   "is-refugee": {
     "required": "Select if you have permission to stay in the UK as a refugee"
   },

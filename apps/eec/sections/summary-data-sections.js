@@ -84,6 +84,10 @@ module.exports = {
       {
         step: '/problem',
         field: 'detail-other'
+      },
+      {
+        step: '/problem',
+        field: 'detail-sponsor-licence-number'
       }
     ]
   },

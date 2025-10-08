@@ -54,7 +54,7 @@
         "header": "Travel details"
       },
       "corrected-details": {
-        "header": "Corrected eVisa details"
+        "header": "eVisa details to be corrected to"
       },
       "personal-details": {
         "header": "Personal details"
@@ -129,6 +129,9 @@
       },
       "detail-other": {
         "label": "My problem isn't listed"
+      },
+      "detail-sponsor-licence-number": {
+        "label": "Sponsor license number"
       },
       "requestor-full-name": {
         "label": "Full name"

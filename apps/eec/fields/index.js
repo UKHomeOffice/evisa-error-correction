@@ -228,6 +228,11 @@ module.exports = {
         value: 'problem-other',
         toggle: 'detail-other',
         child: 'textarea'
+      },
+      {
+        value: 'problem-sponsor-licence-number',
+        toggle: 'detail-sponsor-licence-number',
+        child: 'input-text'
       }
     ]
   },
@@ -358,8 +363,7 @@ module.exports = {
       value: 'problem-other'
     }
   },
-  // add checkbox for sponsor license number
-  'sponsor-licence-number': {
+  'detail-sponsor-licence-number': {
     mixin: 'input-text',
     validate: ['required', { type: 'maxlength', arguments: 20 }],
     className: ['govuk-input', 'govuk-!-width-two-thirds'],

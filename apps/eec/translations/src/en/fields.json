@@ -176,6 +176,9 @@
   "detail-other": {
     "label": "Describe the problem you are having"
   },
+  "detail-sponsor-licence-number": {
+    "label": "What is your correct sponsor license number?"
+  },
   "is-refugee": {
     "legend": "Do you have permission to stay in the UK as a refugee?",
     "options": {
