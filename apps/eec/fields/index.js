@@ -225,14 +225,14 @@ module.exports = {
         child: 'input-text'
       },
       {
+        value: 'problem-sponsor-license-number',
+        toggle: 'detail-sponsor-license-number',
+        child: 'input-text'
+      },
+      {
         value: 'problem-other',
         toggle: 'detail-other',
         child: 'textarea'
-      },
-      {
-        value: 'problem-sponsor-licence-number',
-        toggle: 'detail-sponsor-licence-number',
-        child: 'input-text'
       }
     ]
   },
@@ -363,13 +363,13 @@ module.exports = {
       value: 'problem-other'
     }
   },
-  'detail-sponsor-licence-number': {
+  'detail-sponsor-license-number': {
     mixin: 'input-text',
     validate: ['required', { type: 'maxlength', arguments: 20 }],
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
+    className: ['govuk-input', 'govuk-!-width-one-third'],
     dependent: {
       field: 'problem',
-      value: 'problem-sponsor-licence-number'
+      value: 'problem-sponsor-license-number'
     }
   },
   'is-refugee': {

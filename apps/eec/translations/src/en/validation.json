@@ -81,13 +81,13 @@
     "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
     "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
+  "detail-sponsor-license-number": {
+    "required": "Enter your correct sponsor license number",
+    "maxlength": "Sponsor license number must be 20 characters or less"
+  },
   "detail-other": {
     "required": "Enter the problem that isn't listed",
     "maxlength": "You have exceeded the 500 character limit"
-  },
-  "detail-sponsor-licence-number": {
-    "required": "Enter your correct sponsor license number",
-    "maxlength": "Sponsor license number must be 20 characters or less"
   },
   "is-refugee": {
     "required": "Select if you have permission to stay in the UK as a refugee"

@@ -123,11 +123,11 @@
       "problem-signin-phone": {
         "label": "Phone number to sign in to your account"
       },
+      "problem-sponsor-license-number": {
+        "label": "Sponsor license number"
+      },
       "problem-other": {
         "label": "My problem isn't listed"
-      },
-      "problem-sponsor-licence-number": {
-        "label": "Sponsor licence number"
       }
   }
   },
@@ -176,7 +176,7 @@
   "detail-other": {
     "label": "Describe the problem you are having"
   },
-  "detail-sponsor-licence-number": {
+  "detail-sponsor-license-number": {
     "label": "What is your correct sponsor license number?"
   },
   "is-refugee": {
