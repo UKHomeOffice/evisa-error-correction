@@ -2,7 +2,6 @@ const config = require('../../../config');
 const {
   notifyApiKey,
   caseworkerEmail,
-  userConfirmationTemplateId,
   businessConfirmationTemplateId,
   replyToId
 } = config.govukNotify;
@@ -100,23 +99,6 @@ module.exports = superclass => class extends superclass {
     } catch (error) {
       req.log('error', `Failed to send EEC request email: ${genNotifyErrorMsg(error)}`);
       return next(error);
-    }
-
-    const userContactEmail = req.sessionModel.get('requestor-email');
-
-    if (userContactEmail) {
-      const userEmailProps = new EmailProps;
-
-      try {
-        userEmailProps.addPersonalisation({
-          full_name: req.sessionModel.get('detail-full-name') || req.sessionModel.get('requestor-full-name')
-        });
-
-        await Notify.sendEmail(userConfirmationTemplateId, userContactEmail, userEmailProps);
-        req.log('info', 'EEC requestor acknowledgement email sent successfully');
-      } catch (error) {
-        req.log('warn', `Failed to send EEC user acknowledgement email: ${genNotifyErrorMsg(error)}`);
-      }
     }
 
     return super.saveValues(req, res, next);
