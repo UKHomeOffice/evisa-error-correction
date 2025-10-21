@@ -83,7 +83,7 @@ module.exports = {
       },
       {
         step: '/problem',
-        field: 'detail-sponsor-license-number'
+        field: 'detail-sponsor-licence-number'
       },
       {
         step: '/problem',

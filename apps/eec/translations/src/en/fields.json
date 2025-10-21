@@ -123,8 +123,8 @@
       "problem-signin-phone": {
         "label": "Phone number to sign in to your account"
       },
-      "problem-sponsor-license-number": {
-        "label": "Sponsor license number"
+      "problem-sponsor-licence-number": {
+        "label": "Sponsor licence number"
       },
       "problem-other": {
         "label": "My problem isn't listed"
@@ -176,8 +176,8 @@
   "detail-other": {
     "label": "Describe the problem you are having"
   },
-  "detail-sponsor-license-number": {
-    "label": "What is your correct sponsor license number?"
+  "detail-sponsor-licence-number": {
+    "label": "What is your correct sponsor licence number?"
   },
   "is-refugee": {
     "legend": "Do you have permission to stay in the UK as a refugee?",

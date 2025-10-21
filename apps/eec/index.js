@@ -135,7 +135,7 @@ module.exports = {
         'detail-share-code',
         'detail-signin-email',
         'detail-signin-phone',
-        'detail-sponsor-license-number',
+        'detail-sponsor-licence-number',
         'detail-other'
       ],
       showNeedHelp: true

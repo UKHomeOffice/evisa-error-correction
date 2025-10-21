@@ -225,8 +225,8 @@ module.exports = {
         child: 'input-text'
       },
       {
-        value: 'problem-sponsor-license-number',
-        toggle: 'detail-sponsor-license-number',
+        value: 'problem-sponsor-licence-number',
+        toggle: 'detail-sponsor-licence-number',
         child: 'input-text'
       },
       {
@@ -363,13 +363,13 @@ module.exports = {
       value: 'problem-other'
     }
   },
-  'detail-sponsor-license-number': {
+  'detail-sponsor-licence-number': {
     mixin: 'input-text',
-    validate: ['required', { type: 'maxlength', arguments: 20 }],
+    validate: ['required', { type: 'maxlength', arguments: 20 }, 'alphanum'],
     className: ['govuk-input', 'govuk-!-width-one-third'],
     dependent: {
       field: 'problem',
-      value: 'problem-sponsor-license-number'
+      value: 'problem-sponsor-licence-number'
     }
   },
   'is-refugee': {

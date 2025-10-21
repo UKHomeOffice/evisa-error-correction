@@ -81,9 +81,10 @@
     "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
     "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
-  "detail-sponsor-license-number": {
-    "required": "Enter your correct sponsor license number",
-    "maxlength": "Sponsor license number must be 20 characters or less"
+  "detail-sponsor-licence-number": {
+    "required": "Enter your correct sponsor licence number",
+    "maxlength": "Sponsor licence number must be 20 characters or less",
+    "alphanum": "Sponsor licence number must only include letters a to z and numbers"
   },
   "detail-other": {
     "required": "Enter the problem that isn't listed",

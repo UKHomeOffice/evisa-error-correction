@@ -130,8 +130,8 @@
       "detail-other": {
         "label": "My problem isn't listed"
       },
-      "detail-sponsor-license-number": {
-        "label": "Sponsor license number"
+      "detail-sponsor-licence-number": {
+        "label": "Sponsor licence number"
       },
       "requestor-full-name": {
         "label": "Full name"
