@@ -366,6 +366,7 @@ module.exports = {
   'detail-sponsor-licence-number': {
     mixin: 'input-text',
     validate: ['required', { type: 'maxlength', arguments: 20 }, 'alphanum'],
+    formatter: ['removespaces'],
     className: ['govuk-input', 'govuk-!-width-one-third'],
     dependent: {
       field: 'problem',
