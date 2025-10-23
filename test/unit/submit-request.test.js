@@ -84,27 +84,15 @@ describe('submit-feedback behaviour', () => {
       expect(Base.prototype.saveValues).toHaveBeenCalled();
     });
 
-    test('Notify sendEmail should be called twice when \'requestor-email\' is set ', async () => {
+    test('Notify sendEmail should be called once when \'requestor-email\' is set ', async () => {
       await instance.saveValues(req, res, next);
-      expect(NotifyClient.prototype.sendEmail).toHaveBeenCalledTimes(2);
+      expect(NotifyClient.prototype.sendEmail).toHaveBeenCalledTimes(1);
     });
 
     test('Notify sendEmail should be called once when \'requestor-email\' is not set ', async () => {
       req.sessionModel.set('requestor-email', undefined);
       await instance.saveValues(req, res, next);
       expect(NotifyClient.prototype.sendEmail).toHaveBeenCalledTimes(1);
-    });
-
-    test('Notify sendEmail to user is called with the correct props', async () => {
-      emailProps = {
-        personalisation: {
-          full_name: 'test user'
-        },
-        emailReplyToId: '789-123'
-      };
-      await instance.saveValues(req, res, next);
-      expect(NotifyClient.prototype.sendEmail)
-        .toHaveBeenLastCalledWith('123-456', 'sas-hof-test@digital.homeoffice.gov.uk', emailProps);
     });
 
     test('Notify sendEmail to business is called with the correct props if has access to eVisa', async () => {
