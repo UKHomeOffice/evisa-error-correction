@@ -225,6 +225,11 @@ module.exports = {
         child: 'input-text'
       },
       {
+        value: 'problem-sponsor-licence-number',
+        toggle: 'detail-sponsor-licence-number',
+        child: 'input-text'
+      },
+      {
         value: 'problem-other',
         toggle: 'detail-other',
         child: 'textarea'
@@ -356,6 +361,16 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-other'
+    }
+  },
+  'detail-sponsor-licence-number': {
+    mixin: 'input-text',
+    validate: ['required', { type: 'maxlength', arguments: 20 }, 'alphanum'],
+    formatter: ['removespaces'],
+    className: ['govuk-input', 'govuk-!-width-one-third'],
+    dependent: {
+      field: 'problem',
+      value: 'problem-sponsor-licence-number'
     }
   },
   'is-refugee': {
