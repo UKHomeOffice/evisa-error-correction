@@ -13,6 +13,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Run Scan for Evil Packages
-        uses: UKHomeOffice/hof-temp-gha-collection/.github/actions/scan-for-evil-packages@v1
+        uses: UKHomeOffice/hof-temp-gha-collection/.github/actions/scan-for-evil-packages@main
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
