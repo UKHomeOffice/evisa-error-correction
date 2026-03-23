@@ -113,7 +113,7 @@ steps:
         cpu: 1000
         memory: 1024Mi
     environment:
-      IMAGE_NAME: node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
+      IMAGE_NAME: quay.io/ukhomeofficedigital/hof-nodejs:20.20.0-alpine3.23@sha256:55fe012b09506d6b70ecef4c425f149bd7f738839fee3dd05085bc45deceb4c3
       SERVICE_URL: https://acp-trivy-helm.acp-trivy.svc.cluster.local:443
       SEVERITY: MEDIUM,HIGH,CRITICAL --dependency-tree
       FAIL_ON_DETECTION: false
@@ -420,7 +420,7 @@ steps:
   - name: cron_trivy_scan_image_os
     <<: *trivy-client-image
     environment:
-        IMAGE_NAME: node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
+        IMAGE_NAME: quay.io/ukhomeofficedigital/hof-nodejs:20.20.0-alpine3.23@sha256:55fe012b09506d6b70ecef4c425f149bd7f738839fee3dd05085bc45deceb4c3
         SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
         FAIL_ON_DETECTION: true
         IGNORE_UNFIXED: false
