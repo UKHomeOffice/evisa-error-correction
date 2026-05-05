@@ -24,7 +24,7 @@ eVisa error correction (EEC) is used by the public to register that details of t
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/) - v.20.18.0
+- [Node.js](https://nodejs.org/en/) `>=20.20.2 <21.0.0`
 - [Redis server](http://redis.io/download) running on default port 6379
 
 ### Setup
