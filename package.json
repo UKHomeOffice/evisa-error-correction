@@ -29,6 +29,9 @@
     "hof": "~23.0.4",
     "notifications-node-client": "^8.3.2"
   },
+  "resolutions": {
+    "nodemailer": "^8.0.5"
+  },
   "devDependencies": {
     "dotenv": "^17.4.2",
     "eslint": "^8.57.0",
