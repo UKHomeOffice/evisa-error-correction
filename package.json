@@ -33,6 +33,9 @@
     "dotenv": "^17.4.2",
     "eslint": "^8.57.0",
     "eslint-config-hof": "^1.3.4",
-    "jest": "^30.3.0"
+    "jest": "^30.4.1"
+  },
+  "resolutions": {
+    "nodemailer": "^8.0.7"
   }
 }
