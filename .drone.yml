@@ -31,6 +31,11 @@ include_default_and_feature_branches: &include_default_and_feature_branches
   include:
     - master
     - feature/*
+    - eec-phase-4-release
+
+include_eec_phase_4_release_branch: &include_eec_phase_4_release_branch
+  include:
+    - eec-phase-4-release
 
 trigger:
   branch:
@@ -131,7 +136,7 @@ steps:
       - yarn run postinstall
     when:
       branch:
-        <<: *include_default_branch
+        <<: *include_default_and_feature_branches
       event: [push, pull_request]
     depends_on:
       - clone_repos
@@ -254,6 +259,25 @@ steps:
     when:
       branch:
         <<: *include_default_branch
+      event: push
+    depends_on:
+      - clone_repos
+      - build_image_and_push_to_ecr
+
+  # Specific deploy to uat for EEC phase 4
+  - name: eec_phase_4_deploy_to_uat
+    pull: if-not-exists
+    image: quay.io/ukhomeofficedigital/kd:v1.14.0
+    environment:
+      KUBE_SERVER:
+        from_secret: kube_server_dev
+      KUBE_TOKEN:
+        from_secret: kube_token_dev
+    commands:
+      - sh bin/deploy.sh $${UAT_ENV}
+    when:
+      branch:
+        <<: *include_eec_phase_4_release_branch
       event: push
     depends_on:
       - clone_repos
