@@ -33,8 +33,12 @@ module.exports = {
   'corrected-details': {
     steps: [
       {
-        step: '/problem',
-        field: 'detail-full-name'
+        step: '/your-correct-name',
+        field: 'your-correct-given-names'
+      },
+      {
+        step: '/your-correct-name',
+        field: 'your-correct-last-name'
       },
       {
         step: '/problem',

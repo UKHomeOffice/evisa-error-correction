@@ -37,8 +37,15 @@
   "problem": {
     "required": "Select what the problem is"
   },
-  "detail-full-name": {
-    "required": "Enter your correct name"
+  "your-correct-given-names": {
+    "required": "Enter your given names",
+    "validateText": "Given names must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter given names that are 120 characters or less"
+  },
+  "your-correct-last-name": {
+    "required": "Enter your last name",
+    "validateText": "Last name must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter a last name that is 120 characters or less"
   },
   "detail-dob": {
     "required": "Enter your correct date of birth",

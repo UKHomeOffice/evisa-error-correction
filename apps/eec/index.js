@@ -123,7 +123,6 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-full-name',
         'detail-dob',
         'detail-nationality',
         'detail-status',
@@ -137,6 +136,23 @@ module.exports = {
         'detail-signin-phone',
         'detail-sponsor-licence-number',
         'detail-other'
+      ],
+      forks: [
+        {
+          target: '/your-correct-name',
+          condition: {
+            field: 'problem',
+            value: 'problem-your-correct-name'
+          }
+        }
+      ],
+      showNeedHelp: true
+    },
+    '/your-correct-name': {
+      next: '/personal-details',
+      fields: [
+        'your-correct-given-names',
+        'your-correct-last-name'
       ],
       showNeedHelp: true
     },
