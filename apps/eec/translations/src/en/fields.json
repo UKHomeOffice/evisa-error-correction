@@ -93,7 +93,7 @@
       "problem-dob": {
         "label": "Date of birth"
       },
-      "problem-nationality": {
+      "problem-correct-nationality": {
         "label": "Nationality"
       },
       "problem-photo": {
@@ -138,8 +138,8 @@
     "legend": "What is your correct date of birth?",
     "hint": "For example, 27 3 2007"
   },
-  "detail-nationality": {
-    "label": "What is your correct nationality?",
+  "detail-correct-nationality": {
+    "label": "Nationality",
     "options": {
       "none_selected": "Select a country"
     }

@@ -125,7 +125,6 @@ module.exports = {
         'problem',
         'detail-full-name',
         'detail-dob',
-        'detail-nationality',
         'detail-status',
         'detail-valid-from',
         'detail-valid-until',
@@ -138,6 +137,20 @@ module.exports = {
         'detail-sponsor-licence-number',
         'detail-other'
       ],
+      forks: [
+        {
+          target: '/correct-nationality',
+          condition: {
+            field: 'problem',
+            value: 'problem-correct-nationality'
+          }
+        }
+      ],
+      showNeedHelp: true
+    },
+    '/correct-nationality': {
+      next: '/personal-details',
+      fields: ['detail-correct-nationality'],
       showNeedHelp: true
     },
     '/personal-details': {

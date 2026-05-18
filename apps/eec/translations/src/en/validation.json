@@ -45,7 +45,7 @@
     "date": "The date must only contain numbers. For example, 31 3 1980",
     "before": "Date of birth must be in the past"
   },
-  "detail-nationality": {
+  "detail-correct-nationality": {
     "required": "Enter your correct nationality"
   },
   "detail-photo": {
