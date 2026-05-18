@@ -95,11 +95,8 @@
       "trying-to-do": {
         "label": "What are you trying to do?"
       },
-      "your-correct-given-names": {
-        "label": "Given names"
-      },
-      "your-correct-last-name": {
-        "label": "Last name"
+      "problem-your-correct-name": {
+        "label": "Name"
       },
       "detail-dob": {
         "label": "Date of birth"

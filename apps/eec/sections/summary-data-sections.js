@@ -34,11 +34,10 @@ module.exports = {
     steps: [
       {
         step: '/your-correct-name',
-        field: 'your-correct-given-names'
-      },
-      {
-        step: '/your-correct-name',
-        field: 'your-correct-last-name'
+        field: 'problem-your-correct-name',
+        parse: (val, req) => req.sessionModel.get('your-correct-given-names')
+          || req.sessionModel.get('your-correct-last-name') ?
+          `${req.sessionModel.get('your-correct-given-names')} ${req.sessionModel.get('your-correct-last-name')}` : ''
       },
       {
         step: '/problem',
