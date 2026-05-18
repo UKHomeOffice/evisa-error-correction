@@ -123,7 +123,6 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-nationality',
         'detail-status',
         'detail-valid-from',
         'detail-valid-until',
@@ -151,6 +150,13 @@ module.exports = {
           target: '/correct-date-of-birth',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-date-of-birth')
+        },
+        {
+          target: '/correct-nationality',
+          condition: {
+            field: 'problem',
+            value: 'problem-correct-nationality'
+          }
         }
       ],
       showNeedHelp: true
@@ -166,6 +172,11 @@ module.exports = {
     '/correct-date-of-birth': {
       next: '/personal-details',
       fields: ['correct-date-of-birth'],
+      showNeedHelp: true
+    },
+    '/correct-nationality': {
+      next: '/personal-details',
+      fields: ['detail-correct-nationality'],
       showNeedHelp: true
     },
     '/personal-details': {

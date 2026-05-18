@@ -52,7 +52,7 @@
     "date": "Enter a real date",
     "before": "Your date of birth must be in the past"
   },
-  "detail-nationality": {
+  "detail-correct-nationality": {
     "required": "Enter your correct nationality"
   },
   "detail-photo": {

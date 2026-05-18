@@ -171,9 +171,7 @@ module.exports = {
         value: 'problem-date-of-birth'
       },
       {
-        value: 'problem-nationality',
-        toggle: 'detail-nationality-toggle-content',
-        child: 'partials/detail-nationality'
+        value: 'problem-correct-nationality'
       },
       {
         value: 'problem-status',
@@ -246,19 +244,14 @@ module.exports = {
       { type: 'before', arguments: ['0', 'days'] }
     ]
   }),
-  'detail-nationality': {
+  'detail-correct-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    formGroupClassName: ['govuk-!-width-two-thirds'],
     validate: ['required'],
     options: [{
       value: '',
-      label: 'fields.detail-nationality.options.none_selected'
-    }].concat(countries),
-    validationLink: {
-      field: 'problem',
-      value: 'problem-nationality'
-    }
+      label: 'fields.detail-correct-nationality.options.none_selected'
+    }].concat(countries)
   },
   'detail-photo': {
     mixin: 'textarea',
