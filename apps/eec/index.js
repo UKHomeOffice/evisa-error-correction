@@ -153,10 +153,8 @@ module.exports = {
         },
         {
           target: '/correct-nationality',
-          condition: {
-            field: 'problem',
-            value: 'problem-correct-nationality'
-          }
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-nationality')
         }
       ],
       showNeedHelp: true
@@ -176,7 +174,7 @@ module.exports = {
     },
     '/correct-nationality': {
       next: '/personal-details',
-      fields: ['detail-correct-nationality'],
+      fields: ['correct-nationality'],
       showNeedHelp: true
     },
     '/personal-details': {

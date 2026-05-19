@@ -49,7 +49,7 @@ module.exports = {
       },
       {
         step: '/correct-nationality',
-        field: 'detail-correct-nationality'
+        field: 'correct-nationality'
       },
       {
         step: '/problem',

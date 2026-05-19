@@ -171,7 +171,7 @@ module.exports = {
         value: 'problem-date-of-birth'
       },
       {
-        value: 'problem-correct-nationality'
+        value: 'problem-nationality'
       },
       {
         value: 'problem-status',
@@ -244,13 +244,13 @@ module.exports = {
       { type: 'before', arguments: ['0', 'days'] }
     ]
   }),
-  'detail-correct-nationality': {
+  'correct-nationality': {
     mixin: 'select',
     className: ['typeahead'],
     validate: ['required'],
     options: [{
       value: '',
-      label: 'fields.detail-correct-nationality.options.none_selected'
+      label: 'fields.correct-nationality.options.none_selected'
     }].concat(countries)
   },
   'detail-photo': {

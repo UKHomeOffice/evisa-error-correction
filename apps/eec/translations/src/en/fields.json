@@ -93,7 +93,7 @@
       "problem-date-of-birth": {
         "label": "Date of birth"
       },
-      "problem-correct-nationality": {
+      "problem-nationality": {
         "label": "Nationality"
       },
       "problem-photo": {
@@ -141,7 +141,7 @@
     "legend": "Date of birth",
     "hint": "For example, 27 3 2007"
   },
-  "detail-correct-nationality": {
+  "correct-nationality": {
     "label": "Nationality",
     "options": {
       "none_selected": "Select a country"
