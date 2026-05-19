@@ -90,7 +90,7 @@
       "problem-full-name": {
         "label": "Name"
       },
-      "problem-dob": {
+      "problem-date-of-birth": {
         "label": "Date of birth"
       },
       "problem-nationality": {
@@ -137,8 +137,8 @@
   "correct-last-name": {
     "label": "Last name"
   },
-  "detail-dob": {
-    "legend": "What is your correct date of birth?",
+  "correct-date-of-birth": {
+    "legend": "Date of birth",
     "hint": "For example, 27 3 2007"
   },
   "detail-nationality": {

@@ -123,7 +123,6 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-dob',
         'detail-nationality',
         'detail-status',
         'detail-valid-from',
@@ -147,6 +146,11 @@ module.exports = {
             }
             return false;
           }
+        },
+        {
+          target: '/correct-date-of-birth',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-date-of-birth')
         }
       ],
       showNeedHelp: true
@@ -157,6 +161,10 @@ module.exports = {
         'correct-given-names',
         'correct-last-name'
       ],
+    },
+    '/correct-date-of-birth': {
+      next: '/personal-details',
+      fields: ['correct-date-of-birth'],
       showNeedHelp: true
     },
     '/personal-details': {

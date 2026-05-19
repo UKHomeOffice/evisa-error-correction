@@ -25,6 +25,10 @@
     "header": "What is your correct name?",
     "intro": "You must enter the same details that you used in your visa application."
   },
+  "correct-date-of-birth": {
+    "header": "What is your correct date of birth?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -98,7 +102,7 @@
       "correct-given-names": {
         "label": "Name"
       },
-      "detail-dob": {
+      "correct-date-of-birth": {
         "label": "Date of birth"
       },
       "detail-nationality": {
