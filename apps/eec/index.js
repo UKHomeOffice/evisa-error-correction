@@ -140,9 +140,12 @@ module.exports = {
       forks: [
         {
           target: '/your-correct-name',
-          condition: {
-            field: 'problem',
-            value: 'problem-your-correct-name'
+          condition: req => {
+            if ( req.sessionModel.get('problem') &&
+            req.sessionModel.get('problem').includes('problem-full-name') ) {
+              return true;
+            }
+            return false;
           }
         }
       ],
@@ -151,8 +154,8 @@ module.exports = {
     '/your-correct-name': {
       next: '/personal-details',
       fields: [
-        'your-correct-given-names',
-        'your-correct-last-name'
+        'correct-given-names',
+        'correct-last-name'
       ],
       showNeedHelp: true
     },

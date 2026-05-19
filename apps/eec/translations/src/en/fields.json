@@ -87,7 +87,7 @@
     "legend": "What is the problem with your eVisa?",
     "hint": "You can select more than one option",
     "options": {
-      "problem-your-correct-name": {
+      "problem-full-name": {
         "label": "Name"
       },
       "problem-dob": {
@@ -131,10 +131,10 @@
       }
   }
   },
-  "your-correct-given-names": {
+  "correct-given-names": {
     "label": "Given names"
   },
-  "your-correct-last-name": {
+  "correct-last-name": {
     "label": "Last name"
   },
   "detail-dob": {

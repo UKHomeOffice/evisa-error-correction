@@ -34,10 +34,13 @@ module.exports = {
     steps: [
       {
         step: '/your-correct-name',
-        field: 'problem-your-correct-name',
-        parse: (val, req) => req.sessionModel.get('your-correct-given-names')
-          || req.sessionModel.get('your-correct-last-name') ?
-          `${req.sessionModel.get('your-correct-given-names')} ${req.sessionModel.get('your-correct-last-name')}` : ''
+        field: 'correct-given-names',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/your-correct-name')) {
+            return null;
+          }
+          return `${req.sessionModel.get('correct-given-names')} ${req.sessionModel.get('correct-last-name')}`;
+        }
       },
       {
         step: '/problem',
