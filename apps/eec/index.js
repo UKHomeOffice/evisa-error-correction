@@ -160,7 +160,8 @@ module.exports = {
       fields: [
         'correct-given-names',
         'correct-last-name'
-      ]
+      ],
+      showNeedHelp: true
     },
     '/correct-date-of-birth': {
       next: '/personal-details',
