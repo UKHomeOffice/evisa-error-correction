@@ -123,7 +123,6 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-full-name',
         'detail-dob',
         'detail-nationality',
         'detail-status',
@@ -137,6 +136,26 @@ module.exports = {
         'detail-signin-phone',
         'detail-sponsor-licence-number',
         'detail-other'
+      ],
+      forks: [
+        {
+          target: '/your-correct-name',
+          condition: req => {
+            if ( req.sessionModel.get('problem') &&
+            req.sessionModel.get('problem').includes('problem-full-name') ) {
+              return true;
+            }
+            return false;
+          }
+        }
+      ],
+      showNeedHelp: true
+    },
+    '/your-correct-name': {
+      next: '/personal-details',
+      fields: [
+        'correct-given-names',
+        'correct-last-name'
       ],
       showNeedHelp: true
     },
