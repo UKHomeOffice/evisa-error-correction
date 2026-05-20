@@ -21,6 +21,10 @@
     "step3": "any error messages or problems you saw",
     "intro-continued": "This helps us understand the issue and how to fix it."
   },
+  "your-correct-name": {
+    "header": "What is your correct name?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -91,7 +95,7 @@
       "trying-to-do": {
         "label": "What are you trying to do?"
       },
-      "detail-full-name": {
+      "correct-given-names": {
         "label": "Name"
       },
       "detail-dob": {

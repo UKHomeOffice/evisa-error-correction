@@ -165,9 +165,7 @@ module.exports = {
     isPageHeading: true,
     options: [
       {
-        value: 'problem-full-name',
-        toggle: 'detail-full-name',
-        child: 'input-text'
+        value: 'problem-full-name'
       },
       {
         value: 'problem-dob',
@@ -236,13 +234,11 @@ module.exports = {
       }
     ]
   },
-  'detail-full-name': {
-    mixin: 'input-text',
-    validate: 'required',
-    dependent: {
-      field: 'problem',
-      value: 'problem-full-name'
-    }
+  'correct-given-names': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'correct-last-name': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
   },
   'detail-dob': dateComponent('detail-dob', {
     mixin: 'input-date',

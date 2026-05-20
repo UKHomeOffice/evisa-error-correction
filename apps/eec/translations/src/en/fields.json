@@ -131,8 +131,11 @@
       }
   }
   },
-  "detail-full-name": {
-    "label": "What is your correct name?"
+  "correct-given-names": {
+    "label": "Given names"
+  },
+  "correct-last-name": {
+    "label": "Last name"
   },
   "detail-dob": {
     "legend": "What is your correct date of birth?",
