@@ -8,20 +8,28 @@ describe('validate-autocomplete behaviour', () => {
   });
 
   let req;
-  let res;
   let instance;
   let validateAutocomplete;
 
   beforeEach(() => {
     req = reqres.req();
-    res = reqres.res();
+    req.form = {
+      options: {
+        fields: {
+          'test-field': {}
+        }
+      },
+      values: {
+        'test-field': 'France'
+      }
+    };
   });
 
   afterEach(() => {
     jest.restoreAllMocks();
   });
 
-  describe('The \'validate\' method', () => {
+  describe('The \'validateField\' method', () => {
     beforeEach(() => {
       validateAutocomplete = Behaviour('test-field')(Controller);
       instance = new validateAutocomplete({ template: 'index', route: '/index' });
@@ -33,41 +41,36 @@ describe('validate-autocomplete behaviour', () => {
 
     test('should throw a ValidationError if autocomplete fields contain invalid data', () => {
       req.body = { 'test-field-auto': 'bad-value' };
-      instance.validate(req, res, error => {
-        expect(error['test-field']).toBeInstanceOf(instance.ValidationError);
-        expect(error['test-field'].type).toBe('invalidOption');
-      });
+      const error = instance.validateField('test-field', req);
+      expect(error).toBeInstanceOf(instance.ValidationError);
+      expect(error.type).toBe('invalidOption');
     });
 
     test('should throw a ValidationError if autocomplete fields contain empty string data', () => {
       req.body = { 'test-field-auto': '' };
-      instance.validate(req, res, error => {
-        expect(error['test-field']).toBeInstanceOf(instance.ValidationError);
-        expect(error['test-field'].type).toBe('required');
-      });
+      const error = instance.validateField('test-field', req);
+      expect(error).toBeInstanceOf(instance.ValidationError);
+      expect(error.type).toBe('required');
     });
 
     test('should not throw an error if autocomplete fields contain valid data', () => {
       req.body = { 'test-field-auto': 'France' };
-      instance.validate(req, res, error => {
-        expect(error).toBeUndefined();
-      });
+      const error = instance.validateField('test-field', req);
+      expect(error).toBeNull();
     });
 
     test('should have returned early if the autocomplete input was not found in req.body', () => {
       req.body = {};
-      instance.validate(req, res, error => {
-        expect(error).toBeUndefined();
-      });
+      const error = instance.validateField('test-field', req);
+      expect(error).toBeNull();
     });
 
     test('should have returned early if no field was given to the behaviour in index.js', () => {
       validateAutocomplete = Behaviour()(Controller);
       instance = new validateAutocomplete({ template: 'index', route: '/index' });
       req.body = { 'test-field-auto': 'bad-value' };
-      instance.validate(req, res, error => {
-        expect(error).toBeUndefined();
-      });
+      const error = instance.validateField('test-field', req);
+      expect(error).toBeNull();
     });
   });
 });

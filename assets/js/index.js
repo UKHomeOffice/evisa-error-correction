@@ -5,13 +5,36 @@ require('hof/frontend/themes/gov-uk/client-js');
 
 const accessibleAutocomplete = require('accessible-autocomplete');
 
-document.querySelectorAll('.typeahead').forEach(function applyTypeahead(element) {
+function initTypeahead(element) {
+  const container = element.parentNode;
+
   accessibleAutocomplete.enhanceSelectElement({
     defaultValue: '',
     selectElement: element
   });
-});
 
-document.querySelectorAll('.autocomplete__input').forEach(function (element) {
-  element.setAttribute('name', element.id + '-auto');
-});
+  const input = container.querySelector('.autocomplete__input');
+  if (!input) {
+    return;
+  }
+
+  // This needed to do custom validation in validate-autocomplete behaviour
+  input.setAttribute('name', `${element.name}-auto`);
+  const values = Array.from(document.getElementById(`${element.name}-select`).options).map(option => option.value);
+
+  function clear() {
+    element.value = '';
+    element.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  input.addEventListener('input', () => {
+    // If user clears the field completely,
+    // clear the underlying select field and trigger validation error for required field
+    if (!input.value) clear();
+
+    // If user enters a value not in the values array, clear the field and trigger validation error
+    if (input.value && !values.includes(input.value)) clear();
+  });
+}
+
+document.querySelectorAll('.typeahead').forEach(initTypeahead);

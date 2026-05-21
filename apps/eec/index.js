@@ -47,7 +47,7 @@ module.exports = {
         'travel-doc-nationality',
         'travel-doc-dob'
       ],
-      behaviours: [validateAutocomplete('requestor-nationality')],
+      behaviours: [validateAutocomplete('travel-doc-nationality')],
       showNeedHelp: true
     },
     '/premium': {
@@ -175,6 +175,7 @@ module.exports = {
     '/correct-nationality': {
       next: '/personal-details',
       fields: ['correct-nationality'],
+      behaviours: [validateAutocomplete('correct-nationality')],
       showNeedHelp: true
     },
     '/personal-details': {

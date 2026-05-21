@@ -87,7 +87,6 @@ module.exports = {
   'travel-doc-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    validate: ['required'],
     options: [{
       value: '',
       label: 'fields.travel-doc-nationality.options.none_selected'
@@ -247,7 +246,6 @@ module.exports = {
   'correct-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    validate: ['required'],
     options: [{
       value: '',
       label: 'fields.correct-nationality.options.none_selected'
@@ -404,7 +402,6 @@ module.exports = {
   'requestor-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    validate: ['required'],
     options: [{
       value: '',
       label: 'fields.requestor-nationality.options.none_selected'

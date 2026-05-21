@@ -53,7 +53,8 @@
     "before": "Your date of birth must be in the past"
   },
   "correct-nationality": {
-    "required": "Enter your correct nationality"
+    "required": "Enter your nationality",
+    "invalidOption": "Enter your correct nationality"
   },
   "detail-photo": {
     "required": "Enter what is wrong with your photo",
