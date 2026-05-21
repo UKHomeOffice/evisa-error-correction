@@ -47,10 +47,10 @@
     "validateText": "Last name must contain only letters a to z, spaces, hyphens and apostrophes",
     "maxlength": "Enter a last name that is 120 characters or less"
   },
-  "detail-dob": {
-    "required": "Enter your correct date of birth",
-    "date": "The date must only contain numbers. For example, 31 3 1980",
-    "before": "Date of birth must be in the past"
+  "correct-date-of-birth": {
+    "required": "Enter your date of birth",
+    "date": "Enter a real date",
+    "before": "Your date of birth must be in the past"
   },
   "detail-nationality": {
     "required": "Enter your correct nationality"

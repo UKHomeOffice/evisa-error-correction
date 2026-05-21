@@ -168,9 +168,7 @@ module.exports = {
         value: 'problem-full-name'
       },
       {
-        value: 'problem-dob',
-        toggle: 'detail-dob-toggle-content',
-        child: 'partials/detail-dob'
+        value: 'problem-date-of-birth'
       },
       {
         value: 'problem-nationality',
@@ -240,17 +238,13 @@ module.exports = {
   'correct-last-name': {
     validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
   },
-  'detail-dob': dateComponent('detail-dob', {
+  'correct-date-of-birth': dateComponent('correct-date-of-birth', {
     mixin: 'input-date',
     validate: [
       'required',
       'date',
       { type: 'before', arguments: ['0', 'days'] }
-    ],
-    validationLink: {
-      field: 'problem',
-      value: 'problem-dob'
-    }
+    ]
   }),
   'detail-nationality': {
     mixin: 'select',

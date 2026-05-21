@@ -43,8 +43,8 @@ module.exports = {
         }
       },
       {
-        step: '/problem',
-        field: 'detail-dob',
+        step: '/correct-date-of-birth',
+        field: 'correct-date-of-birth',
         parse: val => !val ? '' : formatDate(val)
       },
       {
