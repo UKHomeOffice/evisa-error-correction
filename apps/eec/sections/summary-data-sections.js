@@ -48,8 +48,8 @@ module.exports = {
         parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-nationality'
+        step: '/correct-nationality',
+        field: 'correct-nationality'
       },
       {
         step: '/problem',
