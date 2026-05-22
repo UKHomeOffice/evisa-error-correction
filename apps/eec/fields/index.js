@@ -87,7 +87,6 @@ module.exports = {
   'travel-doc-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    validate: ['required'],
     options: [{
       value: '',
       label: 'fields.travel-doc-nationality.options.none_selected'
@@ -171,9 +170,7 @@ module.exports = {
         value: 'problem-date-of-birth'
       },
       {
-        value: 'problem-nationality',
-        toggle: 'detail-nationality-toggle-content',
-        child: 'partials/detail-nationality'
+        value: 'problem-nationality'
       },
       {
         value: 'problem-status',
@@ -246,19 +243,13 @@ module.exports = {
       { type: 'before', arguments: ['0', 'days'] }
     ]
   }),
-  'detail-nationality': {
+  'correct-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    formGroupClassName: ['govuk-!-width-two-thirds'],
-    validate: ['required'],
     options: [{
       value: '',
-      label: 'fields.detail-nationality.options.none_selected'
-    }].concat(countries),
-    validationLink: {
-      field: 'problem',
-      value: 'problem-nationality'
-    }
+      label: 'fields.correct-nationality.options.none_selected'
+    }].concat(countries)
   },
   'detail-photo': {
     mixin: 'textarea',
@@ -411,7 +402,6 @@ module.exports = {
   'requestor-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    validate: ['required'],
     options: [{
       value: '',
       label: 'fields.requestor-nationality.options.none_selected'
