@@ -56,6 +56,9 @@
     "required": "Enter your nationality",
     "invalidOption": "Enter your correct nationality"
   },
+  "problem-immigration-status": {
+    "required": "Enter what is wrong with your status"
+  },
   "detail-photo": {
     "required": "Enter what is wrong with your photo",
     "maxlength": "You have exceeded the 500 character limit"
@@ -69,9 +72,6 @@
   },
   "detail-share-code": {
     "required": "Enter which share code you are unable to create"
-  },
-  "detail-status": {
-    "required": "Enter what is wrong with your status"
   },
   "detail-valid-from": {
     "required": "Enter the correct valid from date"
