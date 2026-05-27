@@ -125,7 +125,6 @@ module.exports = {
         'problem',
         'detail-valid-from',
         'detail-valid-until',
-        'detail-nin',
         'detail-photo',
         'detail-restrictions',
         'detail-share-code',
@@ -159,6 +158,11 @@ module.exports = {
           target: '/problem-immigration-status',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-status')
+        },
+        {
+          target: '/national-insurance-number',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-national-insurance-number')
         }
       ],
       showNeedHelp: true
@@ -185,6 +189,11 @@ module.exports = {
     '/problem-immigration-status': {
       next: '/personal-details',
       fields: ['problem-immigration-status'],
+      showNeedHelp: true
+    },
+    '/national-insurance-number': {
+      next: '/personal-details',
+      fields: ['correct-national-insurance-number'],
       showNeedHelp: true
     },
     '/personal-details': {

@@ -63,8 +63,9 @@
     "required": "Enter what is wrong with your photo",
     "maxlength": "You have exceeded the 500 character limit"
   },
-  "detail-nin": {
-    "required": "Enter your correct National Insurance number"
+  "correct-national-insurance-number": {
+    "required": "Enter your National Insurance number",
+    "regex" : "Enter a National Insurance number in the correct format"
   },
   "detail-restrictions": {
     "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
