@@ -6,7 +6,7 @@ const BRPValidator = { type: 'regex', arguments: /^r[a-z](\d|X)\d{6}$/gi };
 const GWFValidator = { type: 'regex', arguments: /^gwf\d{9}$/gi };
 const UKVIValidator = { type: 'regex', arguments: /^KX.+$/i };
 const startsWithDigitOrPlus = { type: 'regex', arguments: /^[+\d].*\d$/ };
-const NIValidator = { type: 'regex', arguments: /^(?!\s)(?:[A-Z]\s*){2}(?:\d\s*){6}[ABCD]$/i };
+const NIValidator = { type: 'regex', arguments: /^[A-Z]{2}\d{6}[ABCD]$/ };
 
 /**
  * Validates that the given value only includes letters (a to z), spaces, hyphens, and apostrophes.
@@ -253,7 +253,7 @@ module.exports = {
     validate: 'required'
   },
   'correct-national-insurance-number': {
-    formatter: ['uppercase'],
+    formatter: ['removespaces', 'uppercase'],
     attributes: [
       { attribute: 'spellcheck', value: 'false' }
     ],
