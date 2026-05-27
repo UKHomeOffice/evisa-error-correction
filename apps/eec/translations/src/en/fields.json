@@ -148,7 +148,7 @@
     }
   },
   "problem-immigration-status": {
-    "label": " ",
+    "label": "What problem are you having with your immigration status?",
     "hint": "This could be because your status is old, incorrect or you cannot view it"
   },
   "detail-photo": {

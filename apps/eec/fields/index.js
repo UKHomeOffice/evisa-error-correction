@@ -250,6 +250,7 @@ module.exports = {
     }].concat(countries)
   },
   'problem-immigration-status': {
+    isPageHeading: 'true',
     validate: 'required'
   },
   'detail-photo': {
