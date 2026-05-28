@@ -52,8 +52,8 @@ module.exports = {
         field: 'correct-nationality'
       },
       {
-        step: '/problem',
-        field: 'detail-status'
+        step: '/problem-immigration-status',
+        field: 'problem-immigration-status'
       },
       {
         step: '/problem',
