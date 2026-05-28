@@ -123,7 +123,6 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-status',
         'detail-valid-from',
         'detail-valid-until',
         'detail-nin',
@@ -155,6 +154,11 @@ module.exports = {
           target: '/correct-nationality',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-nationality')
+        },
+        {
+          target: '/problem-immigration-status',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-status')
         }
       ],
       showNeedHelp: true
@@ -176,6 +180,11 @@ module.exports = {
       next: '/personal-details',
       fields: ['correct-nationality'],
       behaviours: [validateAutocomplete('correct-nationality')],
+      showNeedHelp: true
+    },
+    '/problem-immigration-status': {
+      next: '/personal-details',
+      fields: ['problem-immigration-status'],
       showNeedHelp: true
     },
     '/personal-details': {

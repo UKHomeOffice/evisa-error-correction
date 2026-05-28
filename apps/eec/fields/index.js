@@ -173,9 +173,7 @@ module.exports = {
         value: 'problem-nationality'
       },
       {
-        value: 'problem-status',
-        toggle: 'detail-status',
-        child: 'input-text'
+        value: 'problem-status'
       },
       {
         value: 'problem-valid-from',
@@ -251,6 +249,10 @@ module.exports = {
       label: 'fields.correct-nationality.options.none_selected'
     }].concat(countries)
   },
+  'problem-immigration-status': {
+    isPageHeading: 'true',
+    validate: 'required'
+  },
   'detail-photo': {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 500 }],
@@ -285,14 +287,6 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-share-code'
-    }
-  },
-  'detail-status': {
-    mixin: 'input-text',
-    validate: 'required',
-    dependent: {
-      field: 'problem',
-      value: 'problem-status'
     }
   },
   'detail-valid-from': {

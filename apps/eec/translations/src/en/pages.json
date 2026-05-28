@@ -112,6 +112,9 @@
       "correct-nationality": {
         "label": "Nationality"
       },
+      "problem-immigration-status": {
+        "label": "Status"
+      },
       "detail-photo": {
         "label": "Photo"
       },
@@ -123,9 +126,6 @@
       },
       "detail-share-code": {
         "label": "Share code"
-      },
-      "detail-status": {
-        "label": "Status"
       },
       "detail-valid-from": {
         "label": "Valid from"
