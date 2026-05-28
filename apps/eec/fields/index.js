@@ -190,6 +190,9 @@ module.exports = {
         value: 'problem-national-insurance-number'
       },
       {
+        value: 'problem-sponsor-licence-number'
+      },
+      {
         value: 'problem-photo',
         toggle: 'detail-photo',
         child: 'textarea'
@@ -212,11 +215,6 @@ module.exports = {
       {
         value: 'problem-signin-phone',
         toggle: 'detail-signin-phone',
-        child: 'input-text'
-      },
-      {
-        value: 'problem-sponsor-licence-number',
-        toggle: 'detail-sponsor-licence-number',
         child: 'input-text'
       },
       {
@@ -261,6 +259,9 @@ module.exports = {
       'required',
       NIValidator
     ]
+  },
+  'correct-sponsor-licence-number': {
+    validate: 'required'
   },
   'detail-photo': {
     mixin: 'textarea',
@@ -336,16 +337,6 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-other'
-    }
-  },
-  'detail-sponsor-licence-number': {
-    mixin: 'input-text',
-    validate: ['required', { type: 'maxlength', arguments: 20 }, 'alphanum'],
-    formatter: ['removespaces'],
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-sponsor-licence-number'
     }
   },
   'is-refugee': {

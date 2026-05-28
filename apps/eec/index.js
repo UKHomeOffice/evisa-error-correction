@@ -130,7 +130,6 @@ module.exports = {
         'detail-share-code',
         'detail-signin-email',
         'detail-signin-phone',
-        'detail-sponsor-licence-number',
         'detail-other'
       ],
       forks: [
@@ -163,6 +162,11 @@ module.exports = {
           target: '/national-insurance-number',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-national-insurance-number')
+        },
+        {
+          target: '/sponsor-licence-number',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-sponsor-licence-number')
         }
       ],
       showNeedHelp: true
@@ -194,6 +198,11 @@ module.exports = {
     '/national-insurance-number': {
       next: '/personal-details',
       fields: ['correct-national-insurance-number'],
+      showNeedHelp: true
+    },
+    '/sponsor-licence-number': {
+      next: '/personal-details',
+      fields: ['correct-sponsor-licence-number'],
       showNeedHelp: true
     },
     '/personal-details': {
