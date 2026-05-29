@@ -193,9 +193,7 @@ module.exports = {
         value: 'problem-sponsor-licence-number'
       },
       {
-        value: 'problem-photo',
-        toggle: 'detail-photo',
-        child: 'textarea'
+        value: 'problem-photo'
       },
       {
         value: 'problem-restrictions',
@@ -264,14 +262,10 @@ module.exports = {
     validate: 'required',
     formatter: ['removespaces']
   },
-  'detail-photo': {
+  photo: {
     mixin: 'textarea',
-    validate: ['required', { type: 'maxlength', arguments: 500 }],
-    attributes: [{ attribute: 'rows', value: 5 }],
-    dependent: {
-      field: 'problem',
-      value: 'problem-photo'
-    }
+    validate: ['required'],
+    attributes: [{ attribute: 'rows', value: 5 }]
   },
   'detail-restrictions': {
     mixin: 'textarea',

@@ -96,11 +96,11 @@
       "problem-nationality": {
         "label": "Nationality"
       },
-      "problem-photo": {
-        "label": "Photo"
-      },
       "problem-national-insurance-number": {
         "label": "National Insurance number"
+      },
+      "problem-photo": {
+        "label": "Photo"
       },
       "problem-restrictions": {
         "label": "What you can and cannot do in the UK"
@@ -151,15 +151,15 @@
     "label": "What problem are you having with your immigration status?",
     "hint": "This could be because your status is old, incorrect or you cannot view it"
   },
-  "detail-photo": {
-    "label": "What is wrong with your photo?"
-  },
   "correct-national-insurance-number": {
     "label": "National Insurance number",
     "hint": "It's on your National Insurance card, benefit letter, payslip or P60 - for example, 'QQ 12 34 56 C'"
   },
   "correct-sponsor-licence-number": {
     "label": "Sponsor licence number"
+  },
+  "photo": {
+    "label": "Describe the problem you are having with your photo"
   },
   "detail-restrictions": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
