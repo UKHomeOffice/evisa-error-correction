@@ -6,6 +6,7 @@ const BRPValidator = { type: 'regex', arguments: /^r[a-z](\d|X)\d{6}$/gi };
 const GWFValidator = { type: 'regex', arguments: /^gwf\d{9}$/gi };
 const UKVIValidator = { type: 'regex', arguments: /^KX.+$/i };
 const startsWithDigitOrPlus = { type: 'regex', arguments: /^[+\d].*\d$/ };
+const NIValidator = { type: 'regex', arguments: /^[A-Z]{2}[0-9]{6}[ABCD]$/ };
 
 /**
  * Validates that the given value only includes letters (a to z), spaces, hyphens, and apostrophes.
@@ -186,9 +187,7 @@ module.exports = {
         child: 'input-text'
       },
       {
-        value: 'problem-nin',
-        toggle: 'detail-nin',
-        child: 'input-text'
+        value: 'problem-national-insurance-number'
       },
       {
         value: 'problem-photo',
@@ -253,6 +252,16 @@ module.exports = {
     isPageHeading: 'true',
     validate: 'required'
   },
+  'correct-national-insurance-number': {
+    formatter: ['removespaces', 'uppercase'],
+    attributes: [
+      { attribute: 'spellcheck', value: 'false' }
+    ],
+    validate: [
+      'required',
+      NIValidator
+    ]
+  },
   'detail-photo': {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 500 }],
@@ -260,15 +269,6 @@ module.exports = {
     dependent: {
       field: 'problem',
       value: 'problem-photo'
-    }
-  },
-  'detail-nin': {
-    mixin: 'input-text',
-    validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-nin'
     }
   },
   'detail-restrictions': {

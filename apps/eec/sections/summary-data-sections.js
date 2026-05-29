@@ -64,8 +64,8 @@ module.exports = {
         field: 'detail-valid-until'
       },
       {
-        step: '/problem',
-        field: 'detail-nin'
+        step: '/national-insurance-number',
+        field: 'correct-national-insurance-number'
       },
       {
         step: '/problem',

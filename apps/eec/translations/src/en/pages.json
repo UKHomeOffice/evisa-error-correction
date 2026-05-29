@@ -33,6 +33,10 @@
     "header": "What is your correct nationality?",
     "intro": "You must enter the same details that you used in your visa application."
   },
+  "national-insurance-number": {
+    "header": "What is your correct National Insurance number?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -118,7 +122,7 @@
       "detail-photo": {
         "label": "Photo"
       },
-      "detail-nin": {
+      "correct-national-insurance-number": {
         "label": "National Insurance number"
       },
       "detail-restrictions": {
