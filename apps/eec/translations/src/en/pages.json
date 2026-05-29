@@ -37,6 +37,10 @@
     "header": "What is your correct National Insurance number?",
     "intro": "You must enter the same details that you used in your visa application."
   },
+  "sponsor-licence-number": {
+    "header": "What is your correct sponsor licence number?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -125,6 +129,9 @@
       "correct-national-insurance-number": {
         "label": "National Insurance number"
       },
+      "correct-sponsor-licence-number": {
+        "label": "Sponsor licence number"
+      },
       "detail-restrictions": {
         "label": "What you can and cannot do in the UK"
       },
@@ -145,9 +152,6 @@
       },
       "detail-other": {
         "label": "My problem isn't listed"
-      },
-      "detail-sponsor-licence-number": {
-        "label": "Sponsor licence number"
       },
       "requestor-full-name": {
         "label": "Full name"

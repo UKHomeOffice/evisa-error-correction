@@ -158,6 +158,9 @@
     "label": "National Insurance number",
     "hint": "It's on your National Insurance card, benefit letter, payslip or P60 - for example, 'QQ 12 34 56 C'"
   },
+  "correct-sponsor-licence-number": {
+    "label": "Sponsor licence number"
+  },
   "detail-restrictions": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
   },
@@ -179,9 +182,6 @@
   },
   "detail-other": {
     "label": "Describe the problem you are having"
-  },
-  "detail-sponsor-licence-number": {
-    "label": "What is your correct sponsor licence number?"
   },
   "is-refugee": {
     "legend": "Do you have permission to stay in the UK as a refugee?",
