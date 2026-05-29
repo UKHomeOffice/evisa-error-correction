@@ -261,7 +261,8 @@ module.exports = {
     ]
   },
   'correct-sponsor-licence-number': {
-    validate: 'required'
+    validate: 'required',
+    formatter: ['removespaces']
   },
   'detail-photo': {
     mixin: 'textarea',
