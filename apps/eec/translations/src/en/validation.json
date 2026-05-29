@@ -67,6 +67,9 @@
     "required": "Enter your National Insurance number",
     "regex" : "Enter a National Insurance number in the correct format"
   },
+  "correct-sponsor-licence-number": {
+    "required": "Enter your sponsor licence number"
+  },
   "detail-restrictions": {
     "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
     "maxlength": "You have exceeded the 500 character limit"
@@ -89,11 +92,6 @@
     "required": "Enter the correct phone number where you can receive security codes",
     "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
     "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
-  },
-  "detail-sponsor-licence-number": {
-    "required": "Enter your correct sponsor licence number",
-    "maxlength": "Sponsor licence number must be 20 characters or less",
-    "alphanum": "Sponsor licence number must only include letters a to z and numbers"
   },
   "detail-other": {
     "required": "Enter the problem that isn't listed",

@@ -68,6 +68,10 @@ module.exports = {
         field: 'correct-national-insurance-number'
       },
       {
+        step: '/sponsor-licence-number',
+        field: 'correct-sponsor-licence-number'
+      },
+      {
         step: '/problem',
         field: 'detail-photo'
       },
@@ -86,10 +90,6 @@ module.exports = {
       {
         step: '/problem',
         field: 'detail-signin-phone'
-      },
-      {
-        step: '/problem',
-        field: 'detail-sponsor-licence-number'
       },
       {
         step: '/problem',
