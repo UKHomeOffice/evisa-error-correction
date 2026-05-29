@@ -69,6 +69,16 @@
   "photo": {
     "required": "Describe the problem you are having"
   },
+  "correct-future-partner-given-names": {
+    "required": "Enter their given names",
+    "validateText": "Given names must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter given names that are 120 characters or less"
+  },
+  "correct-future-partner-last-name": {
+    "required": "Enter their last name",
+    "validateText": "Last name must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter a last name that is 120 characters or less"
+  },
   "detail-restrictions": {
     "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
     "maxlength": "You have exceeded the 500 character limit"

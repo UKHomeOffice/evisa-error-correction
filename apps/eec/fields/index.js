@@ -196,6 +196,9 @@ module.exports = {
         value: 'problem-photo'
       },
       {
+        value: 'problem-future-partner-name'
+      },
+      {
         value: 'problem-restrictions',
         toggle: 'detail-restrictions',
         child: 'textarea'
@@ -266,6 +269,12 @@ module.exports = {
     mixin: 'textarea',
     validate: ['required'],
     attributes: [{ attribute: 'rows', value: 5 }]
+  },
+  'correct-future-partner-given-names': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'correct-future-partner-last-name': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
   },
   'detail-restrictions': {
     mixin: 'textarea',

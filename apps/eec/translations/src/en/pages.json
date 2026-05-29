@@ -44,6 +44,10 @@
   "photo": {
     "header": "What is wrong with your photo?"
   },
+  "future-partner-name": {
+    "header": "What is the correct name of your future partner?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -134,6 +138,9 @@
       },
       "photo": {
         "label": "Photo"
+      },
+      "correct-future-partner-given-names": {
+        "label": "Future spouse or civil partner name"
       },
       "detail-restrictions": {
         "label": "What you can and cannot do in the UK"

@@ -76,6 +76,18 @@ module.exports = {
         field: 'photo'
       },
       {
+        step: '/future-partner-name',
+        field: 'correct-future-partner-given-names',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/future-partner-name')) {
+            return null;
+          }
+          const givenNames = req.sessionModel.get('correct-future-partner-given-names');
+          const lastName = req.sessionModel.get('correct-future-partner-last-name');
+          return `${givenNames} ${lastName}`;
+        }
+      },
+      {
         step: '/problem',
         field: 'detail-restrictions'
       },
