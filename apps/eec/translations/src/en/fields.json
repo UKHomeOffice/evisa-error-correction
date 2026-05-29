@@ -99,7 +99,7 @@
       "problem-photo": {
         "label": "Photo"
       },
-      "problem-nin": {
+      "problem-national-insurance-number": {
         "label": "National Insurance number"
       },
       "problem-restrictions": {
@@ -154,8 +154,9 @@
   "detail-photo": {
     "label": "What is wrong with your photo?"
   },
-  "detail-nin": {
-    "label": "What is your correct National Insurance number?"
+  "correct-national-insurance-number": {
+    "label": "National Insurance number",
+    "hint": "It's on your National Insurance card, benefit letter, payslip or P60 - for example, 'QQ 12 34 56 C'"
   },
   "detail-restrictions": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
