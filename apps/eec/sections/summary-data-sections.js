@@ -77,13 +77,13 @@ module.exports = {
       },
       {
         step: '/future-partner-name',
-        field: 'correct-future-partner-given-names',
+        field: 'future-partner-correct-given-names',
         parse: (val, req) => {
           if (!req.sessionModel.get('steps').includes('/future-partner-name')) {
             return null;
           }
-          const givenNames = req.sessionModel.get('correct-future-partner-given-names');
-          const lastName = req.sessionModel.get('correct-future-partner-last-name');
+          const givenNames = req.sessionModel.get('future-partner-correct-given-names');
+          const lastName = req.sessionModel.get('future-partner-correct-last-name');
           return `${givenNames} ${lastName}`;
         }
       },

@@ -222,8 +222,8 @@ module.exports = {
     '/future-partner-name': {
       next: '/personal-details',
       fields: [
-        'correct-future-partner-given-names',
-        'correct-future-partner-last-name'
+        'future-partner-correct-given-names',
+        'future-partner-correct-last-name'
       ],
       showNeedHelp: true
     },

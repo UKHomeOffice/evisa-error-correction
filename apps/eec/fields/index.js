@@ -270,10 +270,10 @@ module.exports = {
     validate: ['required'],
     attributes: [{ attribute: 'rows', value: 5 }]
   },
-  'correct-future-partner-given-names': {
+  'future-partner-correct-given-names': {
     validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
   },
-  'correct-future-partner-last-name': {
+  'future-partner-correct-last-name': {
     validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
   },
   'detail-restrictions': {

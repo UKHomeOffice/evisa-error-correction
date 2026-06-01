@@ -164,10 +164,10 @@
   "photo": {
     "label": "Describe the problem you are having with your photo"
   },
-  "correct-future-partner-given-names": {
+  "future-partner-correct-given-names": {
     "label": "Given names"
   },
-  "correct-future-partner-last-name": {
+  "future-partner-correct-last-name": {
     "label": "Last name"
   },
   "detail-restrictions": {
