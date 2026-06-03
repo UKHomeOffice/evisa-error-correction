@@ -72,8 +72,8 @@ module.exports = {
         field: 'correct-sponsor-licence-number'
       },
       {
-        step: '/problem',
-        field: 'detail-photo'
+        step: '/photo',
+        field: 'photo'
       },
       {
         step: '/problem',
