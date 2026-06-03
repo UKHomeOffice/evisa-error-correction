@@ -125,7 +125,6 @@ module.exports = {
         'problem',
         'detail-valid-from',
         'detail-valid-until',
-        'detail-photo',
         'detail-restrictions',
         'detail-share-code',
         'detail-signin-email',
@@ -167,6 +166,11 @@ module.exports = {
           target: '/sponsor-licence-number',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-sponsor-licence-number')
+        },
+        {
+          target: '/photo',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-photo')
         }
       ],
       showNeedHelp: true
@@ -203,6 +207,11 @@ module.exports = {
     '/sponsor-licence-number': {
       next: '/personal-details',
       fields: ['correct-sponsor-licence-number'],
+      showNeedHelp: true
+    },
+    '/photo': {
+      next: '/personal-details',
+      fields: ['photo'],
       showNeedHelp: true
     },
     '/personal-details': {
