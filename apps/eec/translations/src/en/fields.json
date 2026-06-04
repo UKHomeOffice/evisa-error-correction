@@ -102,6 +102,9 @@
       "problem-photo": {
         "label": "Photo"
       },
+      "problem-future-partner-name": {
+        "label": "Future spouse or civil partner name"
+      },
       "problem-restrictions": {
         "label": "What you can and cannot do in the UK"
       },
@@ -160,6 +163,12 @@
   },
   "photo": {
     "label": "Describe the problem you are having with your photo"
+  },
+  "future-partner-correct-given-names": {
+    "label": "Given names"
+  },
+  "future-partner-correct-last-name": {
+    "label": "Last name"
   },
   "detail-restrictions": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
