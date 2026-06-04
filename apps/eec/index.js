@@ -171,6 +171,11 @@ module.exports = {
           target: '/photo',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-photo')
+        },
+        {
+          target: '/future-partner-name',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-future-partner-name')
         }
       ],
       showNeedHelp: true
@@ -212,6 +217,14 @@ module.exports = {
     '/photo': {
       next: '/personal-details',
       fields: ['photo'],
+      showNeedHelp: true
+    },
+    '/future-partner-name': {
+      next: '/personal-details',
+      fields: [
+        'future-partner-correct-given-names',
+        'future-partner-correct-last-name'
+      ],
       showNeedHelp: true
     },
     '/personal-details': {
