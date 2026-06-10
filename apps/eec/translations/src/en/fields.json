@@ -105,6 +105,9 @@
       "problem-future-partner-name": {
         "label": "Future spouse or civil partner name"
       },
+      "problem-accompanying-adult-details": {
+        "label": "Name or passport numbers of accompanying adult"
+      },
       "problem-restrictions": {
         "label": "What you can and cannot do in the UK"
       },
@@ -169,6 +172,17 @@
   },
   "future-partner-correct-last-name": {
     "label": "Last name"
+  },
+  "how-many-adults": {
+    "legend": "How many adults have been approved to accompany a child?",
+    "options": {
+      "1-adult": {
+        "label": "1 adult"
+      },
+      "2-adults": {
+        "label": "2 adults"
+      }
+    }
   },
   "detail-restrictions": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"

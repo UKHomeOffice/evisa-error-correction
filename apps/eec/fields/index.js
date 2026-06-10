@@ -199,6 +199,9 @@ module.exports = {
         value: 'problem-future-partner-name'
       },
       {
+        value: 'problem-accompanying-adult-details'
+      },
+      {
         value: 'problem-restrictions',
         toggle: 'detail-restrictions',
         child: 'textarea'
@@ -275,6 +278,23 @@ module.exports = {
   },
   'future-partner-correct-last-name': {
     validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'how-many-adults': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios'],
+    validate: 'required',
+    options: [
+      {
+        value: '1-adult'
+      },
+      {
+        value: '2-adults'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
+    }
   },
   'detail-restrictions': {
     mixin: 'textarea',

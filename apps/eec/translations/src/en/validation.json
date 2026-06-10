@@ -79,6 +79,9 @@
     "validateText": "Last name must contain only letters a to z, spaces, hyphens and apostrophes",
     "maxlength": "Enter a last name that is 120 characters or less"
   },
+  "how-many-adults": {
+    "required": "Choose how many adults are accompanying a child"
+  },
   "detail-restrictions": {
     "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
     "maxlength": "You have exceeded the 500 character limit"
