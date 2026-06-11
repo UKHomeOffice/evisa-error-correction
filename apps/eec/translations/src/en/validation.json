@@ -82,6 +82,12 @@
   "how-many-adults": {
     "required": "Choose how many adults are accompanying a child"
   },
+  "correct-ship-name": {
+    "required": "Enter the correct ship name"
+  },
+  "correct-port-name": {
+    "required": "Enter the correct port"
+  },
   "detail-restrictions": {
     "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
     "maxlength": "You have exceeded the 500 character limit"

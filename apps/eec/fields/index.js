@@ -202,6 +202,9 @@ module.exports = {
         value: 'problem-accompanying-adult-details'
       },
       {
+        value: 'problem-ship-and-port-details'
+      },
+      {
         value: 'problem-restrictions',
         toggle: 'detail-restrictions',
         child: 'textarea'
@@ -295,6 +298,12 @@ module.exports = {
     legend: {
       className: 'govuk-!-margin-bottom-6'
     }
+  },
+  'correct-ship-name': {
+    validate: 'required'
+  },
+  'correct-port-name': {
+    validate: 'required'
   },
   'detail-restrictions': {
     mixin: 'textarea',

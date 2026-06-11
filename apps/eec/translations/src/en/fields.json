@@ -108,6 +108,9 @@
       "problem-accompanying-adult-details": {
         "label": "Name or passport numbers of accompanying adult"
       },
+      "problem-ship-and-port-details": {
+        "label": "Ship and port details"
+      },
       "problem-restrictions": {
         "label": "What you can and cannot do in the UK"
       },
@@ -183,6 +186,13 @@
         "label": "2 adults"
       }
     }
+  },
+  "correct-ship-name": {
+    "label": "Correct ship name"
+  },
+  "correct-port-name": {
+    "label": "Correct port",
+    "hint": "For example, Southampton port"
   },
   "detail-restrictions": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"

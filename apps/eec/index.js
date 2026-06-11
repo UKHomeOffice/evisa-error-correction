@@ -181,6 +181,11 @@ module.exports = {
           target: '/how-many-adults',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-accompanying-adult-details')
+        },
+        {
+          target: '/correct-ship-and-port',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-ship-and-port-details')
         }
       ],
       showNeedHelp: true
@@ -235,6 +240,14 @@ module.exports = {
     '/how-many-adults': {
       next: '/personal-details',
       fields: ['how-many-adults'],
+      showNeedHelp: true
+    },
+    '/correct-ship-and-port': {
+      next: '/personal-details',
+      fields: [
+        'correct-ship-name',
+        'correct-port-name'
+      ],
       showNeedHelp: true
     },
     '/personal-details': {
