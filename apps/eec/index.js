@@ -176,6 +176,11 @@ module.exports = {
           target: '/future-partner-name',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-future-partner-name')
+        },
+        {
+          target: '/how-many-adults',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-accompanying-adult-details')
         }
       ],
       showNeedHelp: true
@@ -225,6 +230,11 @@ module.exports = {
         'future-partner-correct-given-names',
         'future-partner-correct-last-name'
       ],
+      showNeedHelp: true
+    },
+    '/how-many-adults': {
+      next: '/personal-details',
+      fields: ['how-many-adults'],
       showNeedHelp: true
     },
     '/personal-details': {

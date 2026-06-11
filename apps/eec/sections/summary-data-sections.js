@@ -88,6 +88,10 @@ module.exports = {
         }
       },
       {
+        step: '/how-many-adults',
+        field: 'how-many-adults'
+      },
+      {
         step: '/problem',
         field: 'detail-restrictions'
       },
