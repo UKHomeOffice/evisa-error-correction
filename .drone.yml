@@ -38,6 +38,11 @@ include_default_and_feature_branches: &include_default_and_feature_branches
     - feature/*
     - eec-phase-4-release
 
+include_default_and_release_branches: &include_default_and_release_branches
+  include:
+    - master
+    - eec-phase-4-release
+
 include_eec_phase_4_release_branch: &include_eec_phase_4_release_branch
   include:
     - eec-phase-4-release
@@ -304,7 +309,7 @@ steps:
       - drone build info $GIT_REPO $DRONE_BUILD_NUMBER --format {{.Message}} | grep -o '[^ ]\+$' -m1 | sed 's|UKHomeOffice/||g' | tr '[:upper:]' '[:lower:]' | tr '/' '-' > /root/.dockersock/branch_name.txt
     when:
       branch:
-        <<: *include_default_branch
+        <<: *include_default_and_release_branches
       event: push
 
   # Tear down pull request UAT environment
@@ -323,7 +328,7 @@ steps:
       - bin/deploy.sh tear_down
     when:
       branch:
-        <<: *include_default_branch
+        <<: *include_default_and_release_branches
       event: push
     depends_on:
       - get_pr_branch
