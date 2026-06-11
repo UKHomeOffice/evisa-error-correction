@@ -142,6 +142,9 @@
       "future-partner-correct-given-names": {
         "label": "Future spouse or civil partner name"
       },
+      "how-many-adults": {
+        "label": "Number of adults accompanying a child"
+      },
       "detail-restrictions": {
         "label": "What you can and cannot do in the UK"
       },
