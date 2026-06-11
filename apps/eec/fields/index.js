@@ -305,6 +305,15 @@ module.exports = {
   'correct-port-name': {
     validate: 'required'
   },
+  'correct-given-names-adult-accompanying': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'correct-last-name-adult-accompanying': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'correct-passport-number-adult-accompanying': {
+    validate: ['required', 'alphanum']
+  },
   'detail-restrictions': {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 500 }],

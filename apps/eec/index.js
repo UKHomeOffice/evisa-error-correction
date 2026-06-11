@@ -240,6 +240,24 @@ module.exports = {
     '/how-many-adults': {
       next: '/personal-details',
       fields: ['how-many-adults'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/correct-details-adult-accompanying',
+          condition: {
+            field: 'how-many-adults',
+            value: '1-adult'
+          }
+        }
+      ]
+    },
+    '/correct-details-adult-accompanying': {
+      next: '/personal-details',
+      fields: [
+        'correct-given-names-adult-accompanying',
+        'correct-last-name-adult-accompanying',
+        'correct-passport-number-adult-accompanying'
+      ],
       showNeedHelp: true
     },
     '/correct-ship-and-port': {

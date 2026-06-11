@@ -104,6 +104,19 @@ module.exports = {
         }
       },
       {
+        step: '/correct-details-adult-accompanying',
+        field: 'correct-given-names-adult-accompanying',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-details-adult-accompanying')) {
+            return null;
+          }
+          const givenNames = req.sessionModel.get('correct-given-names-adult-accompanying');
+          const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
+          const passportNumber = req.sessionModel.get('correct-passport-number-adult-accompanying');
+          return `${givenNames} ${lastName}, ${passportNumber}`;
+        }
+      },
+      {
         step: '/problem',
         field: 'detail-restrictions'
       },

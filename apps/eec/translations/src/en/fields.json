@@ -194,6 +194,15 @@
     "label": "Correct port",
     "hint": "For example, Southampton port"
   },
+  "correct-given-names-adult-accompanying": {
+    "label": "Given names"
+  },
+  "correct-last-name-adult-accompanying": {
+    "label": "Last name"
+  },
+  "correct-passport-number-adult-accompanying": {
+    "label": "Passport number"
+  },
   "detail-restrictions": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
   },
