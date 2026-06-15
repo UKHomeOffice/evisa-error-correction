@@ -25,11 +25,18 @@ set_redis_persistence() {
   fi
 }
 
-deploy_redis() {
-  if [[ (${KUBE_NAMESPACE} == ${STG_ENV} || ${KUBE_NAMESPACE} == ${PROD_ENV}) && -z "${REDIS_PERSISTENCE_EXISTING_CLAIM}" ]]; then
-    if [[ -z "${REDIS_PERSISTENCE_SIZE}" ]]; then
+set_redis_persistence_size() {
+  if [[ -z "${REDIS_PERSISTENCE_SIZE}" ]]; then
+    if [[ ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
+      export REDIS_PERSISTENCE_SIZE=10Gi
+    else
       export REDIS_PERSISTENCE_SIZE=1Gi
     fi
+  fi
+}
+
+deploy_redis() {
+  if [[ ${REDIS_PERSISTENCE_ENABLED} == "true" && -z "${REDIS_PERSISTENCE_EXISTING_CLAIM}" ]]; then
     $kd -f $redis_storage_files
   fi
 
@@ -39,10 +46,7 @@ deploy_redis() {
 delete_redis() {
   $kd --delete -f $redis_runtime_files
 
-  if [[ (${KUBE_NAMESPACE} == ${STG_ENV} || ${KUBE_NAMESPACE} == ${PROD_ENV}) && -z "${REDIS_PERSISTENCE_EXISTING_CLAIM}" ]]; then
-    if [[ -z "${REDIS_PERSISTENCE_SIZE}" ]]; then
-      export REDIS_PERSISTENCE_SIZE=1Gi
-    fi
+  if [[ ${REDIS_PERSISTENCE_ENABLED} == "true" && -z "${REDIS_PERSISTENCE_EXISTING_CLAIM}" ]]; then
     $kd --delete -f $redis_storage_files
   fi
 }
@@ -62,26 +66,27 @@ fi
 export KUBE_NAMESPACE=$1
 export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
 set_redis_persistence
+set_redis_persistence_size
+
+if [[ ${KUBE_NAMESPACE} == ${BRANCH_ENV} || ${KUBE_NAMESPACE} == ${UAT_ENV} || ${KUBE_NAMESPACE} == ${STG_ENV} || ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
+  deploy_redis
+fi
 
 if [[ ${KUBE_NAMESPACE} == ${BRANCH_ENV} ]]; then
   $kd -f kube/configmaps -f kube/certs
-  deploy_redis
   $kd -f kube/app
 elif [[ ${KUBE_NAMESPACE} == ${UAT_ENV} ]]; then
   $kd -f kube/configmaps/configmap.yml -f kube/app/service.yml
   $kd -f kube/app/networkpolicy-internal.yml -f kube/app/ingress-internal.yml
   $kd -f kube/app/networkpolicy-external.yml -f kube/app/ingress-external.yml
-  deploy_redis
   $kd -f kube/app/deployment.yml
 elif [[ ${KUBE_NAMESPACE} == ${STG_ENV} ]]; then
   $kd -f kube/configmaps/configmap.yml
-  deploy_redis
   $kd -f kube/app
 
 elif [[ ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
   $kd -f kube/configmaps/configmap.yml -f kube/app/service.yml
   $kd -f kube/app/networkpolicy-external.yml -f kube/app/ingress-external.yml
-  deploy_redis
   $kd -f kube/app/deployment.yml
 fi
 
