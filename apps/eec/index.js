@@ -190,6 +190,11 @@ module.exports = {
           target: '/details-can-do-uk',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-restrictions-in-uk')
+        },
+        {
+          target: '/correct-flight-number-airport',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-flight-number-airport')
         }
       ],
       showNeedHelp: true
@@ -275,6 +280,14 @@ module.exports = {
     '/details-can-do-uk': {
       next: '/personal-details',
       fields: ['detail-restrictions-in-uk'],
+      showNeedHelp: true
+    },
+    '/correct-flight-number-airport': {
+      next: '/personal-details',
+      fields: [
+        'correct-flight-number',
+        'correct-airport'
+      ],
       showNeedHelp: true
     },
     '/personal-details': {
