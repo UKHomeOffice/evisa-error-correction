@@ -12,17 +12,31 @@ export FILEVAULT_INGRESS_EXTERNAL_ANNOTATIONS=$HOF_CONFIG/filevault-ingress-exte
 kd='kd --insecure-skip-tls-verify --timeout 10m --check-interval 10s'
 redis_storage_files='kube/redis/redis-persistent-volume-claim.yml'
 redis_runtime_files='kube/redis/redis-service.yml -f kube/redis/redis-network-policy.yml -f kube/redis/redis-deployment.yml'
-export REDIS_PERSISTENCE_ENABLED=${REDIS_PERSISTENCE_ENABLED:-true}
 export REDIS_PERSISTENCE_ACCESS_MODES=${REDIS_PERSISTENCE_ACCESS_MODES:-ReadWriteOnce}
 export REDIS_PERSISTENCE_STORAGE_CLASS=${REDIS_PERSISTENCE_STORAGE_CLASS:-gp2-encrypted-eu-west-2b}
 export REDIS_PERSISTENCE_EXISTING_CLAIM=${REDIS_PERSISTENCE_EXISTING_CLAIM:-}
 export REDIS_PERSISTENCE_ANNOTATIONS_FILE=${REDIS_PERSISTENCE_ANNOTATIONS_FILE:-}
 
-deploy_redis() {
-  if [[ ${REDIS_PERSISTENCE_ENABLED} == "true" && -z "${REDIS_PERSISTENCE_EXISTING_CLAIM}" ]]; then
-    if [[ -z "${REDIS_PERSISTENCE_SIZE}" ]]; then
+set_redis_persistence() {
+  if [[ ${KUBE_NAMESPACE} == ${STG_ENV} || ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
+    export REDIS_PERSISTENCE_ENABLED=true
+  else
+    export REDIS_PERSISTENCE_ENABLED=false
+  fi
+}
+
+set_redis_persistence_size() {
+  if [[ -z "${REDIS_PERSISTENCE_SIZE}" ]]; then
+    if [[ ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
+      export REDIS_PERSISTENCE_SIZE=10Gi
+    else
       export REDIS_PERSISTENCE_SIZE=1Gi
     fi
+  fi
+}
+
+deploy_redis() {
+  if [[ ${REDIS_PERSISTENCE_ENABLED} == "true" && -z "${REDIS_PERSISTENCE_EXISTING_CLAIM}" ]]; then
     $kd -f $redis_storage_files
   fi
 
@@ -33,9 +47,6 @@ delete_redis() {
   $kd --delete -f $redis_runtime_files
 
   if [[ ${REDIS_PERSISTENCE_ENABLED} == "true" && -z "${REDIS_PERSISTENCE_EXISTING_CLAIM}" ]]; then
-    if [[ -z "${REDIS_PERSISTENCE_SIZE}" ]]; then
-      export REDIS_PERSISTENCE_SIZE=1Gi
-    fi
     $kd --delete -f $redis_storage_files
   fi
 }
@@ -43,15 +54,23 @@ delete_redis() {
 if [[ $1 == 'tear_down' ]]; then
   export KUBE_NAMESPACE=$BRANCH_ENV
   export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt)
+  set_redis_persistence
 
   $kd --delete -f kube/configmaps/configmap.yml
   $kd --delete -f kube/app
+  delete_redis
   echo "Torn Down UAT Branch - eec-$DRONE_SOURCE_BRANCH.internal.branch.sas-notprod.homeoffice.gov.uk"
   exit 0
 fi
 
 export KUBE_NAMESPACE=$1
 export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
+set_redis_persistence
+set_redis_persistence_size
+
+if [[ ${KUBE_NAMESPACE} == ${BRANCH_ENV} || ${KUBE_NAMESPACE} == ${UAT_ENV} || ${KUBE_NAMESPACE} == ${STG_ENV} || ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
+  deploy_redis
+fi
 
 if [[ ${KUBE_NAMESPACE} == ${BRANCH_ENV} ]]; then
   $kd -f kube/configmaps -f kube/certs
@@ -63,13 +82,11 @@ elif [[ ${KUBE_NAMESPACE} == ${UAT_ENV} ]]; then
   $kd -f kube/app/deployment.yml
 elif [[ ${KUBE_NAMESPACE} == ${STG_ENV} ]]; then
   $kd -f kube/configmaps/configmap.yml
-  deploy_redis
   $kd -f kube/app
 
 elif [[ ${KUBE_NAMESPACE} == ${PROD_ENV} ]]; then
   $kd -f kube/configmaps/configmap.yml -f kube/app/service.yml
   $kd -f kube/app/networkpolicy-external.yml -f kube/app/ingress-external.yml
-  deploy_redis
   $kd -f kube/app/deployment.yml
 fi
 
