@@ -268,7 +268,7 @@ module.exports = {
     ]
   },
   'correct-sponsor-licence-number': {
-    validate: 'required',
+    validate: ['required', 'alphanum', { type: 'maxlength', arguments: 20 }],
     formatter: ['removespaces']
   },
   photo: {

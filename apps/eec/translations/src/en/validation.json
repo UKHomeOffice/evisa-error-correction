@@ -64,7 +64,9 @@
     "regex" : "Enter a National Insurance number in the correct format"
   },
   "correct-sponsor-licence-number": {
-    "required": "Enter your sponsor licence number"
+    "required": "Enter your sponsor licence number",
+    "alphanum": "Sponsor licence number can only contain letters a to z or numbers 0 to 9",
+    "maxlength": "Sponsor licence number must be 20 characters or less"
   },
   "photo": {
     "required": "Describe the problem you are having"
