@@ -52,6 +52,10 @@
     "header": "What is the name of the ship and port you will leave the UK from?",
     "intro": "You must enter the same details that you used in your visa application."
   },
+  "correct-details-adult-accompanying": {
+    "header": "What are the correct details of the adult accompanying the child?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -151,6 +155,9 @@
       },
       "correct-ship-name": {
         "label": "Ship and port details"
+      },
+      "correct-given-names-adult-accompanying": {
+        "label": "Name and passport number of accompanying adult"
       },
       "detail-restrictions": {
         "label": "What you can and cannot do in the UK"
