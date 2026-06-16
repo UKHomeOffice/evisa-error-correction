@@ -92,6 +92,18 @@ module.exports = {
         field: 'how-many-adults'
       },
       {
+        step: '/correct-ship-and-port',
+        field: 'correct-ship-name',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-ship-and-port')) {
+            return null;
+          }
+          const shipName = req.sessionModel.get('correct-ship-name');
+          const portName = req.sessionModel.get('correct-port-name');
+          return `${shipName}, ${portName}`;
+        }
+      },
+      {
         step: '/problem',
         field: 'detail-restrictions'
       },
