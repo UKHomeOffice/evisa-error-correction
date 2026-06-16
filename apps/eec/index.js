@@ -125,7 +125,6 @@ module.exports = {
         'problem',
         'detail-valid-from',
         'detail-valid-until',
-        'detail-restrictions',
         'detail-share-code',
         'detail-signin-email',
         'detail-signin-phone',
@@ -186,6 +185,11 @@ module.exports = {
           target: '/correct-ship-and-port',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-ship-and-port-details')
+        },
+        {
+          target: '/details-can-do-uk',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-restrictions-in-uk')
         }
       ],
       showNeedHelp: true
@@ -266,6 +270,11 @@ module.exports = {
         'correct-ship-name',
         'correct-port-name'
       ],
+      showNeedHelp: true
+    },
+    '/details-can-do-uk': {
+      next: '/personal-details',
+      fields: ['detail-restrictions-in-uk'],
       showNeedHelp: true
     },
     '/personal-details': {

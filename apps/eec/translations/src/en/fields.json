@@ -111,7 +111,7 @@
       "problem-ship-and-port-details": {
         "label": "Ship and port details"
       },
-      "problem-restrictions": {
+      "problem-restrictions-in-uk": {
         "label": "What you can and cannot do in the UK"
       },
       "problem-share-code": {
@@ -203,7 +203,7 @@
   "correct-passport-number-adult-accompanying": {
     "label": "Passport number"
   },
-  "detail-restrictions": {
+  "detail-restrictions-in-uk": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
   },
   "detail-share-code": {

@@ -205,9 +205,7 @@ module.exports = {
         value: 'problem-ship-and-port-details'
       },
       {
-        value: 'problem-restrictions',
-        toggle: 'detail-restrictions',
-        child: 'textarea'
+        value: 'problem-restrictions-in-uk'
       },
       {
         value: 'problem-share-code',
@@ -314,14 +312,11 @@ module.exports = {
   'correct-passport-number-adult-accompanying': {
     validate: ['required', 'alphanum']
   },
-  'detail-restrictions': {
+  'detail-restrictions-in-uk': {
+    isPageHeading: 'true',
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 500 }],
-    attributes: [{ attribute: 'rows', value: 5 }],
-    dependent: {
-      field: 'problem',
-      value: 'problem-restrictions'
-    }
+    attributes: [{ attribute: 'rows', value: 5 }]
   },
   'detail-share-code': {
     mixin: 'input-text',

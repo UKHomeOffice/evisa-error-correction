@@ -117,8 +117,8 @@ module.exports = {
         }
       },
       {
-        step: '/problem',
-        field: 'detail-restrictions'
+        step: '/details-can-do-uk',
+        field: 'detail-restrictions-in-uk'
       },
       {
         step: '/problem',
