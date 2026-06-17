@@ -104,9 +104,9 @@
     "required": "Enter a passport number",
     "alphanum": "Passport number must only include letters a to z and numbers"
   },
-  "detail-restrictions": {
+  "detail-restrictions-in-uk": {
     "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
-    "maxlength": "You have exceeded the 500 character limit"
+    "maxlength": "Enter details that are 500 characters or less"
   },
   "detail-share-code": {
     "required": "Enter which share code you are unable to create"
