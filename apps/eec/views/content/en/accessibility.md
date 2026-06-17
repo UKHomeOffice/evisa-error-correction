@@ -41,6 +41,12 @@ On the start page and the privacy policy page, the screen reader does not read o
 
 If you find an issue that we have yet to identify, please contact us using one of the routes described in the ‘Reporting accessibility problems with this website’ section of this statement.
 
+### Conditionally revealed questions
+
+A question on the screen asking users for their current eVisa details is conditionally revealed when the user selects a checkbox. Users of assistive technologies are not always notified when these questions are shown or hidden. This means the name, role or value of content is not always communicated correctly to screen reader users, which fails [WCAG 2.2 success criterion 4.1.2 (Name, Role, Value)](https://www.w3.org/WAI/WCAG22/Understanding/name-role-value.html).
+
+Usability testing that has been carried out on other services found that screen reader users did not have difficulty answering a conditionally revealed question, as long as it is kept simple. However, more complex conditionally revealed questions has confused users in testing.
+
 ### Disproportionate burden
 
 At this time, we have not made any disproportionate burden claims.
