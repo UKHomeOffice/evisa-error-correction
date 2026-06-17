@@ -145,7 +145,7 @@ module.exports = {
         field: 'detail-restrictions-in-uk'
       },
       {
-        step: '/problem',
+        step: '/share-code',
         field: 'detail-share-code'
       },
       {

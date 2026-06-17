@@ -211,9 +211,7 @@ module.exports = {
         value: 'problem-restrictions-in-uk'
       },
       {
-        value: 'problem-share-code',
-        toggle: 'detail-share-code',
-        child: 'input-text'
+        value: 'problem-share-code'
       },
       {
         value: 'problem-signin-email',
@@ -334,13 +332,8 @@ module.exports = {
     attributes: [{ attribute: 'rows', value: 5 }]
   },
   'detail-share-code': {
-    mixin: 'input-text',
-    validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-share-code'
-    }
+    isPageHeading: 'true',
+    validate: ['required', { type: 'maxlength', arguments: 200 }]
   },
   'detail-valid-from': {
     mixin: 'input-text',

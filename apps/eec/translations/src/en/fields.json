@@ -224,7 +224,7 @@
   },
   "detail-share-code": {
     "label": "Which share code are you unable to create?",
-    "hint": "This could be for right to work, right to rent or something else"
+    "hint": "This could be right to work, right to rent or something else"
   },
   "detail-valid-from": {
     "label": "What is the correct date your visa is valid from?"

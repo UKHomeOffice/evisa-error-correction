@@ -125,7 +125,6 @@ module.exports = {
         'problem',
         'detail-valid-from',
         'detail-valid-until',
-        'detail-share-code',
         'detail-signin-email',
         'detail-signin-phone',
         'detail-other'
@@ -195,6 +194,11 @@ module.exports = {
           target: '/correct-flight-number-airport',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-flight-number-airport')
+        },
+        {
+          target: '/share-code',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-share-code')
         }
       ],
       showNeedHelp: true
@@ -303,6 +307,11 @@ module.exports = {
         'correct-flight-number',
         'correct-airport'
       ],
+      showNeedHelp: true
+    },
+    '/share-code': {
+      next: '/personal-details',
+      fields: ['detail-share-code'],
       showNeedHelp: true
     },
     '/personal-details': {
