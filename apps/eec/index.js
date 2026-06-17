@@ -257,6 +257,13 @@ module.exports = {
             field: 'how-many-adults',
             value: '1-adult'
           }
+        },
+        {
+          target: '/correct-passport-number',
+          condition: {
+            field: 'how-many-adults',
+            value: '2-adults'
+          }
         }
       ]
     },
@@ -266,6 +273,14 @@ module.exports = {
         'correct-given-names-adult-accompanying',
         'correct-last-name-adult-accompanying',
         'correct-passport-number-adult-accompanying'
+      ],
+      showNeedHelp: true
+    },
+    '/correct-passport-number': {
+      next: '/personal-details',
+      fields: [
+        'correct-passport-number-adult-1',
+        'correct-passport-number-adult-2'
       ],
       showNeedHelp: true
     },

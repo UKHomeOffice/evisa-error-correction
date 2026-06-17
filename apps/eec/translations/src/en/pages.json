@@ -48,7 +48,7 @@
     "header": "What is the correct name of your future partner?",
     "intro": "You must enter the same details that you used in your visa application."
   },
-  "correct-ship-and-port": {
+      "correct-ship-and-port": {
     "header": "What is the name of the ship and port you will leave the UK from?",
     "intro": "You must enter the same details that you used in your visa application."
   },
@@ -58,6 +58,10 @@
   },
   "correct-flight-number-airport": {
     "header": "What is your flight number and the airport you will leave the UK from?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-passport-number": {
+    "header": "What are the correct passport numbers of the adults approved to accompany a child?",
     "intro": "You must enter the same details that you used in your visa application."
   },
   "personal-details": {
@@ -165,6 +169,9 @@
       },
       "correct-flight-number": {
         "label": "Must leave UK via (flight number and airport)"
+      },
+      "correct-passport-number-adult-1": {
+        "label": "Passport numbers of accompanying adults"
       },
       "detail-restrictions-in-uk": {
         "label": "What you can and cannot do in the UK"
