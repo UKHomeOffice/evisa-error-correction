@@ -56,6 +56,10 @@
     "header": "What are the correct details of the adult accompanying the child?",
     "intro": "You must enter the same details that you used in your visa application."
   },
+  "correct-flight-number-airport": {
+    "header": "What is your flight number and the airport you will leave the UK from?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -158,6 +162,9 @@
       },
       "correct-given-names-adult-accompanying": {
         "label": "Name and passport number of accompanying adult"
+      },
+      "correct-flight-number": {
+        "label": "Must leave UK via (flight number and airport)"
       },
       "detail-restrictions-in-uk": {
         "label": "What you can and cannot do in the UK"

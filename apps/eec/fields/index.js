@@ -205,6 +205,9 @@ module.exports = {
         value: 'problem-ship-and-port-details'
       },
       {
+        value: 'problem-flight-number-airport'
+      },
+      {
         value: 'problem-restrictions-in-uk'
       },
       {
@@ -311,6 +314,12 @@ module.exports = {
   },
   'correct-passport-number-adult-accompanying': {
     validate: ['required', 'alphanum']
+  },
+  'correct-flight-number': {
+    validate: 'required'
+  },
+  'correct-airport': {
+    validate: 'required'
   },
   'detail-restrictions-in-uk': {
     isPageHeading: 'true',

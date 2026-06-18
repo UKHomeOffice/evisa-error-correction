@@ -117,6 +117,18 @@ module.exports = {
         }
       },
       {
+        step: '/correct-flight-number-airport',
+        field: 'correct-flight-number',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-flight-number-airport')) {
+            return null;
+          }
+          const flightNumber = req.sessionModel.get('correct-flight-number');
+          const airport = req.sessionModel.get('correct-airport');
+          return `${flightNumber}, ${airport}`;
+        }
+      },
+      {
         step: '/details-can-do-uk',
         field: 'detail-restrictions-in-uk'
       },

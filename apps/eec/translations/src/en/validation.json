@@ -104,6 +104,12 @@
     "required": "Enter a passport number",
     "alphanum": "Passport number must only include letters a to z and numbers"
   },
+  "correct-flight-number": {
+    "required": "Enter the correct flight number"
+  },
+  "correct-airport": {
+    "required": "Enter the correct airport"
+  },
   "detail-restrictions-in-uk": {
     "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
     "maxlength": "Enter details that are 500 characters or less"

@@ -111,6 +111,9 @@
       "problem-ship-and-port-details": {
         "label": "Ship and port details"
       },
+      "problem-flight-number-airport": {
+        "label": "Must leave UK via (flight number and airport)"
+      },
       "problem-restrictions-in-uk": {
         "label": "What you can and cannot do in the UK"
       },
@@ -202,6 +205,13 @@
   },
   "correct-passport-number-adult-accompanying": {
     "label": "Passport number"
+  },
+  "correct-flight-number": {
+    "label": "Correct flight number"
+  },
+  "correct-airport": {
+    "label": "Correct airport",
+    "hint": "For example, Heathrow Airport"
   },
   "detail-restrictions-in-uk": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
