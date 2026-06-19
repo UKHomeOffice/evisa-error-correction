@@ -321,6 +321,12 @@ module.exports = {
   'correct-airport': {
     validate: 'required'
   },
+  'correct-passport-number-adult-1': {
+    validate: ['required', 'alphanum']
+  },
+  'correct-passport-number-adult-2': {
+    validate: ['required', 'alphanum']
+  },
   'detail-restrictions-in-uk': {
     isPageHeading: 'true',
     mixin: 'textarea',

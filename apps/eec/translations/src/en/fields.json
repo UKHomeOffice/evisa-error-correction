@@ -213,6 +213,12 @@
     "label": "Correct airport",
     "hint": "For example, Heathrow Airport"
   },
+  "correct-passport-number-adult-1": {
+    "label": "Passport number of adult 1"
+  },
+  "correct-passport-number-adult-2": {
+    "label": "Passport number of adult 2"
+  },
   "detail-restrictions-in-uk": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
   },

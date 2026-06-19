@@ -129,6 +129,18 @@ module.exports = {
         }
       },
       {
+        step: '/correct-passport-number',
+        field: 'correct-passport-number-adult-1',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-passport-number')) {
+            return null;
+          }
+          const passportNumber1 = req.sessionModel.get('correct-passport-number-adult-1');
+          const passportNumber2 = req.sessionModel.get('correct-passport-number-adult-2');
+          return `Adult 1: ${passportNumber1}\nAdult 2: ${passportNumber2}`;
+        }
+      },
+      {
         step: '/details-can-do-uk',
         field: 'detail-restrictions-in-uk'
       },
