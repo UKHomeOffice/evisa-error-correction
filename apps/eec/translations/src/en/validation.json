@@ -123,7 +123,8 @@
     "maxlength": "Enter details that are 500 characters or less"
   },
   "detail-share-code": {
-    "required": "Enter which share code you are unable to create"
+    "required": "Enter which share code you are unable to create",
+    "maxlength": "Enter details that are 200 characters or less"
   },
   "detail-valid-from": {
     "required": "Enter the correct valid from date"
