@@ -254,7 +254,7 @@ module.exports = {
     isPageHeading: 'true',
     validate: 'required'
   },
-  'correct-visa-date-from': dateComponent('correct-visa-date-from', {
+  'correct-visa-start-date': dateComponent('correct-visa-start-date', {
     isPageHeading: 'true',
     mixin: 'input-date',
     validate: [
