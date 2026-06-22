@@ -59,7 +59,7 @@
   "problem-immigration-status": {
     "required": "Enter what is wrong with your status"
   },
-  "correct-date-valid-from": {
+  "correct-valid-from-date": {
     "required": "Enter the date your visa is valid from",
     "date": "Enter a real date"
   },

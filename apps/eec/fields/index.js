@@ -177,7 +177,7 @@ module.exports = {
         value: 'problem-status'
       },
       {
-        value: 'problem-date-valid-from'
+        value: 'problem-valid-from-date'
       },
       {
         value: 'problem-valid-until',
@@ -254,7 +254,7 @@ module.exports = {
     isPageHeading: 'true',
     validate: 'required'
   },
-  'correct-date-valid-from': dateComponent('correct-date-valid-from', {
+  'correct-valid-from-date': dateComponent('correct-valid-from-date', {
     isPageHeading: 'true',
     mixin: 'input-date',
     validate: [
