@@ -157,7 +157,7 @@ module.exports = {
         {
           target: '/date-valid-from',
           condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-valid-from-date')
+          req.sessionModel.get('problem').includes('problem-valid-from')
         },
         {
           target: '/national-insurance-number',
@@ -233,7 +233,7 @@ module.exports = {
     },
     '/date-valid-from': {
       next: '/personal-details',
-      fields: ['correct-valid-from-date'],
+      fields: ['correct-valid-from'],
       showNeedHelp: true
     },
     '/national-insurance-number': {

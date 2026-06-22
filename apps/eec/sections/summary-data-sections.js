@@ -57,7 +57,7 @@ module.exports = {
       },
       {
         step: '/date-valid-from',
-        field: 'correct-valid-from-date',
+        field: 'correct-valid-from',
         parse: val => !val ? '' : formatDate(val)
       },
       {

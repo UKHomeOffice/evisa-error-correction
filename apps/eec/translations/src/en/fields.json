@@ -123,7 +123,7 @@
       "problem-status": {
         "label": "Status"
       },
-      "problem-valid-from-date": {
+      "problem-valid-from": {
         "label": "Valid from"
       },
       "problem-valid-until": {
@@ -163,7 +163,7 @@
     "label": "What problem are you having with your immigration status?",
     "hint": "This could be because your status is old, incorrect or you cannot view it"
   },
-  "correct-valid-from-date": {
+  "correct-valid-from": {
     "legend": "What is the correct date your visa is valid from?",
     "hint": "Enter date in the format DD MM YYYY"
   },
