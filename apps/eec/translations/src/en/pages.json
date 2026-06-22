@@ -146,7 +146,7 @@
       "problem-immigration-status": {
         "label": "Status"
       },
-      "correct-visa-date": {
+      "correct-visa-date-from": {
         "label": "Valid from"
       },
       "correct-national-insurance-number": {

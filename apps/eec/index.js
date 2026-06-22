@@ -233,7 +233,7 @@ module.exports = {
     },
     '/date-valid-from': {
       next: '/personal-details',
-      fields: ['correct-visa-date'],
+      fields: ['correct-visa-date-from'],
       showNeedHelp: true
     },
     '/national-insurance-number': {
