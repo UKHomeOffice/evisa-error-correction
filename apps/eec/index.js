@@ -155,7 +155,7 @@ module.exports = {
           req.sessionModel.get('problem').includes('problem-status')
         },
         {
-          target: '/correct-visa-date',
+          target: '/date-valid-from',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-valid-from')
         },
@@ -231,7 +231,7 @@ module.exports = {
       fields: ['problem-immigration-status'],
       showNeedHelp: true
     },
-    '/correct-visa-date': {
+    '/date-valid-from': {
       next: '/personal-details',
       fields: ['correct-visa-date'],
       showNeedHelp: true
