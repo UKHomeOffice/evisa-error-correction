@@ -59,6 +59,10 @@
   "problem-immigration-status": {
     "required": "Enter what is wrong with your status"
   },
+  "correct-date-valid-from": {
+    "required": "Enter the date your visa is valid from",
+    "date": "Enter a real date"
+  },
   "correct-national-insurance-number": {
     "required": "Enter your National Insurance number",
     "regex" : "Enter a National Insurance number in the correct format"
@@ -125,9 +129,6 @@
   "detail-share-code": {
     "required": "Enter which share code you are unable to create",
     "maxlength": "Enter details that are 200 characters or less"
-  },
-  "detail-valid-from": {
-    "required": "Enter the correct valid from date"
   },
   "detail-valid-until": {
     "required": "Enter the correct valid to date"

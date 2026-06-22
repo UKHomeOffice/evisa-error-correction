@@ -56,8 +56,9 @@ module.exports = {
         field: 'problem-immigration-status'
       },
       {
-        step: '/problem',
-        field: 'detail-valid-from'
+        step: '/date-valid-from',
+        field: 'correct-date-valid-from',
+        parse: val => !val ? '' : formatDate(val)
       },
       {
         step: '/problem',

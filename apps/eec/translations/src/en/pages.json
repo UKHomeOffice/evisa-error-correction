@@ -146,6 +146,9 @@
       "problem-immigration-status": {
         "label": "Status"
       },
+      "correct-date-valid-from": {
+        "label": "Valid from"
+      },
       "correct-national-insurance-number": {
         "label": "National Insurance number"
       },
@@ -178,9 +181,6 @@
       },
       "detail-share-code": {
         "label": "Share code"
-      },
-      "detail-valid-from": {
-        "label": "Valid from"
       },
       "detail-valid-until": {
         "label": "Valid to"

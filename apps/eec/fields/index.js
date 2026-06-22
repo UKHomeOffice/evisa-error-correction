@@ -177,9 +177,7 @@ module.exports = {
         value: 'problem-status'
       },
       {
-        value: 'problem-valid-from',
-        toggle: 'detail-valid-from',
-        child: 'input-text'
+        value: 'problem-date-valid-from'
       },
       {
         value: 'problem-valid-until',
@@ -256,6 +254,14 @@ module.exports = {
     isPageHeading: 'true',
     validate: 'required'
   },
+  'correct-date-valid-from': dateComponent('correct-date-valid-from', {
+    isPageHeading: 'true',
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date'
+    ]
+  }),
   'correct-national-insurance-number': {
     formatter: ['removespaces', 'uppercase'],
     attributes: [
@@ -334,15 +340,6 @@ module.exports = {
   'detail-share-code': {
     isPageHeading: 'true',
     validate: ['required', { type: 'maxlength', arguments: 200 }]
-  },
-  'detail-valid-from': {
-    mixin: 'input-text',
-    validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-valid-from'
-    }
   },
   'detail-valid-until': {
     mixin: 'input-text',

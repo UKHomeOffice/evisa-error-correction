@@ -123,7 +123,7 @@
       "problem-status": {
         "label": "Status"
       },
-      "problem-valid-from": {
+      "problem-date-valid-from": {
         "label": "Valid from"
       },
       "problem-valid-until": {
@@ -162,6 +162,10 @@
   "problem-immigration-status": {
     "label": "What problem are you having with your immigration status?",
     "hint": "This could be because your status is old, incorrect or you cannot view it"
+  },
+  "correct-date-valid-from": {
+    "legend": "What is the correct date your visa is valid from?",
+    "hint": "Enter date in the format DD MM YYYY"
   },
   "correct-national-insurance-number": {
     "label": "National Insurance number",
@@ -225,9 +229,6 @@
   "detail-share-code": {
     "label": "Which share code are you unable to create?",
     "hint": "This could be for right to work, right to rent or something else"
-  },
-  "detail-valid-from": {
-    "label": "What is the correct date your visa is valid from?"
   },
   "detail-valid-until": {
     "label": "What is the correct date your visa is valid to?"
