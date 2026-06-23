@@ -96,6 +96,9 @@
       "problem-nationality": {
         "label": "Nationality"
       },
+      "problem-valid-from": {
+        "label": "Valid from"
+      },
       "problem-national-insurance-number": {
         "label": "National Insurance number"
       },
@@ -122,9 +125,6 @@
       },
       "problem-status": {
         "label": "Status"
-      },
-      "problem-valid-from": {
-        "label": "Valid from"
       },
       "problem-valid-until": {
         "label": "Valid to"
