@@ -210,9 +210,7 @@ module.exports = {
         value: 'problem-share-code'
       },
       {
-        value: 'problem-signin-email',
-        toggle: 'detail-signin-email',
-        child: 'input-text'
+        value: 'problem-signin-email'
       },
       {
         value: 'problem-signin-phone',
@@ -347,18 +345,14 @@ module.exports = {
     isPageHeading: 'true',
     validate: ['required', { type: 'maxlength', arguments: 200 }]
   },
-  'detail-signin-email': {
-    mixin: 'input-text',
+  'correct-signin-email': {
+    isPageHeading: 'true',
     validate: [
       'required',
       'email',
-      { type: 'maxlength', arguments: 254 }
-    ],
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-signin-email'
-    }
+      { type: 'maxlength', arguments: 254 },
+      { type: 'minlength', arguments: 6 }
+    ]
   },
   'detail-signin-phone': {
     mixin: 'input-text',
