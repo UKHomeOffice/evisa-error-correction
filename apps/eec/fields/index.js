@@ -180,9 +180,7 @@ module.exports = {
         value: 'problem-valid-from'
       },
       {
-        value: 'problem-valid-until',
-        toggle: 'detail-valid-until',
-        child: 'input-text'
+        value: 'problem-valid-to'
       },
       {
         value: 'problem-national-insurance-number'
@@ -255,6 +253,14 @@ module.exports = {
     validate: 'required'
   },
   'correct-visa-start-date': dateComponent('correct-visa-start-date', {
+    isPageHeading: 'true',
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date'
+    ]
+  }),
+  'correct-visa-end-date': dateComponent('correct-visa-end-date', {
     isPageHeading: 'true',
     mixin: 'input-date',
     validate: [
@@ -340,15 +346,6 @@ module.exports = {
   'detail-share-code': {
     isPageHeading: 'true',
     validate: ['required', { type: 'maxlength', arguments: 200 }]
-  },
-  'detail-valid-until': {
-    mixin: 'input-text',
-    validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-valid-until'
-    }
   },
   'detail-signin-email': {
     mixin: 'input-text',

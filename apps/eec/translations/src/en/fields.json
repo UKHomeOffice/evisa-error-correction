@@ -99,6 +99,9 @@
       "problem-valid-from": {
         "label": "Valid from"
       },
+      "problem-valid-to": {
+        "label": "Valid to"
+      },
       "problem-national-insurance-number": {
         "label": "National Insurance number"
       },
@@ -125,9 +128,6 @@
       },
       "problem-status": {
         "label": "Status"
-      },
-      "problem-valid-until": {
-        "label": "Valid to"
       },
       "problem-signin-email": {
         "label": "Email address to sign in to your account"
@@ -165,6 +165,10 @@
   },
   "correct-visa-start-date": {
     "legend": "What is the correct date your visa is valid from?",
+    "hint": "Enter date in the format DD MM YYYY"
+  },
+  "correct-visa-end-date": {
+    "legend": "What is the correct date your visa is valid to?",
     "hint": "Enter date in the format DD MM YYYY"
   },
   "correct-national-insurance-number": {
@@ -229,9 +233,6 @@
   "detail-share-code": {
     "label": "Which share code are you unable to create?",
     "hint": "This could be for right to work, right to rent or something else"
-  },
-  "detail-valid-until": {
-    "label": "What is the correct date your visa is valid to?"
   },
   "detail-signin-email": {
     "label": "What is the correct email address where you can receive security codes?"

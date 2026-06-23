@@ -63,6 +63,10 @@
     "required": "Enter the date your visa is valid from",
     "date": "Enter a real date"
   },
+  "correct-visa-end-date": {
+    "required": "Enter the date your visa is valid to",
+    "date": "Enter a real date"
+  },
   "correct-national-insurance-number": {
     "required": "Enter your National Insurance number",
     "regex" : "Enter a National Insurance number in the correct format"
@@ -129,9 +133,6 @@
   "detail-share-code": {
     "required": "Enter which share code you are unable to create",
     "maxlength": "Enter details that are 200 characters or less"
-  },
-  "detail-valid-until": {
-    "required": "Enter the correct valid to date"
   },
   "detail-signin-email": {
     "required": "Enter the correct email address where you can receive security codes",
