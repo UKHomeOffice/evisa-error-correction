@@ -238,8 +238,9 @@
     "label": "What is the correct email address to sign in to your account?",
     "hint": "You will also get security codes sent to this email address"
   },
-  "detail-signin-phone": {
-    "label": "What is the correct phone number where you can receive security codes?"
+  "correct-signin-phone": {
+    "label": "What is the correct phone number where you can receive security codes?",
+    "hint": " For international numbers, include the country code"
   },
   "problem-not-listed": {
     "label": "Describe the problem you are having"

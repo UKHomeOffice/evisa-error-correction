@@ -155,8 +155,8 @@ module.exports = {
         field: 'correct-signin-email'
       },
       {
-        step: '/problem',
-        field: 'detail-signin-phone'
+        step: '/correct-phone-number',
+        field: 'correct-signin-phone'
       },
       {
         step: '/problem-not-listed',
