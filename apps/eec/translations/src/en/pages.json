@@ -73,9 +73,8 @@
   "problem-not-listed": {
     "header": "My problem is not listed"
   },
-  "personal-details": {
-    "header": "Personal details",
-    "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
+  "your-evisa-details": {
+    "header": "Your current eVisa details"
   },
   "contact": {
     "header": "How should we contact you about your eVisa?"
@@ -108,8 +107,8 @@
       "corrected-details": {
         "header": "eVisa details to be corrected to"
       },
-      "personal-details": {
-        "header": "Personal details"
+      "your-evisa-details": {
+        "header": "Your current eVisa details"
       },
       "completing-for-someone-else": {
         "header": "Details of person completing this form on behalf of another"
