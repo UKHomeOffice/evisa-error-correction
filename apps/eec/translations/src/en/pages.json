@@ -185,8 +185,8 @@
       "detail-share-code": {
         "label": "Share code"
       },
-      "detail-signin-email": {
-        "label": "Account email"
+      "correct-signin-email": {
+        "label": "Email address to sign in to your account"
       },
       "detail-signin-phone": {
         "label": "Account phone"

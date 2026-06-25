@@ -151,8 +151,8 @@ module.exports = {
         field: 'detail-share-code'
       },
       {
-        step: '/problem',
-        field: 'detail-signin-email'
+        step: '/correct-email-address',
+        field: 'correct-signin-email'
       },
       {
         step: '/problem',

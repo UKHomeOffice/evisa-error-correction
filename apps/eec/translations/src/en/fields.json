@@ -234,8 +234,9 @@
     "label": "Which share code are you unable to create?",
     "hint": "This could be for right to work, right to rent or something else"
   },
-  "detail-signin-email": {
-    "label": "What is the correct email address where you can receive security codes?"
+  "correct-signin-email": {
+    "label": "What is the correct email address to sign in to your account?",
+    "hint": "You will also get security codes sent to this email address"
   },
   "detail-signin-phone": {
     "label": "What is the correct phone number where you can receive security codes?"

@@ -134,10 +134,11 @@
     "required": "Enter which share code you are unable to create",
     "maxlength": "Enter details that are 200 characters or less"
   },
-  "detail-signin-email": {
+  "correct-signin-email": {
     "required": "Enter the correct email address where you can receive security codes",
     "email": "Enter an email address in the correct format, like name@example.com",
-    "maxlength": "Email address must be less than 254 characters"
+    "maxlength": "Email address must be between 6 and 254 characters",
+    "minlength": "Email address must be between 6 and 254 characters"
   },
   "detail-signin-phone": {
     "required": "Enter the correct phone number where you can receive security codes",

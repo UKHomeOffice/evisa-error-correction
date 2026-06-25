@@ -123,7 +123,6 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-signin-email',
         'detail-signin-phone',
         'detail-other'
       ],
@@ -207,6 +206,11 @@ module.exports = {
           target: '/share-code',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-share-code')
+        },
+        {
+          target: '/correct-email-address',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-signin-email')
         }
       ],
       showNeedHelp: true
@@ -330,6 +334,11 @@ module.exports = {
     '/share-code': {
       next: '/personal-details',
       fields: ['detail-share-code'],
+      showNeedHelp: true
+    },
+    '/correct-email-address': {
+      next: '/personal-details',
+      fields: ['correct-signin-email'],
       showNeedHelp: true
     },
     '/personal-details': {
