@@ -145,9 +145,9 @@
     "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
     "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
   },
-  "detail-other": {
-    "required": "Enter the problem that isn't listed",
-    "maxlength": "You have exceeded the 500 character limit"
+  "problem-not-listed": {
+    "required": "Enter the problem you are having",
+    "maxlength": "Description must be 500 characters or less"
   },
   "is-refugee": {
     "required": "Select if you have permission to stay in the UK as a refugee"

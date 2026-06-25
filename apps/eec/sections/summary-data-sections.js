@@ -159,8 +159,8 @@ module.exports = {
         field: 'detail-signin-phone'
       },
       {
-        step: '/problem',
-        field: 'detail-other'
+        step: '/problem-not-listed',
+        field: 'problem-not-listed'
       }
     ]
   },

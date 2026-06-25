@@ -218,9 +218,7 @@ module.exports = {
         child: 'input-text'
       },
       {
-        value: 'problem-other',
-        toggle: 'detail-other',
-        child: 'textarea'
+        value: 'problem-other'
       }
     ]
   },
@@ -363,14 +361,10 @@ module.exports = {
       value: 'problem-signin-phone'
     }
   },
-  'detail-other': {
+  'problem-not-listed': {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 500 }],
-    attributes: [{ attribute: 'rows', value: 5 }],
-    dependent: {
-      field: 'problem',
-      value: 'problem-other'
-    }
+    attributes: [{ attribute: 'rows', value: 5 }]
   },
   'is-refugee': {
     isPageHeading: 'true',

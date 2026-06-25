@@ -123,8 +123,7 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-signin-phone',
-        'detail-other'
+        'detail-signin-phone'
       ],
       forks: [
         {
@@ -211,6 +210,11 @@ module.exports = {
           target: '/correct-email-address',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-signin-email')
+        },
+        {
+          target: '/problem-not-listed',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-other')
         }
       ],
       showNeedHelp: true
@@ -339,6 +343,11 @@ module.exports = {
     '/correct-email-address': {
       next: '/personal-details',
       fields: ['correct-signin-email'],
+      showNeedHelp: true
+    },
+    '/problem-not-listed': {
+      next: '/personal-details',
+      fields: ['problem-not-listed'],
       showNeedHelp: true
     },
     '/personal-details': {
