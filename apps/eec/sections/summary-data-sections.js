@@ -61,8 +61,9 @@ module.exports = {
         parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-valid-until'
+        step: '/date-valid-to',
+        field: 'correct-visa-end-date',
+        parse: val => !val ? '' : formatDate(val)
       },
       {
         step: '/national-insurance-number',

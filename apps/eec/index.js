@@ -123,7 +123,6 @@ module.exports = {
       next: '/personal-details',
       fields: [
         'problem',
-        'detail-valid-until',
         'detail-signin-email',
         'detail-signin-phone',
         'detail-other'
@@ -158,6 +157,11 @@ module.exports = {
           target: '/date-valid-from',
           condition: req => req.sessionModel.get('problem') &&
           req.sessionModel.get('problem').includes('problem-valid-from')
+        },
+        {
+          target: '/date-valid-to',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-valid-to')
         },
         {
           target: '/national-insurance-number',
@@ -234,6 +238,11 @@ module.exports = {
     '/date-valid-from': {
       next: '/personal-details',
       fields: ['correct-visa-start-date'],
+      showNeedHelp: true
+    },
+    '/date-valid-to': {
+      next: '/personal-details',
+      fields: ['correct-visa-end-date'],
       showNeedHelp: true
     },
     '/national-insurance-number': {

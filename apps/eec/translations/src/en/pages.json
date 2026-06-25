@@ -149,6 +149,9 @@
       "correct-visa-start-date": {
         "label": "Valid from"
       },
+      "correct-visa-end-date": {
+        "label": "Valid to"
+      },
       "correct-national-insurance-number": {
         "label": "National Insurance number"
       },
@@ -181,9 +184,6 @@
       },
       "detail-share-code": {
         "label": "Share code"
-      },
-      "detail-valid-until": {
-        "label": "Valid to"
       },
       "detail-signin-email": {
         "label": "Account email"
