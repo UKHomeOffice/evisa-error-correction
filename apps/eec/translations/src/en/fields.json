@@ -139,7 +139,7 @@
         "label": "Sponsor licence number"
       },
       "problem-other": {
-        "label": "My problem isn't listed"
+        "label": "My problem is not listed"
       }
   }
   },
@@ -241,7 +241,7 @@
   "detail-signin-phone": {
     "label": "What is the correct phone number where you can receive security codes?"
   },
-  "detail-other": {
+  "problem-not-listed": {
     "label": "Describe the problem you are having"
   },
   "is-refugee": {
