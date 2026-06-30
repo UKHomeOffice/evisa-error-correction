@@ -354,10 +354,10 @@ module.exports = {
     isPageHeading: 'true',
     validate: [
       'required',
-      'internationalPhoneNumber',
-      startsWithDigitOrPlus,
       { type: 'maxlength', arguments: 30 },
-      { type: 'minlength', arguments: 6 }
+      { type: 'minlength', arguments: 6 },
+      'internationalPhoneNumber',
+      startsWithDigitOrPlus
     ]
   },
   'problem-not-listed': {
