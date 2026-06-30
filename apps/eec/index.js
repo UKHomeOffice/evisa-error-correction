@@ -355,7 +355,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/problem-not-listed': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['problem-not-listed'],
       showNeedHelp: true
     },
