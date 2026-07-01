@@ -33,6 +33,11 @@ module.exports = {
   'corrected-details': {
     steps: [
       {
+        step: '/problem',
+        field: 'problem',
+        parse: val => Array.isArray(val) ? val.join('\n') : val
+      },
+      {
         step: '/your-correct-name',
         field: 'correct-given-names',
         parse: (val, req) => {
