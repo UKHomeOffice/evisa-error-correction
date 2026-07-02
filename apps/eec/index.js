@@ -350,7 +350,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/correct-phone-number': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-signin-phone'],
       showNeedHelp: true
     },
