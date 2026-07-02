@@ -37,58 +37,119 @@
   "problem": {
     "required": "Select what the problem is"
   },
-  "detail-full-name": {
-    "required": "Enter your correct name"
+  "correct-given-names": {
+    "required": "Enter your given names",
+    "validateText": "Given names must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter given names that are 120 characters or less"
   },
-  "detail-dob": {
-    "required": "Enter your correct date of birth",
-    "date": "The date must only contain numbers. For example, 31 3 1980",
-    "before": "Date of birth must be in the past"
+  "correct-last-name": {
+    "required": "Enter your last name",
+    "validateText": "Last name must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter a last name that is 120 characters or less"
   },
-  "detail-nationality": {
-    "required": "Enter your correct nationality"
+  "correct-date-of-birth": {
+    "required": "Enter your date of birth",
+    "date": "Enter a real date",
+    "before": "Your date of birth must be in the past"
   },
-  "detail-photo": {
-    "required": "Enter what is wrong with your photo",
-    "maxlength": "You have exceeded the 500 character limit"
+  "correct-nationality": {
+    "required": "Enter your nationality",
+    "invalidOption": "Enter your correct nationality"
   },
-  "detail-nin": {
-    "required": "Enter your correct National Insurance number"
-  },
-  "detail-restrictions": {
-    "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
-    "maxlength": "You have exceeded the 500 character limit"
-  },
-  "detail-share-code": {
-    "required": "Enter which share code you are unable to create"
-  },
-  "detail-status": {
+  "problem-immigration-status": {
     "required": "Enter what is wrong with your status"
   },
-  "detail-valid-from": {
-    "required": "Enter the correct valid from date"
+  "correct-visa-start-date": {
+    "required": "Enter the date your visa is valid from",
+    "date": "Enter a real date"
   },
-  "detail-valid-until": {
-    "required": "Enter the correct valid to date"
+  "correct-visa-end-date": {
+    "required": "Enter the date your visa is valid to",
+    "date": "Enter a real date"
   },
-  "detail-signin-email": {
+  "correct-national-insurance-number": {
+    "required": "Enter your National Insurance number",
+    "regex" : "Enter a National Insurance number in the correct format"
+  },
+  "correct-sponsor-licence-number": {
+    "required": "Enter your sponsor licence number",
+    "alphanum": "Sponsor licence number can only contain letters a to z or numbers 0 to 9",
+    "maxlength": "Sponsor licence number must be 20 characters or less"
+  },
+  "photo": {
+    "required": "Describe the problem you are having"
+  },
+  "future-partner-correct-given-names": {
+    "required": "Enter their given names",
+    "validateText": "Given names must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter given names that are 120 characters or less"
+  },
+  "future-partner-correct-last-name": {
+    "required": "Enter their last name",
+    "validateText": "Last name must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter a last name that is 120 characters or less"
+  },
+  "how-many-adults": {
+    "required": "Choose how many adults are accompanying a child"
+  },
+  "correct-ship-name": {
+    "required": "Enter the correct ship name"
+  },
+  "correct-port-name": {
+    "required": "Enter the correct port"
+  },
+  "correct-given-names-adult-accompanying": {
+    "required": "Enter their given names",
+    "validateText": "Given names must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter given names that are 120 characters or less"
+  },
+  "correct-last-name-adult-accompanying": {
+    "required": "Enter their last name",
+    "validateText": "Last name must contain only letters a to z, spaces, hyphens and apostrophes",
+    "maxlength": "Enter a last name that is 120 characters or less"
+  },
+  "correct-passport-number-adult-accompanying": {
+    "required": "Enter a passport number",
+    "alphanum": "Passport number must only include letters a to z and numbers"
+  },
+  "correct-flight-number": {
+    "required": "Enter the correct flight number"
+  },
+  "correct-airport": {
+    "required": "Enter the correct airport"
+  },
+  "correct-passport-number-adult-1": {
+    "required": "Enter a passport number",
+    "alphanum": "Passport number must only include letters a to z and numbers"
+  },
+  "correct-passport-number-adult-2": {
+    "required": "Enter a passport number",
+    "alphanum": "Passport number must only include letters a to z and numbers"
+  },
+  "detail-restrictions-in-uk": {
+    "required": "Enter what is wrong with the details of what you can and cannot do in the UK",
+    "maxlength": "Enter details that are 500 characters or less"
+  },
+  "detail-share-code": {
+    "required": "Enter which share code you are unable to create",
+    "maxlength": "Enter details that are 200 characters or less"
+  },
+  "correct-signin-email": {
     "required": "Enter the correct email address where you can receive security codes",
     "email": "Enter an email address in the correct format, like name@example.com",
-    "maxlength": "Email address must be less than 254 characters"
+    "maxlength": "Email address must be between 6 and 254 characters",
+    "minlength": "Email address must be between 6 and 254 characters"
   },
-  "detail-signin-phone": {
-    "required": "Enter the correct phone number where you can receive security codes",
+  "correct-signin-phone": {
+    "required": "Enter a phone number",
     "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
-    "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+    "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
+    "maxlength": "Phone number must be between 6 and 30 digits",
+    "minlength": "Phone number must be between 6 and 30 digits"
   },
-  "detail-sponsor-licence-number": {
-    "required": "Enter your correct sponsor licence number",
-    "maxlength": "Sponsor licence number must be 20 characters or less",
-    "alphanum": "Sponsor licence number must only include letters a to z and numbers"
-  },
-  "detail-other": {
-    "required": "Enter the problem that isn't listed",
-    "maxlength": "You have exceeded the 500 character limit"
+  "problem-not-listed": {
+    "required": "Enter the problem you are having",
+    "maxlength": "Description must be 500 characters or less"
   },
   "is-refugee": {
     "required": "Select if you have permission to stay in the UK as a refugee"

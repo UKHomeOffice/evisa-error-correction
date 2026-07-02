@@ -33,61 +33,134 @@ module.exports = {
   'corrected-details': {
     steps: [
       {
-        step: '/problem',
-        field: 'detail-full-name'
+        step: '/your-correct-name',
+        field: 'correct-given-names',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/your-correct-name')) {
+            return null;
+          }
+          return `${req.sessionModel.get('correct-given-names')} ${req.sessionModel.get('correct-last-name')}`;
+        }
       },
       {
-        step: '/problem',
-        field: 'detail-dob',
+        step: '/correct-date-of-birth',
+        field: 'correct-date-of-birth',
         parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-nationality'
+        step: '/correct-nationality',
+        field: 'correct-nationality'
       },
       {
-        step: '/problem',
-        field: 'detail-status'
+        step: '/problem-immigration-status',
+        field: 'problem-immigration-status'
       },
       {
-        step: '/problem',
-        field: 'detail-valid-from'
+        step: '/date-valid-from',
+        field: 'correct-visa-start-date',
+        parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-valid-until'
+        step: '/date-valid-to',
+        field: 'correct-visa-end-date',
+        parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-nin'
+        step: '/national-insurance-number',
+        field: 'correct-national-insurance-number'
       },
       {
-        step: '/problem',
-        field: 'detail-photo'
+        step: '/sponsor-licence-number',
+        field: 'correct-sponsor-licence-number'
       },
       {
-        step: '/problem',
-        field: 'detail-restrictions'
+        step: '/photo',
+        field: 'photo'
       },
       {
-        step: '/problem',
+        step: '/future-partner-name',
+        field: 'future-partner-correct-given-names',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/future-partner-name')) {
+            return null;
+          }
+          const givenNames = req.sessionModel.get('future-partner-correct-given-names');
+          const lastName = req.sessionModel.get('future-partner-correct-last-name');
+          return `${givenNames} ${lastName}`;
+        }
+      },
+      {
+        step: '/how-many-adults',
+        field: 'how-many-adults'
+      },
+      {
+        step: '/correct-ship-and-port',
+        field: 'correct-ship-name',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-ship-and-port')) {
+            return null;
+          }
+          const shipName = req.sessionModel.get('correct-ship-name');
+          const portName = req.sessionModel.get('correct-port-name');
+          return `${shipName}, ${portName}`;
+        }
+      },
+      {
+        step: '/correct-details-adult-accompanying',
+        field: 'correct-given-names-adult-accompanying',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-details-adult-accompanying')) {
+            return null;
+          }
+          const givenNames = req.sessionModel.get('correct-given-names-adult-accompanying');
+          const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
+          const passportNumber = req.sessionModel.get('correct-passport-number-adult-accompanying');
+          return `${givenNames} ${lastName}\n${passportNumber}`;
+        }
+      },
+      {
+        step: '/correct-flight-number-airport',
+        field: 'correct-flight-number',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-flight-number-airport')) {
+            return null;
+          }
+          const flightNumber = req.sessionModel.get('correct-flight-number');
+          const airport = req.sessionModel.get('correct-airport');
+          return `${flightNumber}, ${airport}`;
+        }
+      },
+      {
+        step: '/correct-passport-number',
+        field: 'correct-passport-number-adult-1',
+        parse: (val, req) => {
+          if (!req.sessionModel.get('steps').includes('/correct-passport-number')) {
+            return null;
+          }
+          const passportNumber1 = req.sessionModel.get('correct-passport-number-adult-1');
+          const passportNumber2 = req.sessionModel.get('correct-passport-number-adult-2');
+          return `Adult 1: ${passportNumber1}\nAdult 2: ${passportNumber2}`;
+        }
+      },
+      {
+        step: '/details-can-do-uk',
+        field: 'detail-restrictions-in-uk'
+      },
+      {
+        step: '/share-code',
         field: 'detail-share-code'
       },
       {
-        step: '/problem',
-        field: 'detail-signin-email'
+        step: '/correct-email-address',
+        field: 'correct-signin-email'
       },
       {
-        step: '/problem',
-        field: 'detail-signin-phone'
+        step: '/correct-phone-number',
+        field: 'correct-signin-phone'
       },
       {
-        step: '/problem',
-        field: 'detail-sponsor-licence-number'
-      },
-      {
-        step: '/problem',
-        field: 'detail-other'
+        step: '/problem-not-listed',
+        field: 'problem-not-listed'
       }
     ]
   },

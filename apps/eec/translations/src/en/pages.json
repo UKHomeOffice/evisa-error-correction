@@ -21,6 +21,58 @@
     "step3": "any error messages or problems you saw",
     "intro-continued": "This helps us understand the issue and how to fix it."
   },
+  "your-correct-name": {
+    "header": "What is your correct name?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-date-of-birth": {
+    "header": "What is your correct date of birth?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-nationality": {
+    "header": "What is your correct nationality?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "national-insurance-number": {
+    "header": "What is your correct National Insurance number?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "sponsor-licence-number": {
+    "header": "What is your correct sponsor licence number?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "photo": {
+    "header": "What is wrong with your photo?"
+  },
+  "future-partner-name": {
+    "header": "What is the correct name of your future partner?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-ship-and-port": {
+    "header": "What is the name of the ship and port you will leave the UK from?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-details-adult-accompanying": {
+    "header": "What are the correct details of the adult accompanying the child?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-flight-number-airport": {
+    "header": "What is your flight number and the airport you will leave the UK from?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-passport-number": {
+    "header": "What are the correct passport numbers of the adults approved to accompany a child?",
+    "intro": "You must enter the same details that you used in your visa application."
+  },
+  "correct-email-address": {
+    "title": "What is the correct email address?"
+  },
+  "correct-phone-number": {
+    "title": "What is the correct phone number?"
+  },
+  "problem-not-listed": {
+    "header": "My problem is not listed"
+  },
   "personal-details": {
     "header": "Personal details",
     "intro": "You must enter these details exactly as they appear on your eVisa so we can review the problem."
@@ -91,47 +143,65 @@
       "trying-to-do": {
         "label": "What are you trying to do?"
       },
-      "detail-full-name": {
+      "correct-given-names": {
         "label": "Name"
       },
-      "detail-dob": {
+      "correct-date-of-birth": {
         "label": "Date of birth"
       },
-      "detail-nationality": {
+      "correct-nationality": {
         "label": "Nationality"
       },
-      "detail-photo": {
-        "label": "Photo"
+      "problem-immigration-status": {
+        "label": "Status"
       },
-      "detail-nin": {
+      "correct-visa-start-date": {
+        "label": "Valid from"
+      },
+      "correct-visa-end-date": {
+        "label": "Valid to"
+      },
+      "correct-national-insurance-number": {
         "label": "National Insurance number"
       },
-      "detail-restrictions": {
+      "correct-sponsor-licence-number": {
+        "label": "Sponsor licence number"
+      },
+      "photo": {
+        "label": "Photo"
+      },
+      "future-partner-correct-given-names": {
+        "label": "Future spouse or civil partner name"
+      },
+      "how-many-adults": {
+        "label": "Number of adults accompanying a child"
+      },
+      "correct-ship-name": {
+        "label": "Ship and port details"
+      },
+      "correct-given-names-adult-accompanying": {
+        "label": "Name and passport number of accompanying adult"
+      },
+      "correct-flight-number": {
+        "label": "Must leave UK via (flight number and airport)"
+      },
+      "correct-passport-number-adult-1": {
+        "label": "Passport numbers of accompanying adults"
+      },
+      "detail-restrictions-in-uk": {
         "label": "What you can and cannot do in the UK"
       },
       "detail-share-code": {
         "label": "Share code"
       },
-      "detail-status": {
-        "label": "Status"
+      "correct-signin-email": {
+        "label": "Email address to sign in to your account"
       },
-      "detail-valid-from": {
-        "label": "Valid from"
+      "correct-signin-phone": {
+        "label": "Phone number to sign in to your account"
       },
-      "detail-valid-until": {
-        "label": "Valid to"
-      },
-      "detail-signin-email": {
-        "label": "Account email"
-      },
-      "detail-signin-phone": {
-        "label": "Account phone"
-      },
-      "detail-other": {
-        "label": "My problem isn't listed"
-      },
-      "detail-sponsor-licence-number": {
-        "label": "Sponsor licence number"
+      "problem-not-listed": {
+        "label": "My problem is not listed"
       },
       "requestor-full-name": {
         "label": "Full name"

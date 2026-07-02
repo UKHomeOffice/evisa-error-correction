@@ -6,6 +6,7 @@ const BRPValidator = { type: 'regex', arguments: /^r[a-z](\d|X)\d{6}$/gi };
 const GWFValidator = { type: 'regex', arguments: /^gwf\d{9}$/gi };
 const UKVIValidator = { type: 'regex', arguments: /^KX.+$/i };
 const startsWithDigitOrPlus = { type: 'regex', arguments: /^[+\d].*\d$/ };
+const NIValidator = { type: 'regex', arguments: /^[A-Z]{2}[0-9]{6}[ABCD]$/ };
 
 /**
  * Validates that the given value only includes letters (a to z), spaces, hyphens, and apostrophes.
@@ -87,7 +88,6 @@ module.exports = {
   'travel-doc-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    validate: ['required'],
     options: [{
       value: '',
       label: 'fields.travel-doc-nationality.options.none_selected'
@@ -165,213 +165,205 @@ module.exports = {
     isPageHeading: true,
     options: [
       {
-        value: 'problem-full-name',
-        toggle: 'detail-full-name',
-        child: 'input-text'
+        value: 'problem-full-name'
       },
       {
-        value: 'problem-dob',
-        toggle: 'detail-dob-toggle-content',
-        child: 'partials/detail-dob'
+        value: 'problem-date-of-birth'
       },
       {
-        value: 'problem-nationality',
-        toggle: 'detail-nationality-toggle-content',
-        child: 'partials/detail-nationality'
+        value: 'problem-nationality'
       },
       {
-        value: 'problem-status',
-        toggle: 'detail-status',
-        child: 'input-text'
+        value: 'problem-status'
       },
       {
-        value: 'problem-valid-from',
-        toggle: 'detail-valid-from',
-        child: 'input-text'
+        value: 'problem-valid-from'
       },
       {
-        value: 'problem-valid-until',
-        toggle: 'detail-valid-until',
-        child: 'input-text'
+        value: 'problem-valid-to'
       },
       {
-        value: 'problem-nin',
-        toggle: 'detail-nin',
-        child: 'input-text'
+        value: 'problem-national-insurance-number'
       },
       {
-        value: 'problem-photo',
-        toggle: 'detail-photo',
-        child: 'textarea'
+        value: 'problem-sponsor-licence-number'
       },
       {
-        value: 'problem-restrictions',
-        toggle: 'detail-restrictions',
-        child: 'textarea'
+        value: 'problem-photo'
       },
       {
-        value: 'problem-share-code',
-        toggle: 'detail-share-code',
-        child: 'input-text'
+        value: 'problem-future-partner-name'
       },
       {
-        value: 'problem-signin-email',
-        toggle: 'detail-signin-email',
-        child: 'input-text'
+        value: 'problem-accompanying-adult-details'
       },
       {
-        value: 'problem-signin-phone',
-        toggle: 'detail-signin-phone',
-        child: 'input-text'
+        value: 'problem-ship-and-port-details'
       },
       {
-        value: 'problem-sponsor-licence-number',
-        toggle: 'detail-sponsor-licence-number',
-        child: 'input-text'
+        value: 'problem-flight-number-airport'
       },
       {
-        value: 'problem-other',
-        toggle: 'detail-other',
-        child: 'textarea'
+        value: 'problem-restrictions-in-uk'
+      },
+      {
+        value: 'problem-share-code'
+      },
+      {
+        value: 'problem-signin-email'
+      },
+      {
+        value: 'problem-signin-phone'
+      },
+      {
+        value: 'problem-other'
       }
     ]
   },
-  'detail-full-name': {
-    mixin: 'input-text',
-    validate: 'required',
-    dependent: {
-      field: 'problem',
-      value: 'problem-full-name'
-    }
+  'correct-given-names': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
   },
-  'detail-dob': dateComponent('detail-dob', {
+  'correct-last-name': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'correct-date-of-birth': dateComponent('correct-date-of-birth', {
     mixin: 'input-date',
     validate: [
       'required',
       'date',
       { type: 'before', arguments: ['0', 'days'] }
-    ],
-    validationLink: {
-      field: 'problem',
-      value: 'problem-dob'
-    }
+    ]
   }),
-  'detail-nationality': {
+  'correct-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    formGroupClassName: ['govuk-!-width-two-thirds'],
-    validate: ['required'],
     options: [{
       value: '',
-      label: 'fields.detail-nationality.options.none_selected'
-    }].concat(countries),
-    validationLink: {
-      field: 'problem',
-      value: 'problem-nationality'
-    }
+      label: 'fields.correct-nationality.options.none_selected'
+    }].concat(countries)
   },
-  'detail-photo': {
+  'problem-immigration-status': {
+    isPageHeading: 'true',
+    validate: 'required'
+  },
+  'correct-visa-start-date': dateComponent('correct-visa-start-date', {
+    isPageHeading: 'true',
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date'
+    ]
+  }),
+  'correct-visa-end-date': dateComponent('correct-visa-end-date', {
+    isPageHeading: 'true',
+    mixin: 'input-date',
+    validate: [
+      'required',
+      'date'
+    ]
+  }),
+  'correct-national-insurance-number': {
+    formatter: ['removespaces', 'uppercase'],
+    attributes: [
+      { attribute: 'spellcheck', value: 'false' }
+    ],
+    validate: [
+      'required',
+      NIValidator
+    ]
+  },
+  'correct-sponsor-licence-number': {
+    validate: ['required', 'alphanum', { type: 'maxlength', arguments: 20 }],
+    formatter: ['removespaces']
+  },
+  photo: {
     mixin: 'textarea',
-    validate: ['required', { type: 'maxlength', arguments: 500 }],
-    attributes: [{ attribute: 'rows', value: 5 }],
-    dependent: {
-      field: 'problem',
-      value: 'problem-photo'
-    }
+    validate: ['required'],
+    attributes: [{ attribute: 'rows', value: 5 }]
   },
-  'detail-nin': {
-    mixin: 'input-text',
+  'future-partner-correct-given-names': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'future-partner-correct-last-name': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'how-many-adults': {
+    isPageHeading: 'true',
+    mixin: 'radio-group',
+    className: ['govuk-radios'],
     validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-nin'
+    options: [
+      {
+        value: '1-adult'
+      },
+      {
+        value: '2-adults'
+      }
+    ],
+    legend: {
+      className: 'govuk-!-margin-bottom-6'
     }
   },
-  'detail-restrictions': {
+  'correct-ship-name': {
+    validate: 'required'
+  },
+  'correct-port-name': {
+    validate: 'required'
+  },
+  'correct-given-names-adult-accompanying': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'correct-last-name-adult-accompanying': {
+    validate: ['required', validateText, { type: 'maxlength', arguments: 120 }]
+  },
+  'correct-passport-number-adult-accompanying': {
+    validate: ['required', 'alphanum']
+  },
+  'correct-flight-number': {
+    validate: 'required'
+  },
+  'correct-airport': {
+    validate: 'required'
+  },
+  'correct-passport-number-adult-1': {
+    validate: ['required', 'alphanum']
+  },
+  'correct-passport-number-adult-2': {
+    validate: ['required', 'alphanum']
+  },
+  'detail-restrictions-in-uk': {
+    isPageHeading: 'true',
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 500 }],
-    attributes: [{ attribute: 'rows', value: 5 }],
-    dependent: {
-      field: 'problem',
-      value: 'problem-restrictions'
-    }
+    attributes: [{ attribute: 'rows', value: 5 }]
   },
   'detail-share-code': {
-    mixin: 'input-text',
-    validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-share-code'
-    }
+    isPageHeading: 'true',
+    validate: ['required', { type: 'maxlength', arguments: 200 }]
   },
-  'detail-status': {
-    mixin: 'input-text',
-    validate: 'required',
-    dependent: {
-      field: 'problem',
-      value: 'problem-status'
-    }
-  },
-  'detail-valid-from': {
-    mixin: 'input-text',
-    validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-valid-from'
-    }
-  },
-  'detail-valid-until': {
-    mixin: 'input-text',
-    validate: 'required',
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-valid-until'
-    }
-  },
-  'detail-signin-email': {
-    mixin: 'input-text',
+  'correct-signin-email': {
+    isPageHeading: 'true',
     validate: [
       'required',
       'email',
-      { type: 'maxlength', arguments: 254 }
-    ],
-    className: ['govuk-input', 'govuk-!-width-two-thirds'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-signin-email'
-    }
+      { type: 'maxlength', arguments: 254 },
+      { type: 'minlength', arguments: 6 }
+    ]
   },
-  'detail-signin-phone': {
-    mixin: 'input-text',
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    validate: ['required', 'internationalPhoneNumber', startsWithDigitOrPlus],
-    dependent: {
-      field: 'problem',
-      value: 'problem-signin-phone'
-    }
+  'correct-signin-phone': {
+    isPageHeading: 'true',
+    validate: [
+      'required',
+      { type: 'maxlength', arguments: 30 },
+      { type: 'minlength', arguments: 6 },
+      'internationalPhoneNumber',
+      startsWithDigitOrPlus
+    ]
   },
-  'detail-other': {
+  'problem-not-listed': {
     mixin: 'textarea',
     validate: ['required', { type: 'maxlength', arguments: 500 }],
-    attributes: [{ attribute: 'rows', value: 5 }],
-    dependent: {
-      field: 'problem',
-      value: 'problem-other'
-    }
-  },
-  'detail-sponsor-licence-number': {
-    mixin: 'input-text',
-    validate: ['required', { type: 'maxlength', arguments: 20 }, 'alphanum'],
-    formatter: ['removespaces'],
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    dependent: {
-      field: 'problem',
-      value: 'problem-sponsor-licence-number'
-    }
+    attributes: [{ attribute: 'rows', value: 5 }]
   },
   'is-refugee': {
     isPageHeading: 'true',
@@ -421,7 +413,6 @@ module.exports = {
   'requestor-nationality': {
     mixin: 'select',
     className: ['typeahead'],
-    validate: ['required'],
     options: [{
       value: '',
       label: 'fields.requestor-nationality.options.none_selected'

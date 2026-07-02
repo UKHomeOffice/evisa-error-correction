@@ -90,19 +90,37 @@
       "problem-full-name": {
         "label": "Name"
       },
-      "problem-dob": {
+      "problem-date-of-birth": {
         "label": "Date of birth"
       },
       "problem-nationality": {
         "label": "Nationality"
       },
+      "problem-valid-from": {
+        "label": "Valid from"
+      },
+      "problem-valid-to": {
+        "label": "Valid to"
+      },
+      "problem-national-insurance-number": {
+        "label": "National Insurance number"
+      },
       "problem-photo": {
         "label": "Photo"
       },
-      "problem-nin": {
-        "label": "National Insurance number"
+      "problem-future-partner-name": {
+        "label": "Future spouse or civil partner name"
       },
-      "problem-restrictions": {
+      "problem-accompanying-adult-details": {
+        "label": "Name or passport numbers of accompanying adult"
+      },
+      "problem-ship-and-port-details": {
+        "label": "Ship and port details"
+      },
+      "problem-flight-number-airport": {
+        "label": "Must leave UK via (flight number and airport)"
+      },
+      "problem-restrictions-in-uk": {
         "label": "What you can and cannot do in the UK"
       },
       "problem-share-code": {
@@ -110,12 +128,6 @@
       },
       "problem-status": {
         "label": "Status"
-      },
-      "problem-valid-from": {
-        "label": "Valid from"
-      },
-      "problem-valid-until": {
-        "label": "Valid to"
       },
       "problem-signin-email": {
         "label": "Email address to sign in to your account"
@@ -127,57 +139,111 @@
         "label": "Sponsor licence number"
       },
       "problem-other": {
-        "label": "My problem isn't listed"
+        "label": "My problem is not listed"
       }
   }
   },
-  "detail-full-name": {
-    "label": "What is your correct name?"
+  "correct-given-names": {
+    "label": "Given names"
   },
-  "detail-dob": {
-    "legend": "What is your correct date of birth?",
+  "correct-last-name": {
+    "label": "Last name"
+  },
+  "correct-date-of-birth": {
+    "legend": "Date of birth",
     "hint": "For example, 27 3 2007"
   },
-  "detail-nationality": {
-    "label": "What is your correct nationality?",
+  "correct-nationality": {
+    "label": "Nationality",
     "options": {
       "none_selected": "Select a country"
     }
   },
-  "detail-photo": {
-    "label": "What is wrong with your photo?"
+  "problem-immigration-status": {
+    "label": "What problem are you having with your immigration status?",
+    "hint": "This could be because your status is old, incorrect or you cannot view it"
   },
-  "detail-nin": {
-    "label": "What is your correct National Insurance number?"
+  "correct-visa-start-date": {
+    "legend": "What is the correct date your visa is valid from?",
+    "hint": "Enter date in the format DD MM YYYY"
   },
-  "detail-restrictions": {
+  "correct-visa-end-date": {
+    "legend": "What is the correct date your visa is valid to?",
+    "hint": "Enter date in the format DD MM YYYY"
+  },
+  "correct-national-insurance-number": {
+    "label": "National Insurance number",
+    "hint": "It's on your National Insurance card, benefit letter, payslip or P60 - for example, 'QQ 12 34 56 C'"
+  },
+  "correct-sponsor-licence-number": {
+    "label": "Sponsor licence number"
+  },
+  "photo": {
+    "label": "Describe the problem you are having with your photo"
+  },
+  "future-partner-correct-given-names": {
+    "label": "Given names"
+  },
+  "future-partner-correct-last-name": {
+    "label": "Last name"
+  },
+  "how-many-adults": {
+    "legend": "How many adults have been approved to accompany a child?",
+    "options": {
+      "1-adult": {
+        "label": "1 adult"
+      },
+      "2-adults": {
+        "label": "2 adults"
+      }
+    }
+  },
+  "correct-ship-name": {
+    "label": "Correct ship name"
+  },
+  "correct-port-name": {
+    "label": "Correct port",
+    "hint": "For example, Southampton port"
+  },
+  "correct-given-names-adult-accompanying": {
+    "label": "Given names"
+  },
+  "correct-last-name-adult-accompanying": {
+    "label": "Last name"
+  },
+  "correct-passport-number-adult-accompanying": {
+    "label": "Passport number"
+  },
+  "correct-flight-number": {
+    "label": "Correct flight number"
+  },
+  "correct-airport": {
+    "label": "Correct airport",
+    "hint": "For example, Heathrow Airport"
+  },
+  "correct-passport-number-adult-1": {
+    "label": "Passport number of adult 1"
+  },
+  "correct-passport-number-adult-2": {
+    "label": "Passport number of adult 2"
+  },
+  "detail-restrictions-in-uk": {
     "label": "What is wrong with the details of what you can and cannot do in the UK?"
   },
   "detail-share-code": {
     "label": "Which share code are you unable to create?",
     "hint": "This could be for right to work, right to rent or something else"
   },
-  "detail-status": {
-    "label": "What problem are you having with your immigration status?",
-    "hint": "This could be because your status is old, incorrect or you cannot view it"
+  "correct-signin-email": {
+    "label": "What is the correct email address to sign in to your account?",
+    "hint": "You will also get security codes sent to this email address"
   },
-  "detail-valid-from": {
-    "label": "What is the correct date your visa is valid from?"
+  "correct-signin-phone": {
+    "label": "What is the correct phone number where you can receive security codes?",
+    "hint": " For international numbers, include the country code"
   },
-  "detail-valid-until": {
-    "label": "What is the correct date your visa is valid to?"
-  },
-  "detail-signin-email": {
-    "label": "What is the correct email address where you can receive security codes?"
-  },
-  "detail-signin-phone": {
-    "label": "What is the correct phone number where you can receive security codes?"
-  },
-  "detail-other": {
+  "problem-not-listed": {
     "label": "Describe the problem you are having"
-  },
-  "detail-sponsor-licence-number": {
-    "label": "What is your correct sponsor licence number?"
   },
   "is-refugee": {
     "legend": "Do you have permission to stay in the UK as a refugee?",
