@@ -64,6 +64,9 @@
     "header": "What are the correct passport numbers of the adults approved to accompany a child?",
     "intro": "You must enter the same details that you used in your visa application."
   },
+  "correct-phone-number": {
+    "title": "What is the correct phone number?"
+  },
   "problem-not-listed": {
     "header": "My problem is not listed"
   },
@@ -191,8 +194,8 @@
       "correct-signin-email": {
         "label": "Email address to sign in to your account"
       },
-      "detail-signin-phone": {
-        "label": "Account phone"
+      "correct-signin-phone": {
+        "label": "Phone number to sign in to your account"
       },
       "problem-not-listed": {
         "label": "My problem is not listed"

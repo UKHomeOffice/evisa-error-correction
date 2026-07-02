@@ -213,9 +213,7 @@ module.exports = {
         value: 'problem-signin-email'
       },
       {
-        value: 'problem-signin-phone',
-        toggle: 'detail-signin-phone',
-        child: 'input-text'
+        value: 'problem-signin-phone'
       },
       {
         value: 'problem-other'
@@ -352,14 +350,15 @@ module.exports = {
       { type: 'minlength', arguments: 6 }
     ]
   },
-  'detail-signin-phone': {
-    mixin: 'input-text',
-    className: ['govuk-input', 'govuk-!-width-one-third'],
-    validate: ['required', 'internationalPhoneNumber', startsWithDigitOrPlus],
-    dependent: {
-      field: 'problem',
-      value: 'problem-signin-phone'
-    }
+  'correct-signin-phone': {
+    isPageHeading: 'true',
+    validate: [
+      'required',
+      { type: 'maxlength', arguments: 30 },
+      { type: 'minlength', arguments: 6 },
+      'internationalPhoneNumber',
+      startsWithDigitOrPlus
+    ]
   },
   'problem-not-listed': {
     mixin: 'textarea',

@@ -140,10 +140,12 @@
     "maxlength": "Email address must be between 6 and 254 characters",
     "minlength": "Email address must be between 6 and 254 characters"
   },
-  "detail-signin-phone": {
-    "required": "Enter the correct phone number where you can receive security codes",
+  "correct-signin-phone": {
+    "required": "Enter a phone number",
     "internationalPhoneNumber": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
-    "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192"
+    "regex": "Enter a phone number, like 01632 960 001, 07700 900 982 or +44 808 157 0192",
+    "maxlength": "Phone number must be between 6 and 30 digits",
+    "minlength": "Phone number must be between 6 and 30 digits"
   },
   "problem-not-listed": {
     "required": "Enter the problem you are having",
