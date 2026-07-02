@@ -115,12 +115,12 @@ module.exports = {
       ]
     },
     '/more-details': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['describe-evisa-error'],
       showNeedHelp: true
     },
     '/problem': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
         'problem'
       ],
@@ -224,7 +224,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/your-correct-name': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
         'correct-given-names',
         'correct-last-name'
@@ -232,48 +232,48 @@ module.exports = {
       showNeedHelp: true
     },
     '/correct-date-of-birth': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-date-of-birth'],
       showNeedHelp: true
     },
     '/correct-nationality': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-nationality'],
       behaviours: [validateAutocomplete('correct-nationality')],
       showNeedHelp: true
     },
     '/problem-immigration-status': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['problem-immigration-status'],
       showNeedHelp: true
     },
     '/date-valid-from': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-visa-start-date'],
       showNeedHelp: true
     },
     '/date-valid-to': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-visa-end-date'],
       showNeedHelp: true
     },
     '/national-insurance-number': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-national-insurance-number'],
       showNeedHelp: true
     },
     '/sponsor-licence-number': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-sponsor-licence-number'],
       showNeedHelp: true
     },
     '/photo': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['photo'],
       showNeedHelp: true
     },
     '/future-partner-name': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
         'future-partner-correct-given-names',
         'future-partner-correct-last-name'
@@ -281,7 +281,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/how-many-adults': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['how-many-adults'],
       showNeedHelp: true,
       forks: [
@@ -302,7 +302,7 @@ module.exports = {
       ]
     },
     '/correct-details-adult-accompanying': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
         'correct-given-names-adult-accompanying',
         'correct-last-name-adult-accompanying',
@@ -311,7 +311,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/correct-passport-number': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
         'correct-passport-number-adult-1',
         'correct-passport-number-adult-2'
@@ -319,7 +319,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/correct-ship-and-port': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
         'correct-ship-name',
         'correct-port-name'
@@ -327,12 +327,12 @@ module.exports = {
       showNeedHelp: true
     },
     '/details-can-do-uk': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['detail-restrictions-in-uk'],
       showNeedHelp: true
     },
     '/correct-flight-number-airport': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
         'correct-flight-number',
         'correct-airport'
@@ -340,26 +340,26 @@ module.exports = {
       showNeedHelp: true
     },
     '/share-code': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['detail-share-code'],
       showNeedHelp: true
     },
     '/correct-email-address': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-signin-email'],
       showNeedHelp: true
     },
     '/correct-phone-number': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['correct-signin-phone'],
       showNeedHelp: true
     },
     '/problem-not-listed': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['problem-not-listed'],
       showNeedHelp: true
     },
-    '/personal-details': {
+    '/your-evisa-details': {
       next: '/refugee',
       fields: [
         'requestor-full-name',
