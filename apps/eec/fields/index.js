@@ -445,7 +445,7 @@ module.exports = {
       {
         value: 'ukvi',
         toggle: 'requestor-ukvi',
-        child: 'input-text'
+        child: 'partials/requestor-ukvi'
       },
       {
         value: 'no-reference'

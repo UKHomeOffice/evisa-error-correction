@@ -283,7 +283,7 @@
   },
   "requestor-reference-type": {
     "legend": "Reference number",
-    "hint": "Select one option.",
+    "hint": "Select one option",
     "options": {
       "brp": {
         "label": "BRP number"

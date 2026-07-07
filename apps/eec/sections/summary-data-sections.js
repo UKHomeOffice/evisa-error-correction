@@ -194,23 +194,23 @@ module.exports = {
       }
     ]
   },
-  'personal-details': {
+  'your-evisa-details': {
     steps: [
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'requestor-full-name'
       },
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'requestor-dob',
         parse: val => formatDate(val)
       },
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'requestor-nationality'
       },
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'reference-number',
         parse: (val, req) => {
           const refType = req.sessionModel.get('requestor-reference-type');
