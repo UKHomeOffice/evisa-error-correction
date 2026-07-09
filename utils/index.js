@@ -13,6 +13,8 @@ const formatDate = date => {
   return new Intl.DateTimeFormat(config.dateLocales, config.dateFormat).format(dateObj);
 };
 
+const joinNonEmpty = (values, separator = ' ') => values.filter(Boolean).join(separator);
+
 function truncate(str = '', maxLen = str.length + 1) {
   return str.length >= maxLen ? str.slice(0, maxLen).trimEnd() + '...' : str;
 }
@@ -32,4 +34,4 @@ const genNotifyErrorMsg = error => {
   return `${errorCode} ${error.message}; ${errorDetails}`;
 };
 
-module.exports = { getLabel, formatDate, genNotifyErrorMsg, truncate };
+module.exports = { getLabel, formatDate, genNotifyErrorMsg, truncate, joinNonEmpty };
