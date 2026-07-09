@@ -1,4 +1,4 @@
-const { getLabel, formatDate, truncate } = require('../../../utils');
+const { getLabel, formatDate, truncate, joinNonEmpty } = require('../../../utils');
 
 function isTravelToUKNotBooked(req) {
   return req.sessionModel.get('booked-travel') === 'no';
@@ -41,10 +41,10 @@ module.exports = {
         step: '/your-correct-name',
         field: 'correct-given-names',
         parse: (val, req) => {
-          if (!req.sessionModel.get('steps').includes('/your-correct-name')) {
-            return null;
-          }
-          return `${req.sessionModel.get('correct-given-names')} ${req.sessionModel.get('correct-last-name')}`;
+          const givenNames = req.sessionModel.get('correct-given-names');
+          const lastName = req.sessionModel.get('correct-last-name');
+          const fullName = joinNonEmpty([givenNames, lastName]);
+          return fullName || null;
         }
       },
       {
@@ -86,12 +86,10 @@ module.exports = {
         step: '/future-partner-name',
         field: 'future-partner-correct-given-names',
         parse: (val, req) => {
-          if (!req.sessionModel.get('steps').includes('/future-partner-name')) {
-            return null;
-          }
           const givenNames = req.sessionModel.get('future-partner-correct-given-names');
           const lastName = req.sessionModel.get('future-partner-correct-last-name');
-          return `${givenNames} ${lastName}`;
+          const fullName = joinNonEmpty([givenNames, lastName]);
+          return fullName || null;
         }
       },
       {
@@ -99,52 +97,51 @@ module.exports = {
         field: 'how-many-adults'
       },
       {
-        step: '/correct-ship-and-port',
-        field: 'correct-ship-name',
-        parse: (val, req) => {
-          if (!req.sessionModel.get('steps').includes('/correct-ship-and-port')) {
-            return null;
-          }
-          const shipName = req.sessionModel.get('correct-ship-name');
-          const portName = req.sessionModel.get('correct-port-name');
-          return `${shipName}, ${portName}`;
-        }
-      },
-      {
         step: '/correct-details-adult-accompanying',
         field: 'correct-given-names-adult-accompanying',
         parse: (val, req) => {
-          if (!req.sessionModel.get('steps').includes('/correct-details-adult-accompanying')) {
-            return null;
-          }
+          const isSingleAdult = req.sessionModel.get('how-many-adults') === '1-adult';
+
           const givenNames = req.sessionModel.get('correct-given-names-adult-accompanying');
           const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
           const passportNumber = req.sessionModel.get('correct-passport-number-adult-accompanying');
-          return `${givenNames} ${lastName}\n${passportNumber}`;
-        }
-      },
-      {
-        step: '/correct-flight-number-airport',
-        field: 'correct-flight-number',
-        parse: (val, req) => {
-          if (!req.sessionModel.get('steps').includes('/correct-flight-number-airport')) {
-            return null;
-          }
-          const flightNumber = req.sessionModel.get('correct-flight-number');
-          const airport = req.sessionModel.get('correct-airport');
-          return `${flightNumber}, ${airport}`;
+          const fullName = joinNonEmpty([givenNames, lastName]);
+          const details = isSingleAdult ? joinNonEmpty([fullName, passportNumber], '\n') : '';
+          return details || null;
         }
       },
       {
         step: '/correct-passport-number',
         field: 'correct-passport-number-adult-1',
         parse: (val, req) => {
-          if (!req.sessionModel.get('steps').includes('/correct-passport-number')) {
-            return null;
-          }
+          const isTwoAdults = req.sessionModel.get('how-many-adults') === '2-adults';
+
           const passportNumber1 = req.sessionModel.get('correct-passport-number-adult-1');
           const passportNumber2 = req.sessionModel.get('correct-passport-number-adult-2');
-          return `Adult 1: ${passportNumber1}\nAdult 2: ${passportNumber2}`;
+          const adult1 = passportNumber1 ? `Adult 1: ${passportNumber1}` : null;
+          const adult2 = passportNumber2 ? `Adult 2: ${passportNumber2}` : null;
+          const details = isTwoAdults ? joinNonEmpty([adult1, adult2], '\n') : '';
+          return details || null;
+        }
+      },
+      {
+        step: '/correct-ship-and-port',
+        field: 'correct-ship-name',
+        parse: (val, req) => {
+          const shipName = req.sessionModel.get('correct-ship-name');
+          const portName = req.sessionModel.get('correct-port-name');
+          const details = joinNonEmpty([shipName, portName], ', ');
+          return details || null;
+        }
+      },
+      {
+        step: '/correct-flight-number-airport',
+        field: 'correct-flight-number',
+        parse: (val, req) => {
+          const flightNumber = req.sessionModel.get('correct-flight-number');
+          const airport = req.sessionModel.get('correct-airport');
+          const details = joinNonEmpty([flightNumber, airport], ', ');
+          return details || null;
         }
       },
       {
