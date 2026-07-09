@@ -43,8 +43,7 @@ module.exports = {
         parse: (val, req) => {
           const givenNames = req.sessionModel.get('correct-given-names');
           const lastName = req.sessionModel.get('correct-last-name');
-          const fullName = joinNonEmpty([givenNames, lastName]);
-          return fullName || null;
+          return joinNonEmpty([givenNames, lastName]);
         }
       },
       {
@@ -88,8 +87,7 @@ module.exports = {
         parse: (val, req) => {
           const givenNames = req.sessionModel.get('future-partner-correct-given-names');
           const lastName = req.sessionModel.get('future-partner-correct-last-name');
-          const fullName = joinNonEmpty([givenNames, lastName]);
-          return fullName || null;
+          return joinNonEmpty([givenNames, lastName]);
         }
       },
       {
@@ -106,8 +104,7 @@ module.exports = {
           const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
           const passportNumber = req.sessionModel.get('correct-passport-number-adult-accompanying');
           const fullName = joinNonEmpty([givenNames, lastName]);
-          const details = isSingleAdult ? joinNonEmpty([fullName, passportNumber], '\n') : '';
-          return details || null;
+          return isSingleAdult ? joinNonEmpty([fullName, passportNumber], '\n') : '';
         }
       },
       {
@@ -120,8 +117,7 @@ module.exports = {
           const passportNumber2 = req.sessionModel.get('correct-passport-number-adult-2');
           const adult1 = passportNumber1 ? `Adult 1: ${passportNumber1}` : null;
           const adult2 = passportNumber2 ? `Adult 2: ${passportNumber2}` : null;
-          const details = isTwoAdults ? joinNonEmpty([adult1, adult2], '\n') : '';
-          return details || null;
+          return isTwoAdults ? joinNonEmpty([adult1, adult2], '\n') : '';
         }
       },
       {
@@ -130,8 +126,7 @@ module.exports = {
         parse: (val, req) => {
           const shipName = req.sessionModel.get('correct-ship-name');
           const portName = req.sessionModel.get('correct-port-name');
-          const details = joinNonEmpty([shipName, portName], ', ');
-          return details || null;
+          return joinNonEmpty([shipName, portName], ', ');
         }
       },
       {
@@ -140,8 +135,7 @@ module.exports = {
         parse: (val, req) => {
           const flightNumber = req.sessionModel.get('correct-flight-number');
           const airport = req.sessionModel.get('correct-airport');
-          const details = joinNonEmpty([flightNumber, airport], ', ');
-          return details || null;
+          return joinNonEmpty([flightNumber, airport], ', ');
         }
       },
       {
