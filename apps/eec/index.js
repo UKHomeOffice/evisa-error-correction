@@ -5,6 +5,7 @@ const validateAutocomplete = require('./behaviours/validate-autocomplete');
 const captureProblemSelection = require('./behaviours/capture-problem-selection');
 const problemBackLink = require('./behaviours/problem-back-link');
 const { buildProblemForks } = require('../../utils/build-problem-forks');
+const clearProblemSession = require('./behaviours/clear-problem-session');
 const { disallowIndexing } = require('../../config');
 
 const pages = {
@@ -64,6 +65,7 @@ module.exports = {
       next: '/trying-to-do',
       fields: ['accessing-evisa'],
       showNeedHelp: true,
+      continueOnEdit: true,
       forks: [
         {
           target: '/before-reporting',
@@ -390,7 +392,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/check-your-answers': {
-      behaviours: [Summary, submitRequest],
+      behaviours: [Summary, clearProblemSession, submitRequest],
       sections: require('./sections/summary-data-sections'),
       template: 'summary',
       next: '/request-sent'
