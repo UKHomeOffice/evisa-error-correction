@@ -164,60 +164,24 @@ module.exports = {
     validate: ['required'],
     isPageHeading: true,
     options: [
-      {
-        value: 'problem-full-name'
-      },
-      {
-        value: 'problem-date-of-birth'
-      },
-      {
-        value: 'problem-nationality'
-      },
-      {
-        value: 'problem-status'
-      },
-      {
-        value: 'problem-valid-from'
-      },
-      {
-        value: 'problem-valid-to'
-      },
-      {
-        value: 'problem-national-insurance-number'
-      },
-      {
-        value: 'problem-sponsor-licence-number'
-      },
-      {
-        value: 'problem-photo'
-      },
-      {
-        value: 'problem-future-partner-name'
-      },
-      {
-        value: 'problem-accompanying-adult-details'
-      },
-      {
-        value: 'problem-ship-and-port-details'
-      },
-      {
-        value: 'problem-flight-number-airport'
-      },
-      {
-        value: 'problem-restrictions-in-uk'
-      },
-      {
-        value: 'problem-share-code'
-      },
-      {
-        value: 'problem-signin-email'
-      },
-      {
-        value: 'problem-signin-phone'
-      },
-      {
-        value: 'problem-other'
-      }
+      'problem-full-name',
+      'problem-date-of-birth',
+      'problem-nationality',
+      'problem-status',
+      'problem-valid-from',
+      'problem-valid-to',
+      'problem-national-insurance-number',
+      'problem-sponsor-licence-number',
+      'problem-photo',
+      'problem-future-partner-name',
+      'problem-accompanying-adult-details',
+      'problem-ship-and-port-details',
+      'problem-flight-number-airport',
+      'problem-restrictions-in-uk',
+      'problem-share-code',
+      'problem-signin-email',
+      'problem-signin-phone',
+      'problem-other'
     ]
   },
   'correct-given-names': {
