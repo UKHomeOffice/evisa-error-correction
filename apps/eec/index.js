@@ -2,6 +2,9 @@ const hof = require('hof');
 const Summary = hof.components.summary;
 const submitRequest = require('./behaviours/submit-request');
 const validateAutocomplete = require('./behaviours/validate-autocomplete');
+const captureProblemSelection = require('./behaviours/capture-problem-selection');
+const problemBackLink = require('./behaviours/problem-back-link');
+const { buildProblemForks } = require('../../utils/build-problem-forks');
 const { disallowIndexing } = require('../../config');
 
 const pages = {
@@ -75,6 +78,7 @@ module.exports = {
       next: '/problem',
       fields: ['trying-to-do'],
       showNeedHelp: true,
+      continueOnEdit: true,
       forks: [
         {
           target: '/prove-status-before-reporting',
@@ -94,11 +98,13 @@ module.exports = {
     },
     '/prove-status-before-reporting': {
       next: '/problem',
-      showNeedHelp: true
+      showNeedHelp: true,
+      continueOnEdit: true
     },
     '/update-details-before-reporting': {
       next: '/problem',
-      showNeedHelp: true
+      showNeedHelp: true,
+      continueOnEdit: true
     },
     '/before-reporting': {
       next: '/more-details',
@@ -124,103 +130,8 @@ module.exports = {
       fields: [
         'problem'
       ],
-      forks: [
-        {
-          target: '/your-correct-name',
-          condition: req => {
-            if ( req.sessionModel.get('problem') &&
-            req.sessionModel.get('problem').includes('problem-full-name') ) {
-              return true;
-            }
-            return false;
-          }
-        },
-        {
-          target: '/correct-date-of-birth',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-date-of-birth')
-        },
-        {
-          target: '/correct-nationality',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-nationality')
-        },
-        {
-          target: '/problem-immigration-status',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-status')
-        },
-        {
-          target: '/date-valid-from',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-valid-from')
-        },
-        {
-          target: '/date-valid-to',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-valid-to')
-        },
-        {
-          target: '/national-insurance-number',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-national-insurance-number')
-        },
-        {
-          target: '/sponsor-licence-number',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-sponsor-licence-number')
-        },
-        {
-          target: '/photo',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-photo')
-        },
-        {
-          target: '/future-partner-name',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-future-partner-name')
-        },
-        {
-          target: '/how-many-adults',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-accompanying-adult-details')
-        },
-        {
-          target: '/correct-ship-and-port',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-ship-and-port-details')
-        },
-        {
-          target: '/details-can-do-uk',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-restrictions-in-uk')
-        },
-        {
-          target: '/correct-flight-number-airport',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-flight-number-airport')
-        },
-        {
-          target: '/share-code',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-share-code')
-        },
-        {
-          target: '/correct-email-address',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-signin-email')
-        },
-        {
-          target: '/correct-phone-number',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-signin-phone')
-        },
-        {
-          target: '/problem-not-listed',
-          condition: req => req.sessionModel.get('problem') &&
-          req.sessionModel.get('problem').includes('problem-other')
-        }
-      ],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks(),
       showNeedHelp: true
     },
     '/your-correct-name': {
@@ -229,47 +140,68 @@ module.exports = {
         'correct-given-names',
         'correct-last-name'
       ],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-full-name'),
       showNeedHelp: true
     },
     '/correct-date-of-birth': {
       next: '/your-evisa-details',
       fields: ['correct-date-of-birth'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-date-of-birth'),
       showNeedHelp: true
     },
     '/correct-nationality': {
       next: '/your-evisa-details',
       fields: ['correct-nationality'],
-      behaviours: [validateAutocomplete('correct-nationality')],
+      behaviours: [
+        validateAutocomplete('correct-nationality'),
+        captureProblemSelection,
+        problemBackLink
+      ],
+      forks: buildProblemForks('problem-nationality'),
       showNeedHelp: true
     },
     '/problem-immigration-status': {
       next: '/your-evisa-details',
       fields: ['problem-immigration-status'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-status'),
       showNeedHelp: true
     },
     '/date-valid-from': {
       next: '/your-evisa-details',
       fields: ['correct-visa-start-date'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-valid-from'),
       showNeedHelp: true
     },
     '/date-valid-to': {
       next: '/your-evisa-details',
       fields: ['correct-visa-end-date'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-valid-to'),
       showNeedHelp: true
     },
     '/national-insurance-number': {
       next: '/your-evisa-details',
       fields: ['correct-national-insurance-number'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-national-insurance-number'),
       showNeedHelp: true
     },
     '/sponsor-licence-number': {
       next: '/your-evisa-details',
       fields: ['correct-sponsor-licence-number'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-sponsor-licence-number'),
       showNeedHelp: true
     },
     '/photo': {
       next: '/your-evisa-details',
       fields: ['photo'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-photo'),
       showNeedHelp: true
     },
     '/future-partner-name': {
@@ -278,15 +210,19 @@ module.exports = {
         'future-partner-correct-given-names',
         'future-partner-correct-last-name'
       ],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-future-partner-name'),
       showNeedHelp: true
     },
     '/how-many-adults': {
       next: '/your-evisa-details',
       fields: ['how-many-adults'],
+      behaviours: [captureProblemSelection, problemBackLink],
       showNeedHelp: true,
       forks: [
         {
           target: '/correct-details-adult-accompanying',
+          continueOnEdit: true,
           condition: {
             field: 'how-many-adults',
             value: '1-adult'
@@ -294,6 +230,7 @@ module.exports = {
         },
         {
           target: '/correct-passport-number',
+          continueOnEdit: true,
           condition: {
             field: 'how-many-adults',
             value: '2-adults'
@@ -308,6 +245,8 @@ module.exports = {
         'correct-last-name-adult-accompanying',
         'correct-passport-number-adult-accompanying'
       ],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-accompanying-adult-details'),
       showNeedHelp: true
     },
     '/correct-passport-number': {
@@ -316,6 +255,8 @@ module.exports = {
         'correct-passport-number-adult-1',
         'correct-passport-number-adult-2'
       ],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-accompanying-adult-details'),
       showNeedHelp: true
     },
     '/correct-ship-and-port': {
@@ -324,11 +265,15 @@ module.exports = {
         'correct-ship-name',
         'correct-port-name'
       ],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-ship-and-port-details'),
       showNeedHelp: true
     },
     '/details-can-do-uk': {
       next: '/your-evisa-details',
       fields: ['detail-restrictions-in-uk'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-restrictions-in-uk'),
       showNeedHelp: true
     },
     '/correct-flight-number-airport': {
@@ -337,26 +282,36 @@ module.exports = {
         'correct-flight-number',
         'correct-airport'
       ],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-flight-number-airport'),
       showNeedHelp: true
     },
     '/share-code': {
       next: '/your-evisa-details',
       fields: ['detail-share-code'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-share-code'),
       showNeedHelp: true
     },
     '/correct-email-address': {
       next: '/your-evisa-details',
       fields: ['correct-signin-email'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-signin-email'),
       showNeedHelp: true
     },
     '/correct-phone-number': {
       next: '/your-evisa-details',
       fields: ['correct-signin-phone'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-signin-phone'),
       showNeedHelp: true
     },
     '/problem-not-listed': {
       next: '/your-evisa-details',
       fields: ['problem-not-listed'],
+      behaviours: [captureProblemSelection, problemBackLink],
+      forks: buildProblemForks('problem-other'),
       showNeedHelp: true
     },
     '/your-evisa-details': {
@@ -372,7 +327,11 @@ module.exports = {
         'requestor-passport',
         'requestor-ukvi'
       ],
-      behaviours: [validateAutocomplete('requestor-nationality')],
+      behaviours: [
+        validateAutocomplete('requestor-nationality'),
+        captureProblemSelection,
+        problemBackLink
+      ],
       showNeedHelp: true
     },
     '/refugee': {
