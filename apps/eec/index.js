@@ -16,7 +16,7 @@ module.exports = {
   name: 'eec',
   baseUrl: '/',
   params: '/:action?/:id?/:edit?',
-  confirmStep: '/check-answers',
+  confirmStep: '/check-your-answers',
   steps: {
     '/in-uk': {
       next: '/accessing-evisa',
@@ -408,7 +408,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/someone-else': {
-      next: '/check-answers',
+      next: '/check-your-answers',
       fields: ['completing-for-someone-else'],
       forks: [
         {
@@ -422,7 +422,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/someone-else-details': {
-      next: '/check-answers',
+      next: '/check-your-answers',
       fields: [
         'representative-name',
         'representative-email',
@@ -430,7 +430,7 @@ module.exports = {
       ],
       showNeedHelp: true
     },
-    '/check-answers': {
+    '/check-your-answers': {
       behaviours: [Summary, submitRequest],
       sections: require('./sections/summary-data-sections'),
       template: 'summary',

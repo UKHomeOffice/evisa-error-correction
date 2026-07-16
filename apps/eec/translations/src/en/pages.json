@@ -84,7 +84,8 @@
     "intro": "We will attempt to contact the requestor directly. We will only use these details to contact you if needed.",
     "consent": "By continuing, you confirm that you have consent to send this request on their behalf."
   },
-  "check-answers": {
+  "check-your-answers": {
+    "title": "Check your answers",
     "header": "Check your answers before sending your request",
     "send-request": {
       "header": "Send your request",
@@ -105,7 +106,7 @@
         "header": "Travel details"
       },
       "corrected-details": {
-        "header": "eVisa details to be corrected to"
+        "header": "eVisa details to be corrected"
       },
       "your-evisa-details": {
         "header": "Your current eVisa details"
