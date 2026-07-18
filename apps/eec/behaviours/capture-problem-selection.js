@@ -13,9 +13,13 @@
  *   problems
  *
  * Rules:
- * - Only snapshot/restore when the user submits the problem selection step.
- *   This keeps the behavior scoped to the one place where HOF can invalidate
- *   problem forks and clear downstream fields.
+ * - Snapshot/restore on any edit submit.
+ *   In edit mode, HOF can invalidate downstream steps when a page completes,
+ *   so later selected problem values need preserving regardless of which
+ *   problem page is being edited.
+ * - Treat an existing edit snapshot as active edit context.
+ *   This keeps restoration active after back-link/continue flows that may
+ *   return on a non-edit URL.
  * - Only restore values for problems that are still selected.
  *   If a problem was removed from the edit selection, its stored values should
  *   stay cleared so the summary cannot show stale data.
@@ -26,31 +30,75 @@
  */
 const { toArray, getFieldsForProblemKey } = require('../../../utils/problem-utils');
 
+const hasFieldValue = value => {
+  if (value === undefined || value === null) {
+    return false;
+  }
+
+  if (Array.isArray(value)) {
+    return value.length > 0;
+  }
+
+  if (typeof value === 'string') {
+    return value.trim() !== '';
+  }
+
+  return true;
+};
+
+const getSnapshotValue = (req, fieldName, overrides) => {
+  if (Object.prototype.hasOwnProperty.call(overrides, fieldName)) {
+    return overrides[fieldName];
+  }
+
+  return req.sessionModel.get(fieldName);
+};
+
+const snapshotProblemValues = (req, problemKeys, overrides = {}) => problemKeys.reduce((acc, problemKey) => {
+  const fields = getFieldsForProblemKey(req, problemKey);
+
+  acc[problemKey] = fields.reduce((fieldAcc, fieldName) => {
+    fieldAcc[fieldName] = getSnapshotValue(req, fieldName, overrides);
+    return fieldAcc;
+  }, {});
+  return acc;
+}, {});
+
+// Edit mode can be inferred from URL params or from an active edit snapshot.
+const isActiveEditContext = req => {
+  const params = req.params || {};
+  if (params.edit || params.action === 'edit') {
+    return true;
+  }
+
+  const valuesBeforeEdit = req.sessionModel.get('problem-values-before-edit');
+  return Boolean(valuesBeforeEdit && Object.keys(valuesBeforeEdit).length > 0);
+};
+
 module.exports = superclass => class extends superclass {
   saveValues(req, res, next) {
-    const params = req.params || {};
-    const isEditJourney = Boolean(params.edit || params.action === 'edit');
+    const isEditJourney = isActiveEditContext(req);
     const formValues = req.form && req.form.values ? req.form.values : {};
     const isProblemSelectionSubmit = Object.prototype.hasOwnProperty.call(formValues, 'problem');
 
     const previousProblemSelection = toArray(req.sessionModel.get('problem'));
 
-    if (isEditJourney && isProblemSelectionSubmit) {
+    if (isEditJourney) {
       req.sessionModel.set('problem-selection-before-edit', previousProblemSelection);
-      req.sessionModel.set('problem-selection-current-edit', toArray(formValues.problem));
 
-      const valuesBeforeEdit = previousProblemSelection.reduce((acc, problemKey) => {
-        const fields = getFieldsForProblemKey(req, problemKey);
+      const currentProblemSelection = isProblemSelectionSubmit
+        ? toArray(formValues.problem)
+        : previousProblemSelection;
 
-        acc[problemKey] = fields.reduce((fieldAcc, fieldName) => {
-          fieldAcc[fieldName] = req.sessionModel.get(fieldName);
-          return fieldAcc;
-        }, {});
-        return acc;
-      }, {});
+      req.sessionModel.set('problem-selection-current-edit', currentProblemSelection);
 
-      req.sessionModel.set('problem-values-before-edit', valuesBeforeEdit);
-    } else if (!isEditJourney && isProblemSelectionSubmit) {
+      const latestValues = snapshotProblemValues(
+        req,
+        currentProblemSelection,
+        formValues
+      );
+      req.sessionModel.set('problem-values-before-edit', latestValues);
+    } else if (isProblemSelectionSubmit) {
       req.sessionModel.unset('problem-selection-before-edit');
       req.sessionModel.unset('problem-selection-current-edit');
       req.sessionModel.unset('problem-values-before-edit');
@@ -60,8 +108,7 @@ module.exports = superclass => class extends superclass {
   }
 
   successHandler(req, res) {
-    const params = req.params || {};
-    const isEditJourney = Boolean(params.edit || params.action === 'edit');
+    const isEditJourney = isActiveEditContext(req);
 
     this.emit('complete', req, res);
 
@@ -80,11 +127,14 @@ module.exports = superclass => class extends superclass {
           const previousValue = fields[fieldName];
           const currentValue = req.sessionModel.get(fieldName);
 
-          if ((currentValue === undefined || currentValue === null || currentValue === '') && previousValue) {
+          if (!hasFieldValue(currentValue) && hasFieldValue(previousValue)) {
             req.sessionModel.set(fieldName, previousValue);
           }
         });
       });
+
+      // Keep a rolling snapshot so subsequent edit submits preserve the latest values.
+      req.sessionModel.set('problem-values-before-edit', snapshotProblemValues(req, currentSelection));
     }
 
     res.redirect(this.getNextStep(req, res));
