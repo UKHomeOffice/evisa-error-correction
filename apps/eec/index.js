@@ -43,6 +43,7 @@ module.exports = {
         'booked-travel',
         'booked-travel-date-to-uk'
       ],
+      continueOnEdit: true,
       showNeedHelp: true
     },
     '/travel-document-details': {
@@ -52,6 +53,7 @@ module.exports = {
         'travel-doc-nationality',
         'travel-doc-dob'
       ],
+      continueOnEdit: true,
       behaviours: [validateAutocomplete('travel-doc-nationality')],
       showNeedHelp: true
     },
@@ -60,6 +62,7 @@ module.exports = {
       fields: [
         'premium'
       ],
+      continueOnEdit: true,
       showNeedHelp: true
     },
     '/accessing-evisa': {
