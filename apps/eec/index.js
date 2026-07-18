@@ -116,6 +116,7 @@ module.exports = {
       forks: [
         {
           target: '/problem',
+          continueOnEdit: true,
           condition: {
             field: 'problem-redirect',
             value: 'yes'
