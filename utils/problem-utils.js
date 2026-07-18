@@ -61,26 +61,11 @@ const hasFieldValue = value => {
 
 const getFieldsForProblemKey = (req, problemKey) => {
   const targetRoute = PROBLEM_KEY_TO_TARGET_ROUTE[problemKey];
-  const steps = req.form && req.form.options ? req.form.options.steps : null;
-  const sessionSteps = toArray(req.sessionModel.get('steps'));
+  const steps = req.form?.options?.steps;
 
   if (targetRoute && steps && steps[targetRoute] && Array.isArray(steps[targetRoute].fields)) {
     return steps[targetRoute].fields;
   }
-
-  if (targetRoute && steps) {
-    const matchingSessionRoute = sessionSteps.find(stepRoute => {
-      const route = typeof stepRoute === 'string' ? stepRoute : '';
-      return route === targetRoute
-        || route === `${targetRoute}/edit`
-        || route.startsWith(`${targetRoute}/edit/`);
-    });
-
-    if (matchingSessionRoute && steps[targetRoute] && Array.isArray(steps[targetRoute].fields)) {
-      return steps[targetRoute].fields;
-    }
-  }
-
   return [];
 };
 
