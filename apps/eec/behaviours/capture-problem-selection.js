@@ -28,23 +28,7 @@
  * - Clear the edit-only snapshot keys on normal problem-selection submits.
  *   That prevents old edit snapshots from leaking into later non-edit flows.
  */
-const { toArray, getFieldsForProblemKey } = require('../../../utils/problem-utils');
-
-const hasFieldValue = value => {
-  if (value === undefined || value === null) {
-    return false;
-  }
-
-  if (Array.isArray(value)) {
-    return value.length > 0;
-  }
-
-  if (typeof value === 'string') {
-    return value.trim() !== '';
-  }
-
-  return true;
-};
+const { toArray, hasFieldValue, getFieldsForProblemKey } = require('../../../utils/problem-utils');
 
 const getSnapshotValue = (req, fieldName, overrides) => {
   if (Object.prototype.hasOwnProperty.call(overrides, fieldName)) {

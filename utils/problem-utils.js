@@ -24,7 +24,7 @@ const getProblemOrder = key => {
     return 0;
   }
 
-  return PROBLEM_ORDER_BY_KEY[key];
+  return PROBLEM_ORDER_BY_KEY[key] ?? 0;
 };
 
 const toArray = value => {
@@ -41,6 +41,22 @@ const toArray = value => {
   }
 
   return [value];
+};
+
+const hasFieldValue = value => {
+  if (value === undefined || value === null) {
+    return false;
+  }
+
+  if (Array.isArray(value)) {
+    return value.length > 0;
+  }
+
+  if (typeof value === 'string') {
+    return value.trim() !== '';
+  }
+
+  return true;
 };
 
 const getFieldsForProblemKey = (req, problemKey) => {
@@ -74,5 +90,6 @@ module.exports = {
   PROBLEM_ROUTE_TO_KEY,
   getProblemOrder,
   toArray,
+  hasFieldValue,
   getFieldsForProblemKey
 };

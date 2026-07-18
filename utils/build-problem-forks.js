@@ -19,27 +19,12 @@ const {
   ORDERED_PROBLEM_ORDER,
   getProblemOrder,
   toArray,
+  hasFieldValue,
   getFieldsForProblemKey
 } = require('./problem-utils');
 
 // Current problem selection.
 const getProblemSelection = req => toArray(req.sessionModel.get('problem'));
-
-const hasFieldValue = value => {
-  if (value === undefined || value === null) {
-    return false;
-  }
-
-  if (Array.isArray(value)) {
-    return value.length > 0;
-  }
-
-  if (typeof value === 'string') {
-    return value.trim() !== '';
-  }
-
-  return true;
-};
 
 const problemHasMissingOwnedFields = (req, problemKey) => {
   const fields = getFieldsForProblemKey(req, problemKey);
