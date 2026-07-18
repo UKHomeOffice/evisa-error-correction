@@ -3,16 +3,15 @@
  *
  * The fork list is ordered from the canonical problem order, but only the
  * first eligible later problem should match. It follows the current selected
- * problems in `problem`, and in edit journeys it also uses
- * `problem-selection-before-edit` when available.
+ * problems in `problem`.
  *
- * Non-edit journeys move to the next selected problem in order.
- * Edit journeys also move through selected problems in order, but they first
- * prefer a selected problem whose owned fields are missing so the user is
- * sent back to the incomplete step. If no selected problem is incomplete,
- * the next selected problem is used instead. These forks are marked with
- * `continueOnEdit` so the `/problem/edit` flow keeps moving through selected
- * problem pages instead of stopping early at CYA.
+ * For selected problems after the current step, routing returns the first
+ * selected problem whose owned fields are missing. If all selected problems
+ * are complete, no fork matches and HOF falls back to `step.next`.
+ *
+ * Forks are emitted with `continueOnEdit: true` so this check still runs in
+ * edit journeys, but the matching rule is the same: only selected problems
+ * with missing owned fields are routed.
  *
  * When there is no eligible later problem, HOF falls back to `step.next`.
  */
@@ -25,15 +24,6 @@ const {
 
 // Current problem selection.
 const getProblemSelection = req => toArray(req.sessionModel.get('problem'));
-
-// Selection before entering edit mode.
-const getPreEditProblemSelection = req => toArray(req.sessionModel.get('problem-selection-before-edit'));
-
-// Whether the current request is an edit journey.
-const isProblemEditJourney = req => {
-  const params = req.params || {};
-  return Boolean(params.edit || params.action === 'edit');
-};
 
 const hasFieldValue = value => {
   if (value === undefined || value === null) {
@@ -57,12 +47,10 @@ const problemHasMissingOwnedFields = (req, problemKey) => {
   return fields.some(fieldName => !hasFieldValue(req.sessionModel.get(fieldName)));
 };
 
-// Find the next selected problem after the current step, preferring any
-// selected problem whose owned fields are incomplete in edit mode.
+// Find the next selected problem after the current step where owned fields
+// are incomplete.
 const nextSelectedProblem = (req, afterKey = null) => {
   const selected = new Set(getProblemSelection(req));
-  const editJourney = isProblemEditJourney(req);
-  const preEditSelected = new Set(getPreEditProblemSelection(req));
   const afterOrder = getProblemOrder(afterKey);
 
   for (const problem of ORDERED_PROBLEM_ORDER) {
@@ -74,17 +62,9 @@ const nextSelectedProblem = (req, afterKey = null) => {
       continue;
     }
 
-    if (editJourney) {
-      if (problemHasMissingOwnedFields(req, problem.key)) {
-        return problem.target;
-      }
-
-      if (preEditSelected.has(problem.key)) {
-        continue;
-      }
+    if (problemHasMissingOwnedFields(req, problem.key)) {
+      return problem.target;
     }
-
-    return problem.target;
   }
 
   return null;

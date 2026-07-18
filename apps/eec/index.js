@@ -26,6 +26,7 @@ module.exports = {
       next: '/accessing-evisa',
       fields: ['in-uk'],
       showNeedHelp: true,
+      continueOnEdit: true,
       forks: [
         {
           target: '/booked-travel',
