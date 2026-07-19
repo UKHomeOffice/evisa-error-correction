@@ -1,6 +1,6 @@
 const { PROBLEM_ORDER } = require('./problem-order');
 
-const ORDERED_PROBLEM_ORDER = PROBLEM_ORDER.slice().sort((a, b) => a.order - b.order);
+const ORDERED_PROBLEM_ORDER = PROBLEM_ORDER.slice();
 
 const PROBLEM_ORDER_BY_KEY = ORDERED_PROBLEM_ORDER.reduce((acc, item) => {
   acc[item.key] = item.order;
