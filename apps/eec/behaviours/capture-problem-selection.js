@@ -25,10 +25,14 @@
  *   stay cleared so the summary cannot show stale data.
  * - Never overwrite a field that already has a value.
  *   This avoids clobbering any value the user re-entered during the edit.
- * - Clear the edit-only snapshot keys on normal problem-selection submits.
+ * - Clear all problem state when previous selection is empty.
+ *   This delegates to `clearProblemSessionState` so problem fields and edit
+ *   snapshot keys are reset together.
+ * - Clear edit snapshot keys on non-edit problem-selection submits.
  *   That prevents old edit snapshots from leaking into later non-edit flows.
  */
 const { toArray, hasFieldValue, getFieldsForProblemKey } = require('../../../utils/problem-utils');
+const { clearProblemSessionState } = require('./clear-problem-session');
 
 const getSnapshotValue = (req, fieldName, overrides) => {
   if (Object.prototype.hasOwnProperty.call(overrides, fieldName)) {
@@ -64,8 +68,11 @@ module.exports = superclass => class extends superclass {
     const isEditJourney = isActiveEditContext(req);
     const formValues = req.form && req.form.values ? req.form.values : {};
     const isProblemSelectionSubmit = Object.prototype.hasOwnProperty.call(formValues, 'problem');
-
     const previousProblemSelection = toArray(req.sessionModel.get('problem'));
+
+    if (previousProblemSelection.length === 0) {
+      clearProblemSessionState(req);
+    }
 
     if (isEditJourney) {
       req.sessionModel.set('problem-selection-before-edit', previousProblemSelection);
