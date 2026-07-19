@@ -229,7 +229,6 @@ module.exports = {
       forks: [
         {
           target: '/correct-details-adult-accompanying',
-          continueOnEdit: true,
           condition: {
             field: 'how-many-adults',
             value: '1-adult'
@@ -237,7 +236,6 @@ module.exports = {
         },
         {
           target: '/correct-passport-number',
-          continueOnEdit: true,
           condition: {
             field: 'how-many-adults',
             value: '2-adults'
