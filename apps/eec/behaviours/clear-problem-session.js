@@ -11,18 +11,11 @@
 const {
   ORDERED_PROBLEM_ORDER,
   getFieldsForProblemKey,
+  normaliseRoute,
   toArray
 } = require('../../../utils/problem-utils');
 
 const shouldClearProblemState = req => toArray(req.sessionModel.get('problem')).length === 0;
-
-const normaliseRoute = route => {
-  if (!route || typeof route !== 'string') {
-    return null;
-  }
-
-  return route.startsWith('/') ? route : `/${route}`;
-};
 
 const addForkedRouteFields = (steps, route, fields) => {
   const currentRoute = normaliseRoute(route);

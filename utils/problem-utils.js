@@ -43,6 +43,14 @@ const toArray = value => {
   return [value];
 };
 
+const normaliseRoute = route => {
+  if (!route || typeof route !== 'string') {
+    return null;
+  }
+
+  return route.startsWith('/') ? route : `/${route}`;
+};
+
 const hasFieldValue = value => {
   if (value === undefined || value === null) {
     return false;
@@ -75,6 +83,7 @@ module.exports = {
   PROBLEM_ROUTE_TO_KEY,
   getProblemOrder,
   toArray,
+  normaliseRoute,
   hasFieldValue,
   getFieldsForProblemKey
 };
