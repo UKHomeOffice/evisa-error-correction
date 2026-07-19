@@ -30,17 +30,9 @@ const {
   ORDERED_PROBLEM_ORDER,
   PROBLEM_ROUTE_TO_KEY,
   getProblemOrder,
-  toArray
+  toArray,
+  normaliseRoute
 } = require('../../../utils/problem-utils');
-
-// Ensure route values are consistently slash-prefixed for map lookups.
-const normaliseRoute = route => {
-  if (!route || typeof route !== 'string') {
-    return route;
-  }
-
-  return route.startsWith('/') ? route : `/${route}`;
-};
 
 // Compute the back-link target for routes inside the problem journey.
 const getProblemBackLinkForRoute = (route, req) => {
