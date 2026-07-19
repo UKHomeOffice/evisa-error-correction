@@ -1,10 +1,12 @@
 /*
  * Clear problem journey session state when no problems are selected.
  *
- * This behavior gathers fields from each canonical problem route and also
- * includes fields from that route's direct fork targets. When the submitted
- * problem selection is empty, it unsets those field values and clears edit
- * snapshot keys used by the edit journey helpers.
+ * Field collection rules:
+ * - Include fields from each canonical problem target route.
+ * - Include fields from direct forks of each problem target route.
+ *
+ * When no problem is selected, this behavior clears those field values and
+ * resets edit snapshot keys used by capture/restore helpers.
  */
 const {
   ORDERED_PROBLEM_ORDER,
@@ -45,6 +47,7 @@ const addForkedRouteFields = (steps, route, fields) => {
   });
 };
 
+// Build the unique set of problem-related fields that should be unset.
 const getProblemFieldsToClear = req => {
   const fields = new Set();
   const steps = req.form?.options?.steps;
@@ -61,18 +64,26 @@ const getProblemFieldsToClear = req => {
   return fields;
 };
 
-module.exports = superclass => class extends superclass {
+// Clear problem fields and edit snapshot keys in one shared place.
+const clearProblemSessionState = req => {
+  getProblemFieldsToClear(req).forEach(fieldName => {
+    req.sessionModel.unset(fieldName);
+  });
+
+  req.sessionModel.unset('problem-selection-before-edit');
+  req.sessionModel.unset('problem-selection-current-edit');
+  req.sessionModel.unset('problem-values-before-edit');
+};
+
+const behaviour = superclass => class extends superclass {
   locals(req, res) {
     if (shouldClearProblemState(req)) {
-      getProblemFieldsToClear(req).forEach(fieldName => {
-        req.sessionModel.unset(fieldName);
-      });
-
-      req.sessionModel.unset('problem-selection-before-edit');
-      req.sessionModel.unset('problem-selection-current-edit');
-      req.sessionModel.unset('problem-values-before-edit');
+      clearProblemSessionState(req);
     }
 
     return super.locals(req, res);
   }
 };
+
+module.exports = behaviour;
+module.exports.clearProblemSessionState = clearProblemSessionState;
