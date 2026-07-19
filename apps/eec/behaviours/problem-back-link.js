@@ -49,7 +49,7 @@ const getProblemBackLinkForRoute = (route, req) => {
 
   const selectedSet = new Set(currentSelection);
 
-  if (currentRoute === '/your-evisa-details') {
+  if (currentRoute === '/your-evisa-details' && currentSelection.length > 0) {
     const lastSelected = ORDERED_PROBLEM_ORDER
       .filter(problem => selectedSet.has(problem.key))
       .pop();
