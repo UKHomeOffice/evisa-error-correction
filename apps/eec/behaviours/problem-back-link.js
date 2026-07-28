@@ -27,7 +27,7 @@
  *   formatting (leading slash, edit suffix handling, etc.).
  */
 const {
-  ORDERED_PROBLEM_ORDER,
+  PROBLEM_ORDER,
   PROBLEM_ROUTE_TO_KEY,
   getProblemOrder,
   toArray,
@@ -42,7 +42,7 @@ const getProblemBackLinkForRoute = (route, req) => {
   const selectedSet = new Set(currentSelection);
 
   if (currentRoute === '/your-evisa-details' && currentSelection.length > 0) {
-    const lastSelected = ORDERED_PROBLEM_ORDER
+    const lastSelected = PROBLEM_ORDER
       .filter(problem => selectedSet.has(problem.key))
       .pop();
 
@@ -56,7 +56,7 @@ const getProblemBackLinkForRoute = (route, req) => {
 
   const currentOrder = getProblemOrder(currentKey);
 
-  const previousSelected = ORDERED_PROBLEM_ORDER
+  const previousSelected = PROBLEM_ORDER
     .filter(problem => problem.order < currentOrder && selectedSet.has(problem.key))
     .pop();
 

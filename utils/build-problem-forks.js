@@ -18,20 +18,16 @@
  * When there is no eligible later problem, HOF falls back to `step.next`.
  */
 const {
-  ORDERED_PROBLEM_ORDER,
+  PROBLEM_ORDER,
   getProblemOrder,
   toArray,
+  isEditJourney,
   hasFieldValue,
   getFieldsForProblemKey
 } = require('./problem-utils');
 
 // Current problem selection.
 const getProblemSelection = req => toArray(req.sessionModel.get('problem'));
-
-const isEditJourney = req => {
-  const params = req.params || {};
-  return Boolean(params.edit || params.action === 'edit');
-};
 
 const problemHasMissingOwnedFields = (req, problemKey) => {
   const fields = getFieldsForProblemKey(req, problemKey);
@@ -47,7 +43,7 @@ const nextSelectedProblem = (req, afterKey = null) => {
   const afterOrder = getProblemOrder(afterKey);
   const editJourney = isEditJourney(req);
 
-  for (const problem of ORDERED_PROBLEM_ORDER) {
+  for (const problem of PROBLEM_ORDER) {
     if (problem.order <= afterOrder) {
       continue;
     }
@@ -74,7 +70,7 @@ const isNextProblemTarget = (req, target, afterKey = null) => nextSelectedProble
 // Build HOF fork entries for problems that appear later in the configured order.
 const buildProblemForks = (afterKey = null) => {
   const afterOrder = getProblemOrder(afterKey);
-  return ORDERED_PROBLEM_ORDER.filter(problem => problem.order > afterOrder).map(problem => ({
+  return PROBLEM_ORDER.filter(problem => problem.order > afterOrder).map(problem => ({
     target: problem.target.startsWith('/') ? problem.target : `/${problem.target}`,
     continueOnEdit: true,
     condition: req => isNextProblemTarget(req, problem.target, afterKey)

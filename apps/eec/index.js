@@ -226,6 +226,7 @@ module.exports = {
       fields: ['how-many-adults'],
       behaviours: [captureProblemSelection, problemBackLink],
       showNeedHelp: true,
+      continueOnEdit: true,
       forks: [
         {
           target: '/correct-details-adult-accompanying',

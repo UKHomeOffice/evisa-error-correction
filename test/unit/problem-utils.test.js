@@ -1,5 +1,5 @@
 const {
-  ORDERED_PROBLEM_ORDER,
+  PROBLEM_ORDER,
   PROBLEM_ORDER_BY_KEY,
   PROBLEM_ROUTE_TO_KEY,
   getProblemOrder,
@@ -10,8 +10,8 @@ const {
 } = require('../../utils/problem-utils');
 
 describe('problem-utils', () => {
-  test('ORDERED_PROBLEM_ORDER is sorted by order ascending', () => {
-    const orders = ORDERED_PROBLEM_ORDER.map(item => item.order);
+  test('PROBLEM_ORDER is sorted by order ascending', () => {
+    const orders = PROBLEM_ORDER.map(item => item.order);
     expect(orders).toEqual([...orders].sort((a, b) => a - b));
   });
 

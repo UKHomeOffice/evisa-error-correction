@@ -93,7 +93,7 @@ describe('capture-problem-selection behaviour', () => {
     });
   });
 
-  test('restores values when edit snapshot exists but URL params are not edit', () => {
+  test('does not restore values when URL params are not edit', () => {
     req.params = {};
     req.sessionModel.set('problem-values-before-edit', {
       'problem-share-code': {
@@ -108,7 +108,7 @@ describe('capture-problem-selection behaviour', () => {
 
     instance.successHandler(req, res);
 
-    expect(req.sessionModel.get('problem-not-listed')).toBe('old problem text');
+    expect(req.sessionModel.get('problem-not-listed')).toBe('');
     expect(res.redirect).toHaveBeenCalledWith('/next');
   });
 

@@ -1,19 +1,17 @@
 const { PROBLEM_ORDER } = require('./problem-order');
 
-const ORDERED_PROBLEM_ORDER = PROBLEM_ORDER.slice();
-
-const PROBLEM_ORDER_BY_KEY = ORDERED_PROBLEM_ORDER.reduce((acc, item) => {
+const PROBLEM_ORDER_BY_KEY = PROBLEM_ORDER.reduce((acc, item) => {
   acc[item.key] = item.order;
   return acc;
 }, {});
 
-const PROBLEM_ROUTE_TO_KEY = ORDERED_PROBLEM_ORDER.reduce((acc, item) => {
+const PROBLEM_ROUTE_TO_KEY = PROBLEM_ORDER.reduce((acc, item) => {
   const route = item.target.startsWith('/') ? item.target : `/${item.target}`;
   acc[route] = item.key;
   return acc;
 }, {});
 
-const PROBLEM_KEY_TO_TARGET_ROUTE = ORDERED_PROBLEM_ORDER.reduce((acc, item) => {
+const PROBLEM_KEY_TO_TARGET_ROUTE = PROBLEM_ORDER.reduce((acc, item) => {
   const route = item.target.startsWith('/') ? item.target : `/${item.target}`;
   acc[item.key] = route;
   return acc;
@@ -51,6 +49,11 @@ const normaliseRoute = route => {
   return route.startsWith('/') ? route : `/${route}`;
 };
 
+const isEditJourney = req => {
+  const params = req.params || {};
+  return Boolean(params.edit || params.action === 'edit');
+};
+
 const hasFieldValue = value => {
   if (value === undefined || value === null) {
     return false;
@@ -78,12 +81,13 @@ const getFieldsForProblemKey = (req, problemKey) => {
 };
 
 module.exports = {
-  ORDERED_PROBLEM_ORDER,
+  PROBLEM_ORDER,
   PROBLEM_ORDER_BY_KEY,
   PROBLEM_ROUTE_TO_KEY,
   getProblemOrder,
   toArray,
   normaliseRoute,
+  isEditJourney,
   hasFieldValue,
   getFieldsForProblemKey
 };
