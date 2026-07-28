@@ -9,7 +9,7 @@
  * resets edit snapshot keys used by capture/restore helpers.
  */
 const {
-  ORDERED_PROBLEM_ORDER,
+  PROBLEM_ORDER,
   getFieldsForProblemKey,
   normaliseRoute,
   toArray
@@ -45,7 +45,7 @@ const getProblemFieldsToClear = req => {
   const fields = new Set();
   const steps = req.form?.options?.steps;
 
-  ORDERED_PROBLEM_ORDER.forEach(problem => {
+  PROBLEM_ORDER.forEach(problem => {
     const routeFields = getFieldsForProblemKey(req, problem.key);
     routeFields.forEach(fieldName => fields.add(fieldName));
 

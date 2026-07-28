@@ -31,7 +31,7 @@
  * - Clear edit snapshot keys on non-edit problem-selection submits.
  *   That prevents old edit snapshots from leaking into later non-edit flows.
  */
-const { toArray, hasFieldValue, getFieldsForProblemKey } = require('../../../utils/problem-utils');
+const { toArray, hasFieldValue, getFieldsForProblemKey, isEditJourney } = require('../../../utils/problem-utils');
 const { clearProblemSessionState } = require('./clear-problem-session');
 
 const getSnapshotValue = (req, fieldName, overrides) => {
@@ -51,21 +51,9 @@ const snapshotProblemValues = (req, problemKeys, overrides = {}) => problemKeys.
   }, {});
   return acc;
 }, {});
-
-// Edit mode can be inferred from URL params or from an active edit snapshot.
-const isActiveEditContext = req => {
-  const params = req.params || {};
-  if (params.edit || params.action === 'edit') {
-    return true;
-  }
-
-  const valuesBeforeEdit = req.sessionModel.get('problem-values-before-edit');
-  return Boolean(valuesBeforeEdit && Object.keys(valuesBeforeEdit).length > 0);
-};
-
 module.exports = superclass => class extends superclass {
   saveValues(req, res, next) {
-    const isEditJourney = isActiveEditContext(req);
+    const editJourney = isEditJourney(req);
     const formValues = req.form && req.form.values ? req.form.values : {};
     const isProblemSelectionSubmit = Object.prototype.hasOwnProperty.call(formValues, 'problem');
     const previousProblemSelection = toArray(req.sessionModel.get('problem'));
@@ -74,7 +62,7 @@ module.exports = superclass => class extends superclass {
       clearProblemSessionState(req);
     }
 
-    if (isEditJourney) {
+    if (editJourney) {
       req.sessionModel.set('problem-selection-before-edit', previousProblemSelection);
 
       const currentProblemSelection = isProblemSelectionSubmit
@@ -99,11 +87,11 @@ module.exports = superclass => class extends superclass {
   }
 
   successHandler(req, res) {
-    const isEditJourney = isActiveEditContext(req);
+    const editJourney = isEditJourney(req);
 
     this.emit('complete', req, res);
 
-    if (isEditJourney) {
+    if (editJourney) {
       const currentSelection = toArray(req.sessionModel.get('problem'));
       const selectedProblems = new Set(currentSelection);
       const valuesBeforeEdit = req.sessionModel.get('problem-values-before-edit') || {};
