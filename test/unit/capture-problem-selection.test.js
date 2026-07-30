@@ -113,12 +113,20 @@ describe('capture-problem-selection behaviour', () => {
     expect(req.sessionModel.get('problem-values-before-edit')).toEqual({});
   });
 
-  test('problem submit keeps existing accompanying-adult field values while updating selection metadata', () => {
+  test('problem submit clears internal accompanying-adult page fields while keeping parent selection metadata', () => {
     req.sessionModel.set('problem', ['problem-accompanying-adult-details', 'problem-share-code']);
+    req.sessionModel.set('steps', [
+      '/problem',
+      '/how-many-adults',
+      '/correct-details-adult-accompanying',
+      '/correct-passport-number'
+    ]);
     req.sessionModel.set('how-many-adults', '1-adult');
     req.sessionModel.set('correct-given-names-adult-accompanying', 'Adult Given');
     req.sessionModel.set('correct-last-name-adult-accompanying', 'Adult Last');
     req.sessionModel.set('correct-passport-number-adult-accompanying', 'P1234567');
+    req.sessionModel.set('correct-passport-number-adult-1', 'A1-OLD');
+    req.sessionModel.set('correct-passport-number-adult-2', 'A2-OLD');
     req.form.values = {
       problem: ['problem-share-code', 'problem-other']
     };
@@ -126,13 +134,46 @@ describe('capture-problem-selection behaviour', () => {
     instance.saveValues(req, res, next);
 
     expect(req.sessionModel.get('how-many-adults')).toBe('1-adult');
-    expect(req.sessionModel.get('correct-given-names-adult-accompanying')).toBe('Adult Given');
-    expect(req.sessionModel.get('correct-last-name-adult-accompanying')).toBe('Adult Last');
-    expect(req.sessionModel.get('correct-passport-number-adult-accompanying')).toBe('P1234567');
+    expect(req.sessionModel.get('correct-given-names-adult-accompanying')).toBeUndefined();
+    expect(req.sessionModel.get('correct-last-name-adult-accompanying')).toBeUndefined();
+    expect(req.sessionModel.get('correct-passport-number-adult-accompanying')).toBeUndefined();
+    expect(req.sessionModel.get('correct-passport-number-adult-1')).toBeUndefined();
+    expect(req.sessionModel.get('correct-passport-number-adult-2')).toBeUndefined();
+    expect(req.sessionModel.get('steps')).toEqual([
+      '/problem',
+      '/how-many-adults'
+    ]);
     expect(req.sessionModel.get('problem-selection-current-edit')).toEqual([
       'problem-share-code',
       'problem-other'
     ]);
+  });
+
+  test('non-edit problem submit also clears internal accompanying-adult fields and routes when deselected', () => {
+    req.params = {};
+    req.sessionModel.set('problem', ['problem-accompanying-adult-details', 'problem-share-code']);
+    req.sessionModel.set('steps', [
+      '/problem',
+      '/correct-details-adult-accompanying',
+      '/correct-passport-number'
+    ]);
+    req.sessionModel.set('correct-given-names-adult-accompanying', 'Adult Given');
+    req.sessionModel.set('correct-last-name-adult-accompanying', 'Adult Last');
+    req.sessionModel.set('correct-passport-number-adult-accompanying', 'P1234567');
+    req.sessionModel.set('correct-passport-number-adult-1', 'A1-OLD');
+    req.sessionModel.set('correct-passport-number-adult-2', 'A2-OLD');
+    req.form.values = {
+      problem: ['problem-share-code']
+    };
+
+    instance.saveValues(req, res, next);
+
+    expect(req.sessionModel.get('correct-given-names-adult-accompanying')).toBeUndefined();
+    expect(req.sessionModel.get('correct-last-name-adult-accompanying')).toBeUndefined();
+    expect(req.sessionModel.get('correct-passport-number-adult-accompanying')).toBeUndefined();
+    expect(req.sessionModel.get('correct-passport-number-adult-1')).toBeUndefined();
+    expect(req.sessionModel.get('correct-passport-number-adult-2')).toBeUndefined();
+    expect(req.sessionModel.get('steps')).toEqual(['/problem']);
   });
 
   test('restores later selected problem values after edit invalidation', () => {
@@ -292,5 +333,61 @@ describe('capture-problem-selection behaviour', () => {
         'detail-share-code': 'old share code'
       }
     });
+  });
+
+  test('edit success ignores selected problems whose normalized route is null', () => {
+    jest.isolateModules(() => {
+      jest.doMock('../../utils/problem-utils', () => ({
+        PROBLEM_ORDER: [
+          { key: 'problem-invalid-target', target: null, order: 1 }
+        ],
+        toArray: value => {
+          if (!value) {
+            return [];
+          }
+          return Array.isArray(value) ? value : [value];
+        },
+        normaliseRoute: () => null,
+        hasFieldValue: value => value !== undefined && value !== null && value !== '',
+        getFieldsForProblemKey: () => [],
+        getFieldsForRoutes: () => [],
+        isEditJourney: reqArg => Boolean(reqArg.params?.action === 'edit')
+      }));
+
+      const BehaviourWithMock = require('../../apps/eec/behaviours/capture-problem-selection');
+
+      class BaseWithMock extends EventEmitter {
+        saveValues() {}
+
+        getNextStep() {
+          return '/next';
+        }
+      }
+
+      const reqWithMock = reqres.req();
+      const resWithMock = reqres.res();
+      resWithMock.redirect = jest.fn();
+
+      reqWithMock.form = {
+        values: { problem: ['problem-invalid-target'] },
+        options: { steps: {} }
+      };
+      reqWithMock.params = { action: 'edit' };
+      reqWithMock.sessionModel = new Model({
+        problem: ['problem-invalid-target'],
+        steps: ['/problem']
+      });
+
+      const MockedInstance = BehaviourWithMock(BaseWithMock);
+      const mockedInstance = new MockedInstance();
+
+      mockedInstance.successHandler(reqWithMock, resWithMock);
+
+      expect(reqWithMock.sessionModel.get('steps')).toEqual(['/problem']);
+      expect(resWithMock.redirect).toHaveBeenCalledWith('/next');
+    });
+
+    jest.resetModules();
+    jest.unmock('../../utils/problem-utils');
   });
 });

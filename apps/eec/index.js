@@ -3,7 +3,6 @@ const Summary = hof.components.summary;
 const submitRequest = require('./behaviours/submit-request');
 const validateAutocomplete = require('./behaviours/validate-autocomplete');
 const captureProblemSelection = require('./behaviours/capture-problem-selection');
-// const problemBackLink = require('./behaviours/problem-back-link');
 const { buildProblemForks } = require('../../utils/build-problem-forks');
 const clearProblemSession = require('./behaviours/clear-problem-session');
 const { disallowIndexing } = require('../../config');
