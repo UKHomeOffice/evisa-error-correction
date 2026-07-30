@@ -5,6 +5,7 @@ const {
   getProblemOrder,
   toArray,
   normaliseRoute,
+  isEditJourney,
   hasFieldValue,
   getFieldsForProblemKey
 } = require('../../utils/problem-utils');
@@ -51,6 +52,13 @@ describe('problem-utils', () => {
     expect(normaliseRoute(123)).toBeNull();
     expect(normaliseRoute('/abc')).toBe('/abc');
     expect(normaliseRoute('abc')).toBe('/abc');
+  });
+
+  test('isEditJourney handles missing params and edit markers', () => {
+    expect(isEditJourney({})).toBe(false);
+    expect(isEditJourney({ params: {} })).toBe(false);
+    expect(isEditJourney({ params: { edit: '1' } })).toBe(true);
+    expect(isEditJourney({ params: { action: 'edit' } })).toBe(true);
   });
 
   test('hasFieldValue handles undefined/null/strings/arrays and primitives', () => {
@@ -103,5 +111,42 @@ describe('problem-utils', () => {
     expect(
       getFieldsForProblemKey(reqWithoutSteps, 'problem-full-name')
     ).toEqual([]);
+  });
+
+  test('route maps preserve already slash-prefixed targets when provided by problem-order', () => {
+    jest.isolateModules(() => {
+      jest.doMock('../../utils/problem-order', () => ({
+        PROBLEM_ORDER: [
+          { key: 'problem-a', target: '/already-slashed', order: 1 },
+          { key: 'problem-b', target: 'plain-target', order: 2 }
+        ]
+      }));
+
+      const mockedUtils = require('../../utils/problem-utils');
+
+      expect(mockedUtils.PROBLEM_ROUTE_TO_KEY['/already-slashed']).toBe('problem-a');
+      expect(mockedUtils.PROBLEM_ROUTE_TO_KEY['/plain-target']).toBe('problem-b');
+
+      const req = {
+        form: {
+          options: {
+            steps: {
+              '/already-slashed': {
+                fields: ['field-a']
+              },
+              '/plain-target': {
+                fields: ['field-b']
+              }
+            }
+          }
+        }
+      };
+
+      expect(mockedUtils.getFieldsForProblemKey(req, 'problem-a')).toEqual(['field-a']);
+      expect(mockedUtils.getFieldsForProblemKey(req, 'problem-b')).toEqual(['field-b']);
+    });
+
+    jest.resetModules();
+    jest.unmock('../../utils/problem-order');
   });
 });

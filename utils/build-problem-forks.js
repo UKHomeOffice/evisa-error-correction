@@ -38,7 +38,7 @@ const problemHasMissingOwnedFields = (req, problemKey) => {
 // Find the next selected problem after the current step.
 // - Non-edit: first later selected problem.
 // - Edit: first later selected problem with missing owned fields.
-const nextSelectedProblem = (req, afterKey = null) => {
+const nextSelectedProblem = (req, afterKey) => {
   const selected = new Set(getProblemSelection(req));
   const afterOrder = getProblemOrder(afterKey);
   const editJourney = isEditJourney(req);
@@ -65,7 +65,7 @@ const nextSelectedProblem = (req, afterKey = null) => {
 };
 
 // Only one fork should match: the next selected problem target.
-const isNextProblemTarget = (req, target, afterKey = null) => nextSelectedProblem(req, afterKey) === target;
+const isNextProblemTarget = (req, target, afterKey) => nextSelectedProblem(req, afterKey) === target;
 
 // Build HOF fork entries for problems that appear later in the configured order.
 const buildProblemForks = (afterKey = null) => {

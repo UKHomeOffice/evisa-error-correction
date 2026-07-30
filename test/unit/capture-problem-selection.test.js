@@ -67,6 +67,74 @@ describe('capture-problem-selection behaviour', () => {
     });
   });
 
+  test('saveValues snapshots using session values when req.form.values is missing', () => {
+    req.form = {
+      options: {
+        route: '/share-code',
+        steps: app.steps
+      }
+    };
+
+    instance.saveValues(req, res, next);
+
+    expect(req.sessionModel.get('problem-values-before-edit')).toEqual({
+      'problem-share-code': {
+        'detail-share-code': 'old share code'
+      },
+      'problem-other': {
+        'problem-not-listed': 'old problem text'
+      }
+    });
+  });
+
+  test('edit problem-selection submit uses submitted selection for current edit and snapshot', () => {
+    req.form.values = {
+      problem: ['problem-share-code']
+    };
+
+    instance.saveValues(req, res, next);
+
+    expect(req.sessionModel.get('problem-selection-current-edit')).toEqual(['problem-share-code']);
+    expect(req.sessionModel.get('problem-values-before-edit')).toEqual({
+      'problem-share-code': {
+        'detail-share-code': 'old share code'
+      }
+    });
+  });
+
+  test('edit problem-selection submit supports empty submitted selection', () => {
+    req.form.values = {
+      problem: []
+    };
+
+    instance.saveValues(req, res, next);
+
+    expect(req.sessionModel.get('problem-selection-current-edit')).toEqual([]);
+    expect(req.sessionModel.get('problem-values-before-edit')).toEqual({});
+  });
+
+  test('problem submit keeps existing accompanying-adult field values while updating selection metadata', () => {
+    req.sessionModel.set('problem', ['problem-accompanying-adult-details', 'problem-share-code']);
+    req.sessionModel.set('how-many-adults', '1-adult');
+    req.sessionModel.set('correct-given-names-adult-accompanying', 'Adult Given');
+    req.sessionModel.set('correct-last-name-adult-accompanying', 'Adult Last');
+    req.sessionModel.set('correct-passport-number-adult-accompanying', 'P1234567');
+    req.form.values = {
+      problem: ['problem-share-code', 'problem-other']
+    };
+
+    instance.saveValues(req, res, next);
+
+    expect(req.sessionModel.get('how-many-adults')).toBe('1-adult');
+    expect(req.sessionModel.get('correct-given-names-adult-accompanying')).toBe('Adult Given');
+    expect(req.sessionModel.get('correct-last-name-adult-accompanying')).toBe('Adult Last');
+    expect(req.sessionModel.get('correct-passport-number-adult-accompanying')).toBe('P1234567');
+    expect(req.sessionModel.get('problem-selection-current-edit')).toEqual([
+      'problem-share-code',
+      'problem-other'
+    ]);
+  });
+
   test('restores later selected problem values after edit invalidation', () => {
     instance.saveValues(req, res, next);
     req.sessionModel.set('problem-not-listed', '');
@@ -77,20 +145,52 @@ describe('capture-problem-selection behaviour', () => {
     expect(res.redirect).toHaveBeenCalledWith('/next');
   });
 
-  test('updates snapshot to latest values after successful edit submit', () => {
-    instance.saveValues(req, res, next);
-    req.sessionModel.set('detail-share-code', 'new share code');
-
-    instance.successHandler(req, res);
-
-    expect(req.sessionModel.get('problem-values-before-edit')).toEqual({
+  test('does not restore values for problems removed from current selection', () => {
+    req.sessionModel.set('problem', ['problem-share-code']);
+    req.sessionModel.set('problem-not-listed', '');
+    req.sessionModel.set('problem-values-before-edit', {
       'problem-share-code': {
-        'detail-share-code': 'new share code'
+        'detail-share-code': 'old share code'
       },
       'problem-other': {
         'problem-not-listed': 'old problem text'
       }
     });
+
+    instance.successHandler(req, res);
+
+    expect(req.sessionModel.get('problem-not-listed')).toBe('');
+    expect(res.redirect).toHaveBeenCalledWith('/next');
+  });
+
+  test('restores adults internal-fork progress steps for 1-adult selection in edit journey', () => {
+    req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    req.sessionModel.set('how-many-adults', '1-adult');
+    req.sessionModel.set('steps', ['/problem', '/your-evisa-details']);
+
+    instance.successHandler(req, res);
+
+    expect(req.sessionModel.get('steps')).toEqual([
+      '/problem',
+      '/your-evisa-details',
+      '/how-many-adults',
+      '/correct-details-adult-accompanying'
+    ]);
+  });
+
+  test('restores adults internal-fork progress steps for 2-adults selection in edit journey', () => {
+    req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    req.sessionModel.set('how-many-adults', '2-adults');
+    req.sessionModel.set('steps', ['/problem', '/your-evisa-details']);
+
+    instance.successHandler(req, res);
+
+    expect(req.sessionModel.get('steps')).toEqual([
+      '/problem',
+      '/your-evisa-details',
+      '/how-many-adults',
+      '/correct-passport-number'
+    ]);
   });
 
   test('does not restore values when URL params are not edit', () => {
@@ -109,6 +209,29 @@ describe('capture-problem-selection behaviour', () => {
     instance.successHandler(req, res);
 
     expect(req.sessionModel.get('problem-not-listed')).toBe('');
+    expect(res.redirect).toHaveBeenCalledWith('/next');
+  });
+
+  test('successHandler handles missing problem-values-before-edit snapshot', () => {
+    req.sessionModel.unset('problem-values-before-edit');
+    req.sessionModel.set('problem', ['problem-share-code', 'problem-other']);
+
+    instance.successHandler(req, res);
+
+    expect(req.sessionModel.get('problem-not-listed')).toBe('old problem text');
+    expect(res.redirect).toHaveBeenCalledWith('/next');
+  });
+
+  test('successHandler ignores selected problem keys with undefined snapshot buckets', () => {
+    req.sessionModel.set('problem', ['problem-share-code']);
+    req.sessionModel.set('detail-share-code', '');
+    req.sessionModel.set('problem-values-before-edit', {
+      'problem-share-code': undefined
+    });
+
+    instance.successHandler(req, res);
+
+    expect(req.sessionModel.get('detail-share-code')).toBe('');
     expect(res.redirect).toHaveBeenCalledWith('/next');
   });
 
@@ -145,5 +268,29 @@ describe('capture-problem-selection behaviour', () => {
     expect(req.sessionModel.get('problem-selection-before-edit')).toBeUndefined();
     expect(req.sessionModel.get('problem-selection-current-edit')).toBeUndefined();
     expect(req.sessionModel.get('problem-values-before-edit')).toBeUndefined();
+  });
+
+  test('keeps existing snapshot keys on non-edit submit when problem field is not posted', () => {
+    req.params = {};
+    req.form.values = {
+      'detail-share-code': 'changed outside problem selection'
+    };
+    req.sessionModel.set('problem-selection-before-edit', ['problem-share-code']);
+    req.sessionModel.set('problem-selection-current-edit', ['problem-share-code']);
+    req.sessionModel.set('problem-values-before-edit', {
+      'problem-share-code': {
+        'detail-share-code': 'old share code'
+      }
+    });
+
+    instance.saveValues(req, res, next);
+
+    expect(req.sessionModel.get('problem-selection-before-edit')).toEqual(['problem-share-code']);
+    expect(req.sessionModel.get('problem-selection-current-edit')).toEqual(['problem-share-code']);
+    expect(req.sessionModel.get('problem-values-before-edit')).toEqual({
+      'problem-share-code': {
+        'detail-share-code': 'old share code'
+      }
+    });
   });
 });

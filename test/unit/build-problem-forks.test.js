@@ -1,15 +1,33 @@
+const fs = require('fs');
+const path = require('path');
+const Module = require('module');
 const { buildProblemForks } = require('../../utils/build-problem-forks');
+
+const loadPrivateBuildForkHelpers = () => {
+  const filePath = path.resolve(__dirname, '../../utils/build-problem-forks.js');
+  const source = fs.readFileSync(filePath, 'utf8');
+  const instrumented = `${source}\nmodule.exports.__test__ = { nextSelectedProblem, isNextProblemTarget };\n`;
+
+  const testModule = new Module(filePath, module);
+  testModule.filename = filePath;
+  testModule.paths = Module._nodeModulePaths(path.dirname(filePath));
+  testModule._compile(instrumented, filePath);
+
+  return testModule.exports.__test__;
+};
 
 describe('build-problem-forks utility', () => {
   const baseReq = ({
     problem,
     params = {},
     values = {},
+    route,
     steps = {}
   }) => ({
     params,
     form: {
       options: {
+        route,
         steps
       }
     },
@@ -94,6 +112,27 @@ describe('build-problem-forks utility', () => {
     expect(matched).toBeUndefined();
   });
 
+  test('edit journey from problem page yields no matching fork when selected problems are complete', () => {
+    const req = baseReq({
+      params: { action: 'edit' },
+      problem: ['problem-accompanying-adult-details', 'problem-share-code'],
+      route: '/problem',
+      values: {
+        'how-many-adults': '1-adult',
+        'detail-share-code': 'ABC123'
+      },
+      steps: {
+        '/how-many-adults': { fields: ['how-many-adults'] },
+        '/share-code': { fields: ['detail-share-code'] }
+      }
+    });
+
+    const forks = buildProblemForks();
+    const matched = forks.find(fork => fork.condition(req));
+
+    expect(matched).toBeUndefined();
+  });
+
   test('afterKey limits matching to problems that come later in canonical order', () => {
     const req = baseReq({
       params: {},
@@ -110,5 +149,56 @@ describe('build-problem-forks utility', () => {
     const matched = forks.find(fork => fork.condition(req));
 
     expect(matched.target).toBe('/share-code');
+  });
+
+  test('private helper defaults afterKey to null when omitted', () => {
+    const { nextSelectedProblem } = loadPrivateBuildForkHelpers();
+    const req = baseReq({
+      params: {},
+      problem: ['problem-nationality'],
+      values: {},
+      steps: {
+        '/correct-nationality': { fields: ['correct-nationality'] }
+      }
+    });
+
+    expect(nextSelectedProblem(req)).toBe('correct-nationality');
+  });
+
+  test('private target matcher defaults afterKey to null when omitted', () => {
+    const { isNextProblemTarget } = loadPrivateBuildForkHelpers();
+    const req = baseReq({
+      params: {},
+      problem: ['problem-share-code'],
+      values: {},
+      steps: {
+        '/share-code': { fields: ['detail-share-code'] }
+      }
+    });
+
+    expect(isNextProblemTarget(req, 'share-code')).toBe(true);
+  });
+
+  test('preserves already slash-prefixed targets when building forks', () => {
+    jest.isolateModules(() => {
+      jest.doMock('../../utils/problem-utils', () => ({
+        PROBLEM_ORDER: [
+          { key: 'problem-a', target: '/already-slashed', order: 1 },
+          { key: 'problem-b', target: 'plain-target', order: 2 }
+        ],
+        getProblemOrder: () => 0,
+        toArray: value => (Array.isArray(value) ? value : []),
+        isEditJourney: () => false,
+        hasFieldValue: value => value !== undefined && value !== null && value !== '',
+        getFieldsForProblemKey: () => []
+      }));
+
+      const { buildProblemForks: buildWithMock } = require('../../utils/build-problem-forks');
+      const forks = buildWithMock();
+
+      expect(forks[0].target).toBe('/already-slashed');
+      expect(forks[1].target).toBe('/plain-target');
+    });
+    jest.resetModules();
   });
 });
