@@ -89,6 +89,20 @@ const getFieldsForProblemKey = (req, problemKey) => {
   return [];
 };
 
+// Resolve and flatten configured fields for a list of routes.
+const getFieldsForRoutes = (req, routes) => {
+  const steps = req.form?.options?.steps;
+
+  if (!steps) {
+    return [];
+  }
+
+  return routes.reduce((acc, route) => {
+    const fields = Array.isArray(steps[route]?.fields) ? steps[route].fields : [];
+    return acc.concat(fields);
+  }, []);
+};
+
 module.exports = {
   PROBLEM_ORDER,
   PROBLEM_ORDER_BY_KEY,
@@ -98,5 +112,6 @@ module.exports = {
   normaliseRoute,
   isEditJourney,
   hasFieldValue,
-  getFieldsForProblemKey
+  getFieldsForProblemKey,
+  getFieldsForRoutes
 };

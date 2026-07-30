@@ -7,7 +7,8 @@ const {
   normaliseRoute,
   isEditJourney,
   hasFieldValue,
-  getFieldsForProblemKey
+  getFieldsForProblemKey,
+  getFieldsForRoutes
 } = require('../../utils/problem-utils');
 
 describe('problem-utils', () => {
@@ -111,6 +112,47 @@ describe('problem-utils', () => {
     expect(
       getFieldsForProblemKey(reqWithoutSteps, 'problem-full-name')
     ).toEqual([]);
+  });
+
+  test('getFieldsForRoutes flattens configured fields across routes in order', () => {
+    const req = {
+      form: {
+        options: {
+          steps: {
+            '/a': { fields: ['field-a1', 'field-a2'] },
+            '/b': { fields: ['field-b1'] }
+          }
+        }
+      }
+    };
+
+    expect(getFieldsForRoutes(req, ['/a', '/b'])).toEqual([
+      'field-a1',
+      'field-a2',
+      'field-b1'
+    ]);
+  });
+
+  test('getFieldsForRoutes returns empty array when steps are missing or route has no fields', () => {
+    const reqWithoutSteps = {
+      form: {
+        options: {}
+      }
+    };
+
+    const reqWithMixedRoutes = {
+      form: {
+        options: {
+          steps: {
+            '/a': {},
+            '/b': { fields: ['field-b1'] }
+          }
+        }
+      }
+    };
+
+    expect(getFieldsForRoutes(reqWithoutSteps, ['/a'])).toEqual([]);
+    expect(getFieldsForRoutes(reqWithMixedRoutes, ['/missing', '/a', '/b'])).toEqual(['field-b1']);
   });
 
   test('route maps preserve already slash-prefixed targets when provided by problem-order', () => {

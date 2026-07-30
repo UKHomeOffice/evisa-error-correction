@@ -41,6 +41,7 @@ const {
   normaliseRoute,
   hasFieldValue,
   getFieldsForProblemKey,
+  getFieldsForRoutes,
   isEditJourney
 } = require('../../../utils/problem-utils');
 const { clearProblemSessionState } = require('./clear-problem-session');
@@ -71,16 +72,27 @@ const removeJourneySteps = (req, stepsToRemove) => {
   req.sessionModel.set('steps', nextSteps);
 };
 
+const clearFields = (req, fields) => {
+  Array.from(new Set(fields)).forEach(fieldName => req.sessionModel.unset(fieldName));
+};
+
 // Remove adult internal fork steps when accompanying-adult-details is not selected.
+// This is a special case because the internal fork steps are not directly owned by the problem step,
+// but they are only relevant when that problem is selected.
+// This can be generalised to other problems with internal forks if needed in the future.
 const removeAdultAccompanyingInternalStepsIfUnselected = (req, selectedProblems) => {
   if (selectedProblems.has('problem-accompanying-adult-details')) {
     return;
   }
 
-  removeJourneySteps(req, [
+  const internalAdultRoutes = [
     '/correct-details-adult-accompanying',
     '/correct-passport-number'
-  ]);
+  ];
+
+  clearFields(req, getFieldsForRoutes(req, internalAdultRoutes));
+
+  removeJourneySteps(req, internalAdultRoutes);
 };
 
 // Rebuild only the problem-related portion of session steps in canonical order.
