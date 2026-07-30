@@ -38,6 +38,7 @@
 const {
   PROBLEM_ORDER,
   toArray,
+  normaliseRoute,
   hasFieldValue,
   getFieldsForProblemKey,
   isEditJourney
@@ -92,26 +93,25 @@ const restoreSelectedProblemJourneySteps = (req, selectedProblems) => {
       return;
     }
 
-    const route = problem.target.startsWith('/') ? problem.target : `/${problem.target}`;
-    selectedProblemSteps.push(route);
-
-    if (problem.key !== 'problem-accompanying-adult-details') {
+    const route = normaliseRoute(problem.target);
+    if (!route) {
       return;
     }
+    selectedProblemSteps.push(route);
 
     const adultSelection = req.sessionModel.get('how-many-adults');
-    if (adultSelection === '1-adult') {
+    if (problem.key === 'problem-accompanying-adult-details' && adultSelection === '1-adult') {
       selectedProblemSteps.push('/correct-details-adult-accompanying');
     }
 
-    if (adultSelection === '2-adults') {
+    if (problem.key === 'problem-accompanying-adult-details' && adultSelection === '2-adults') {
       selectedProblemSteps.push('/correct-passport-number');
     }
   });
 
-  const allProblemRoutes = PROBLEM_ORDER.map(problem =>
-    problem.target.startsWith('/') ? problem.target : `/${problem.target}`
-  );
+  const allProblemRoutes = PROBLEM_ORDER
+    .map(problem => normaliseRoute(problem.target))
+    .filter(Boolean);
   allProblemRoutes.push('/correct-details-adult-accompanying', '/correct-passport-number');
 
   const problemRouteSet = new Set(allProblemRoutes);
