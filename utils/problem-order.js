@@ -1,4 +1,4 @@
-// Canonical problem order for the eVisa journey.
+// Source-of-truth problem definitions for the eVisa journey.
 // Targets are route fragments without a leading '/'.
 const PROBLEM_DEFINITIONS = [
   { key: 'problem-full-name', target: 'your-correct-name' },
@@ -21,6 +21,8 @@ const PROBLEM_DEFINITIONS = [
   { key: 'problem-other', target: 'problem-not-listed' }
 ];
 
+// Exported ordered problem list used by routing and summary helpers.
+// `order` is derived from array position to keep ordering in one place.
 const PROBLEM_ORDER = PROBLEM_DEFINITIONS.map((problem, index) => ({
   ...problem,
   order: index + 1
