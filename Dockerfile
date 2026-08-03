@@ -1,4 +1,4 @@
-FROM node:24.18.0-alpine3.24@sha256:4ba75f835bb8802193e4c114572113d4b26f95f6f094f4b5229d2a77773e0afc
+FROM node:24.18.1-alpine3.24@sha256:9b6d6e32fdbed527c0492b8e2d9d4c9081644a080b772670816bec13ba50b683
 
 USER root
 
@@ -6,7 +6,7 @@ USER root
 RUN apk upgrade --no-cache
 
 # Upgrade npm from the base image to patch vulnerable bundled dependencies
-RUN npm install -g npm@12.0.1 && npm --version
+RUN npm install -g npm@12.0.2 && npm --version
 
 # Setup nodejs group & nodejs user
 RUN addgroup --system nodejs --gid 998 && \
