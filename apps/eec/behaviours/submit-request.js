@@ -9,7 +9,8 @@ const {
 const { getLabel, formatDate, genNotifyErrorMsg } = require('../../../utils');
 
 const NotifyClient = require('notifications-node-client').NotifyClient;
-const Notify = new NotifyClient(notifyApiKey);
+const useMockNotify = process.env.E2E_MOCK_NOTIFY === 'true';
+const Notify = useMockNotify || !notifyApiKey ? null : new NotifyClient(notifyApiKey);
 
 class EmailProps {
   constructor() {
@@ -50,6 +51,11 @@ module.exports = superclass => class extends superclass {
     const businessEmailProps = new EmailProps;
 
     try {
+      if (useMockNotify) {
+        req.log('info', 'EEC mock notify enabled - skipping caseworker email send');
+        return super.saveValues(req, res, next);
+      }
+
       businessEmailProps.addPersonalisation({
         in_uk: getLabel('in-uk', req.sessionModel.get('in-uk')),
         is_not_in_uk: req.sessionModel.get('in-uk') === 'no' ? 'yes' : 'no',
