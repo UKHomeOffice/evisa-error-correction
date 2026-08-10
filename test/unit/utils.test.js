@@ -13,6 +13,10 @@ describe('Utilities \'getLabel\'', () => {
     expect(getLabel('requestor-reference-type', ['brp', 'gwf'])).toBe('BRP number, GWF number');
   });
 
+  test('returns undefined when array input contains only unknown options', () => {
+    expect(getLabel('requestor-reference-type', ['unknown-value'])).toBe(undefined);
+  });
+
   test('returns undefined when an unexpected fieldKey parameter is passed', () => {
     expect(getLabel('cheese', 'brp')).toBe(undefined);
     expect(getLabel(null, 'brp')).toBe(undefined);
@@ -23,6 +27,23 @@ describe('Utilities \'getLabel\'', () => {
     expect(getLabel('requestor-reference-type', 'Legoland-drivers-license')).toBe(undefined);
     expect(getLabel('requestor-reference-type', null)).toBe(undefined);
     expect(getLabel('requestor-reference-type', undefined)).toBe(undefined);
+  });
+
+  test('returns confirm summary field labels when labelType is confirm-field', () => {
+    expect(getLabel('how-many-adults', undefined, 'confirm-field')).toBe('Number of adults accompanying a child');
+    expect(getLabel('correct-given-names-adult-accompanying', undefined, 'confirm-field'))
+      .toBe('Name and passport number of accompanying adult');
+    expect(getLabel('correct-passport-number-adult-1', undefined, 'confirm-field'))
+      .toBe('Passport numbers of accompanying adults');
+  });
+
+  test('returns undefined for unknown confirm summary field labels', () => {
+    expect(getLabel('not-a-confirm-field', undefined, 'confirm-field')).toBe(undefined);
+  });
+
+  test('falls back to options lookup when labelType is omitted or empty', () => {
+    expect(getLabel('requestor-reference-type', 'brp')).toBe('BRP number');
+    expect(getLabel('requestor-reference-type', 'brp', '')).toBe('BRP number');
   });
 });
 

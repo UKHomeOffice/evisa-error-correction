@@ -1,7 +1,16 @@
 const config = require('../config');
 const translations = require('../apps/eec/translations/src/en/fields.json');
+const pages = require('../apps/eec/translations/src/en/pages.json');
 
-const getLabel = (fieldKey, fieldValue) => {
+const getLabel = (fieldKey, fieldValue, labelType = '') => {
+  if (!fieldKey) {
+    return undefined;
+  }
+
+  if (labelType === 'confirm-field') {
+    return pages.confirm?.fields?.[fieldKey]?.label || undefined;
+  }
+
   if ( Array.isArray(fieldValue)) {
     return fieldValue.map(option => translations[fieldKey]?.options[option]?.label).join(', ') || undefined;
   }

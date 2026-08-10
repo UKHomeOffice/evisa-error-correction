@@ -6,7 +6,8 @@ const {
   replyToId
 } = config.govukNotify;
 
-const { getLabel, formatDate, genNotifyErrorMsg } = require('../../../utils');
+const { getLabel, formatDate, genNotifyErrorMsg, joinNonEmpty } = require('../../../utils');
+const { getFieldsForProblemKey } = require('../../../utils/problem-utils');
 
 const NotifyClient = require('notifications-node-client').NotifyClient;
 const Notify = new NotifyClient(notifyApiKey);
@@ -27,18 +28,84 @@ class EmailProps {
 const buildProblemNotes = req => {
   let problems = req.sessionModel.get('problem');
   let concatProblems = '';
+  const dateDetailProblemKeys = new Set([
+    'problem-date-of-birth',
+    'problem-valid-from',
+    'problem-valid-to'
+  ]);
+  const nameLikeProblemKeys = new Set(['problem-full-name', 'problem-future-partner-name']);
 
   // A single checked box will be stored as a string not an array of length 1 so...
   if (typeof problems === 'string') {
     problems = Array.of(problems);
   }
 
-  for (const problem of problems) {
-    concatProblems += getLabel('problem', problem) + ': ';
-    let detail = req.sessionModel.get(problem.replace('problem', 'detail'));
-    if (problem === 'problem-dob') {
-      detail = formatDate(detail);
+  const serialiseFieldValue = value => {
+    if (Array.isArray(value)) {
+      return value.join(', ');
     }
+
+    return value;
+  };
+
+  const buildAccompanyingAdultDetailsNote = () => {
+    const adultsValue = req.sessionModel.get('how-many-adults');
+    const adultsLabel = getLabel('how-many-adults', adultsValue) || adultsValue || '';
+    const adultsCountHeading = getLabel('how-many-adults', undefined, 'confirm-field');
+    const oneAdultHeading = getLabel('correct-given-names-adult-accompanying', undefined, 'confirm-field');
+    const twoAdultsHeading = getLabel('correct-passport-number-adult-1', undefined, 'confirm-field');
+    const lines = [
+      `${adultsCountHeading}: ${adultsLabel}\n\n`
+    ];
+
+    if (adultsValue === '1-adult') {
+      const givenNames = req.sessionModel.get('correct-given-names-adult-accompanying');
+      const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
+      const fullName = joinNonEmpty([givenNames, lastName]);
+      const passport = req.sessionModel.get('correct-passport-number-adult-accompanying');
+
+      lines.push(`${oneAdultHeading}:`);
+      if (fullName) {
+        lines.push(fullName);
+      }
+      if (passport) {
+        lines.push(passport);
+      }
+    }
+
+    if (adultsValue === '2-adults') {
+      const passport1 = req.sessionModel.get('correct-passport-number-adult-1');
+      const passport2 = req.sessionModel.get('correct-passport-number-adult-2');
+
+      lines.push(`${twoAdultsHeading}:`);
+      if (passport1) {
+        lines.push(`Adult 1: ${passport1}`);
+      }
+      if (passport2) {
+        lines.push(`Adult 2: ${passport2}`);
+      }
+    }
+
+    return lines.join('\n');
+  };
+
+  for (const problem of problems) {
+    if (problem === 'problem-accompanying-adult-details') {
+      concatProblems += buildAccompanyingAdultDetailsNote() + '\n\n';
+      continue;
+    }
+
+    concatProblems += getLabel('problem', problem) + ': ';
+    const fieldValues = getFieldsForProblemKey(req, problem)
+      .map(fieldName => {
+        const rawValue = req.sessionModel.get(fieldName);
+        const value = dateDetailProblemKeys.has(problem) ? formatDate(rawValue) : rawValue;
+        return serialiseFieldValue(value);
+      })
+      .filter(value => value !== undefined && value !== null && String(value).trim() !== '');
+
+    const separator = nameLikeProblemKeys.has(problem) ? ' ' : ', ';
+    const detail = fieldValues.join(separator);
     concatProblems += detail + '\n\n';
   }
 
