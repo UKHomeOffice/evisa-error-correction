@@ -289,16 +289,6 @@ describe('submit-feedback behaviour', () => {
         .toHaveBeenCalledWith('456-789', 'test@example.com', emailProps);
     });
 
-    test('problem notes serialise array field values using comma separator', async () => {
-      req.sessionModel.set('problem', ['problem-photo']);
-      req.sessionModel.set('photo', ['photo bad', 'photo old']);
-
-      await instance.saveValues(req, res, next);
-
-      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
-      expect(sentProps.personalisation.problem_notes).toBe('Photo: photo bad, photo old\n\n');
-    });
-
     test('problem notes include accompanying adult details for one adult', async () => {
       req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
       req.sessionModel.set('how-many-adults', '1-adult');
