@@ -8,15 +8,13 @@ const PROBLEM_ORDER_BY_KEY = PROBLEM_ORDER.reduce((acc, item) => {
 
 // Fast lookup: slash-prefixed route -> problem key.
 const PROBLEM_ROUTE_TO_KEY = PROBLEM_ORDER.reduce((acc, item) => {
-  const route = item.target.startsWith('/') ? item.target : `/${item.target}`;
-  acc[route] = item.key;
+  acc[item.target] = item.key;
   return acc;
 }, {});
 
 // Internal lookup: problem key -> slash-prefixed target route.
 const PROBLEM_KEY_TO_TARGET_ROUTE = PROBLEM_ORDER.reduce((acc, item) => {
-  const route = item.target.startsWith('/') ? item.target : `/${item.target}`;
-  acc[item.key] = route;
+  acc[item.key] = item.target;
   return acc;
 }, {});
 

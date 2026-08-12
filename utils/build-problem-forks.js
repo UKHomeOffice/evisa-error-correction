@@ -38,9 +38,9 @@ const problemHasMissingOwnedFields = (req, problemKey) => {
 // Find the next selected problem after the current step.
 // - Non-edit: first later selected problem.
 // - Edit: first later selected problem with missing owned fields.
-const nextSelectedProblem = (req, afterKey) => {
+const nextSelectedProblem = (req, currentProblemKey) => {
   const selected = new Set(getProblemSelection(req));
-  const afterOrder = getProblemOrder(afterKey);
+  const afterOrder = getProblemOrder(currentProblemKey);
   const editJourney = isEditJourney(req);
 
   for (const problem of PROBLEM_ORDER) {
@@ -65,15 +65,15 @@ const nextSelectedProblem = (req, afterKey) => {
 };
 
 // Only one fork should match: the next selected problem target.
-const isNextProblemTarget = (req, target, afterKey) => nextSelectedProblem(req, afterKey) === target;
+const isNextProblemTarget = (req, target, currentProblemKey) => nextSelectedProblem(req, currentProblemKey) === target;
 
 // Build HOF fork entries for problems that appear later in the configured order.
-const buildProblemForks = (afterKey = null) => {
-  const afterOrder = getProblemOrder(afterKey);
+const buildProblemForks = (currentProblemKey = null) => {
+  const afterOrder = getProblemOrder(currentProblemKey);
   return PROBLEM_ORDER.filter(problem => problem.order > afterOrder).map(problem => ({
-    target: problem.target.startsWith('/') ? problem.target : `/${problem.target}`,
+    target: problem.target,
     continueOnEdit: true,
-    condition: req => isNextProblemTarget(req, problem.target, afterKey)
+    condition: req => isNextProblemTarget(req, problem.target, currentProblemKey)
   }));
 };
 

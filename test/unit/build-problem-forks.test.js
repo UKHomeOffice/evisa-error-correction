@@ -133,7 +133,7 @@ describe('build-problem-forks utility', () => {
     expect(matched).toBeUndefined();
   });
 
-  test('afterKey limits matching to problems that come later in canonical order', () => {
+  test('currentProblemKey limits matching to problems that come later in canonical order', () => {
     const req = baseReq({
       params: {},
       problem: ['problem-full-name', 'problem-nationality', 'problem-share-code'],
@@ -151,7 +151,7 @@ describe('build-problem-forks utility', () => {
     expect(matched.target).toBe('/share-code');
   });
 
-  test('private helper defaults afterKey to null when omitted', () => {
+  test('private helper defaults currentProblemKey to null when omitted', () => {
     const { nextSelectedProblem } = loadPrivateBuildForkHelpers();
     const req = baseReq({
       params: {},
@@ -162,10 +162,10 @@ describe('build-problem-forks utility', () => {
       }
     });
 
-    expect(nextSelectedProblem(req)).toBe('correct-nationality');
+    expect(nextSelectedProblem(req)).toBe('/correct-nationality');
   });
 
-  test('private target matcher defaults afterKey to null when omitted', () => {
+  test('private target matcher defaults currentProblemKey to null when omitted', () => {
     const { isNextProblemTarget } = loadPrivateBuildForkHelpers();
     const req = baseReq({
       params: {},
@@ -176,29 +176,6 @@ describe('build-problem-forks utility', () => {
       }
     });
 
-    expect(isNextProblemTarget(req, 'share-code')).toBe(true);
-  });
-
-  test('preserves already slash-prefixed targets when building forks', () => {
-    jest.isolateModules(() => {
-      jest.doMock('../../utils/problem-utils', () => ({
-        PROBLEM_ORDER: [
-          { key: 'problem-a', target: '/already-slashed', order: 1 },
-          { key: 'problem-b', target: 'plain-target', order: 2 }
-        ],
-        getProblemOrder: () => 0,
-        toArray: value => (Array.isArray(value) ? value : []),
-        isEditJourney: () => false,
-        hasFieldValue: value => value !== undefined && value !== null && value !== '',
-        getFieldsForProblemKey: () => []
-      }));
-
-      const { buildProblemForks: buildWithMock } = require('../../utils/build-problem-forks');
-      const forks = buildWithMock();
-
-      expect(forks[0].target).toBe('/already-slashed');
-      expect(forks[1].target).toBe('/plain-target');
-    });
-    jest.resetModules();
+    expect(isNextProblemTarget(req, '/share-code')).toBe(true);
   });
 });

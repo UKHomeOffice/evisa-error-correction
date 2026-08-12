@@ -154,41 +154,4 @@ describe('problem-utils', () => {
     expect(getFieldsForRoutes(reqWithoutSteps, ['/a'])).toEqual([]);
     expect(getFieldsForRoutes(reqWithMixedRoutes, ['/missing', '/a', '/b'])).toEqual(['field-b1']);
   });
-
-  test('route maps preserve already slash-prefixed targets when provided by problem-order', () => {
-    jest.isolateModules(() => {
-      jest.doMock('../../utils/problem-order', () => ({
-        PROBLEM_ORDER: [
-          { key: 'problem-a', target: '/already-slashed', order: 1 },
-          { key: 'problem-b', target: 'plain-target', order: 2 }
-        ]
-      }));
-
-      const mockedUtils = require('../../utils/problem-utils');
-
-      expect(mockedUtils.PROBLEM_ROUTE_TO_KEY['/already-slashed']).toBe('problem-a');
-      expect(mockedUtils.PROBLEM_ROUTE_TO_KEY['/plain-target']).toBe('problem-b');
-
-      const req = {
-        form: {
-          options: {
-            steps: {
-              '/already-slashed': {
-                fields: ['field-a']
-              },
-              '/plain-target': {
-                fields: ['field-b']
-              }
-            }
-          }
-        }
-      };
-
-      expect(mockedUtils.getFieldsForProblemKey(req, 'problem-a')).toEqual(['field-a']);
-      expect(mockedUtils.getFieldsForProblemKey(req, 'problem-b')).toEqual(['field-b']);
-    });
-
-    jest.resetModules();
-    jest.unmock('../../utils/problem-order');
-  });
 });

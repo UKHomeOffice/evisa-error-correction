@@ -99,12 +99,13 @@ module.exports = {
         field: 'correct-given-names-adult-accompanying',
         parse: (val, req) => {
           const isSingleAdult = req.sessionModel.get('how-many-adults') === '1-adult';
+          if (!isSingleAdult) return null;
 
           const givenNames = req.sessionModel.get('correct-given-names-adult-accompanying');
           const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
           const passportNumber = req.sessionModel.get('correct-passport-number-adult-accompanying');
           const fullName = joinNonEmpty([givenNames, lastName]);
-          return isSingleAdult ? joinNonEmpty([fullName, passportNumber], '\n') : '';
+          return joinNonEmpty([fullName, passportNumber], '\n');
         }
       },
       {
@@ -112,12 +113,13 @@ module.exports = {
         field: 'correct-passport-number-adult-1',
         parse: (val, req) => {
           const isTwoAdults = req.sessionModel.get('how-many-adults') === '2-adults';
+          if (!isTwoAdults) return null;
 
           const passportNumber1 = req.sessionModel.get('correct-passport-number-adult-1');
           const passportNumber2 = req.sessionModel.get('correct-passport-number-adult-2');
           const adult1 = passportNumber1 ? `Adult 1: ${passportNumber1}` : null;
           const adult2 = passportNumber2 ? `Adult 2: ${passportNumber2}` : null;
-          return isTwoAdults ? joinNonEmpty([adult1, adult2], '\n') : '';
+          return joinNonEmpty([adult1, adult2], '\n');
         }
       },
       {
