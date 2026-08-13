@@ -33,4 +33,17 @@ describe('problem-order', () => {
       expect(problem.order).toBeGreaterThan(0);
     });
   });
+
+  test('problem-accompanying-adult-details defines selector-based internal routes', () => {
+    const adultProblem = PROBLEM_ORDER.find(problem => problem.key === 'problem-accompanying-adult-details');
+
+    expect(adultProblem).toMatchObject({
+      target: '/how-many-adults',
+      internalRouteSelector: 'how-many-adults'
+    });
+    expect(adultProblem.internalRoutes).toEqual({
+      '1-adult': ['/correct-details-adult-accompanying'],
+      '2-adults': ['/correct-passport-number']
+    });
+  });
 });

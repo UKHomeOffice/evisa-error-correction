@@ -11,7 +11,15 @@ const PROBLEM_DEFINITIONS = [
   { key: 'problem-sponsor-licence-number', target: '/sponsor-licence-number' },
   { key: 'problem-photo', target: '/photo' },
   { key: 'problem-future-partner-name', target: '/future-partner-name' },
-  { key: 'problem-accompanying-adult-details', target: '/how-many-adults' },
+  {
+    key: 'problem-accompanying-adult-details',
+    target: '/how-many-adults',
+    internalRouteSelector: 'how-many-adults',
+    internalRoutes: {
+      '1-adult': ['/correct-details-adult-accompanying'],
+      '2-adults': ['/correct-passport-number']
+    }
+  },
   { key: 'problem-ship-and-port-details', target: '/correct-ship-and-port' },
   { key: 'problem-flight-number-airport', target: '/correct-flight-number-airport' },
   { key: 'problem-restrictions-in-uk', target: '/details-can-do-uk' },

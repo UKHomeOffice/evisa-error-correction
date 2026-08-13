@@ -351,6 +351,7 @@ describe('capture-problem-selection behaviour', () => {
         hasFieldValue: value => value !== undefined && value !== null && value !== '',
         getFieldsForProblemKey: () => [],
         getFieldsForRoutes: () => [],
+        getInternalRoutesForProblemKey: () => [],
         isEditJourney: reqArg => Boolean(reqArg.params?.action === 'edit')
       }));
 

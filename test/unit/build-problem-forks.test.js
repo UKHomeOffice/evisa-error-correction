@@ -6,7 +6,11 @@ const { buildProblemForks } = require('../../utils/build-problem-forks');
 const loadPrivateBuildForkHelpers = () => {
   const filePath = path.resolve(__dirname, '../../utils/build-problem-forks.js');
   const source = fs.readFileSync(filePath, 'utf8');
-  const instrumented = `${source}\nmodule.exports.__test__ = { nextSelectedProblem, isNextProblemTarget };\n`;
+  const instrumented = `${source}\nmodule.exports.__test__ = {
+    nextSelectedProblem,
+    isNextProblemTarget,
+    problemHasMissingOwnedFields
+  };\n`;
 
   const testModule = new Module(filePath, module);
   testModule.filename = filePath;
@@ -177,5 +181,39 @@ describe('build-problem-forks utility', () => {
     });
 
     expect(isNextProblemTarget(req, '/share-code')).toBe(true);
+  });
+
+  test('private missing-field check only inspects the selected adult branch', () => {
+    const { problemHasMissingOwnedFields } = loadPrivateBuildForkHelpers();
+    const req = baseReq({
+      params: { action: 'edit' },
+      problem: ['problem-accompanying-adult-details'],
+      values: {
+        'how-many-adults': '1-adult',
+        'correct-given-names-adult-accompanying': 'Adult',
+        'correct-last-name-adult-accompanying': 'Person',
+        'correct-passport-number-adult-accompanying': 'P1234567',
+        'correct-passport-number-adult-1': '',
+        'correct-passport-number-adult-2': ''
+      },
+      steps: {
+        '/how-many-adults': { fields: ['how-many-adults'] },
+        '/correct-details-adult-accompanying': {
+          fields: [
+            'correct-given-names-adult-accompanying',
+            'correct-last-name-adult-accompanying',
+            'correct-passport-number-adult-accompanying'
+          ]
+        },
+        '/correct-passport-number': {
+          fields: [
+            'correct-passport-number-adult-1',
+            'correct-passport-number-adult-2'
+          ]
+        }
+      }
+    });
+
+    expect(problemHasMissingOwnedFields(req, 'problem-accompanying-adult-details')).toBe(false);
   });
 });

@@ -18,6 +18,18 @@ const PROBLEM_KEY_TO_TARGET_ROUTE = PROBLEM_ORDER.reduce((acc, item) => {
   return acc;
 }, {});
 
+// Internal lookup: problem key -> optional internal fork routes.
+const PROBLEM_KEY_TO_INTERNAL_ROUTES = PROBLEM_ORDER.reduce((acc, item) => {
+  acc[item.key] = item.internalRoutes || null;
+  return acc;
+}, {});
+
+// Internal lookup: problem key -> optional selector field for internal routes.
+const PROBLEM_KEY_TO_INTERNAL_ROUTE_SELECTOR = PROBLEM_ORDER.reduce((acc, item) => {
+  acc[item.key] = item.internalRouteSelector || null;
+  return acc;
+}, {});
+
 // Return 0 for unknown/missing keys so order comparisons remain safe.
 const getProblemOrder = key => {
   if (!key) {
@@ -75,16 +87,45 @@ const hasFieldValue = value => {
 
   return true;
 };
+/**
+ * Resolve internal routes for a problem key from PROBLEM_ORDER metadata.
+ *
+ * The metadata can be either a flat array of routes or a selector-based map
+ * of branch names to routes. In `all` mode the function returns every internal
+ * route configured for the problem. In `selected` mode it returns only the
+ * branch that matches the current selector value from `req.sessionModel`.
+ *
+ * @param {object} req - HOF request object.
+ * @param {string} problemKey - Problem key from PROBLEM_ORDER.
+ * @param {'all'|'selected'} [internalRoutesMode='all'] - Route resolution mode.
+ * @returns {string[]} Normalized slash-prefixed internal routes.
+ */
+const getInternalRoutesForProblemKey = (req, problemKey, internalRoutesMode = 'all') => {
+  const problemInternalRoutes = PROBLEM_KEY_TO_INTERNAL_ROUTES[problemKey];
 
-// Resolve configured fields for the problem's canonical route.
-const getFieldsForProblemKey = (req, problemKey) => {
-  const targetRoute = PROBLEM_KEY_TO_TARGET_ROUTE[problemKey];
-  const steps = req.form?.options?.steps;
-
-  if (targetRoute && steps && steps[targetRoute] && Array.isArray(steps[targetRoute].fields)) {
-    return steps[targetRoute].fields;
+  if (!problemInternalRoutes) {
+    return [];
   }
-  return [];
+
+  // This is a simple array of routes, return them all.
+  // This is the default mode for problems without selector-based internal routes.
+  // We don't have that case in the current PROBLEM_ORDER, but this is future-proofing.
+  if (Array.isArray(problemInternalRoutes)) {
+    return problemInternalRoutes.map(normaliseRoute).filter(Boolean);
+  }
+
+  if (internalRoutesMode === 'selected') {
+    const selectorField = PROBLEM_KEY_TO_INTERNAL_ROUTE_SELECTOR[problemKey];
+    const selectedValue = selectorField ? req.sessionModel.get(selectorField) : null;
+    const selectedRoutes = problemInternalRoutes[selectedValue] || [];
+
+    return selectedRoutes.map(normaliseRoute).filter(Boolean);
+  }
+
+  return Object.values(problemInternalRoutes)
+    .flat()
+    .map(normaliseRoute)
+    .filter(Boolean);
 };
 
 // Resolve and flatten configured fields for a list of routes.
@@ -101,6 +142,16 @@ const getFieldsForRoutes = (req, routes) => {
   }, []);
 };
 
+// Resolve configured fields for the problem's canonical route.
+const getFieldsForProblemKey = (req, problemKey, options = {}) => {
+  const targetRoute = PROBLEM_KEY_TO_TARGET_ROUTE[problemKey];
+  const internalRoutesMode = options.internalRoutes || 'all';
+  const internalRoutes = getInternalRoutesForProblemKey(req, problemKey, internalRoutesMode);
+
+  const routes = [targetRoute, ...internalRoutes].filter(Boolean);
+  return Array.from(new Set(getFieldsForRoutes(req, routes)));
+};
+
 module.exports = {
   PROBLEM_ORDER,
   PROBLEM_ORDER_BY_KEY,
@@ -111,5 +162,6 @@ module.exports = {
   isEditJourney,
   hasFieldValue,
   getFieldsForProblemKey,
-  getFieldsForRoutes
+  getFieldsForRoutes,
+  getInternalRoutesForProblemKey
 };

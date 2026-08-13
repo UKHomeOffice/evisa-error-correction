@@ -30,7 +30,7 @@ const {
 const getProblemSelection = req => toArray(req.sessionModel.get('problem'));
 
 const problemHasMissingOwnedFields = (req, problemKey) => {
-  const fields = getFieldsForProblemKey(req, problemKey);
+  const fields = getFieldsForProblemKey(req, problemKey, { internalRoutes: 'selected' });
 
   return fields.some(fieldName => !hasFieldValue(req.sessionModel.get(fieldName)));
 };

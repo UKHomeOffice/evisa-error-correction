@@ -42,6 +42,7 @@ const {
   hasFieldValue,
   getFieldsForProblemKey,
   getFieldsForRoutes,
+  getInternalRoutesForProblemKey,
   isEditJourney
 } = require('../../../utils/problem-utils');
 const { clearProblemSessionState } = require('./clear-problem-session');
@@ -55,7 +56,7 @@ const getSnapshotValue = (req, fieldName, overrides) => {
 };
 
 const snapshotProblemValues = (req, problemKeys, overrides) => problemKeys.reduce((acc, problemKey) => {
-  const fields = getFieldsForProblemKey(req, problemKey);
+  const fields = getFieldsForProblemKey(req, problemKey, { internalRoutes: 'selected' });
 
   acc[problemKey] = fields.reduce((fieldAcc, fieldName) => {
     fieldAcc[fieldName] = getSnapshotValue(req, fieldName, overrides);
@@ -76,19 +77,16 @@ const clearFields = (req, fields) => {
   Array.from(new Set(fields)).forEach(fieldName => req.sessionModel.unset(fieldName));
 };
 
-// Remove adult internal fork steps when accompanying-adult-details is not selected.
-// This is a special case because the internal fork steps are not directly owned by the problem step,
-// but they are only relevant when that problem is selected.
-// This can be generalised to other problems with internal forks if needed in the future.
+// Remove accompanying-adult internal routes when that problem is no longer selected.
+// This handles partial deselection (some problems still selected), where we must
+// clear orphaned internal-step fields and remove their routes from session steps.
+// Route values are resolved from problem metadata via getInternalRoutesForProblemKey.
 const removeAdultAccompanyingInternalStepsIfUnselected = (req, selectedProblems) => {
   if (selectedProblems.has('problem-accompanying-adult-details')) {
     return;
   }
 
-  const internalAdultRoutes = [
-    '/correct-details-adult-accompanying',
-    '/correct-passport-number'
-  ];
+  const internalAdultRoutes = getInternalRoutesForProblemKey(req, 'problem-accompanying-adult-details');
 
   clearFields(req, getFieldsForRoutes(req, internalAdultRoutes));
 
@@ -98,38 +96,31 @@ const removeAdultAccompanyingInternalStepsIfUnselected = (req, selectedProblems)
 // Rebuild only the problem-related portion of session steps in canonical order.
 // Non-problem steps retain their existing relative order.
 const restoreSelectedProblemJourneySteps = (req, selectedProblems) => {
-  const selectedProblemSteps = [];
-
-  PROBLEM_ORDER.forEach(problem => {
+  const selectedProblemSteps = PROBLEM_ORDER.reduce((acc, problem) => {
     if (!selectedProblems.has(problem.key)) {
-      return;
+      return acc;
     }
 
     const route = normaliseRoute(problem.target);
     if (!route) {
-      return;
-    }
-    selectedProblemSteps.push(route);
-
-    const adultSelection = req.sessionModel.get('how-many-adults');
-    if (problem.key === 'problem-accompanying-adult-details' && adultSelection === '1-adult') {
-      selectedProblemSteps.push('/correct-details-adult-accompanying');
+      return acc;
     }
 
-    if (problem.key === 'problem-accompanying-adult-details' && adultSelection === '2-adults') {
-      selectedProblemSteps.push('/correct-passport-number');
-    }
+    acc.push(route, ...getInternalRoutesForProblemKey(req, problem.key, 'selected'));
+    return acc;
+  }, []);
+
+  const allProblemRoutes = PROBLEM_ORDER.flatMap(problem => {
+    const targetRoute = normaliseRoute(problem.target);
+    const internalRoutes = getInternalRoutesForProblemKey(req, problem.key);
+
+    return targetRoute ? [targetRoute, ...internalRoutes] : internalRoutes;
   });
-
-  const allProblemRoutes = PROBLEM_ORDER
-    .map(problem => normaliseRoute(problem.target))
-    .filter(Boolean);
-  allProblemRoutes.push('/correct-details-adult-accompanying', '/correct-passport-number');
 
   const problemRouteSet = new Set(allProblemRoutes);
   const currentSteps = toArray(req.sessionModel.get('steps'));
   const nonProblemSteps = currentSteps.filter(step => !problemRouteSet.has(step));
-  const orderedUniqueProblemSteps = selectedProblemSteps.filter((step, index, arr) => arr.indexOf(step) === index);
+  const orderedUniqueProblemSteps = Array.from(new Set(selectedProblemSteps));
 
   req.sessionModel.set('steps', nonProblemSteps.concat(orderedUniqueProblemSteps));
 };

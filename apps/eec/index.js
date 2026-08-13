@@ -220,7 +220,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/how-many-adults': {
-      next: '/your-evisa-details',
+      next: '/correct-passport-number',
       fields: ['how-many-adults'],
       behaviours: [captureProblemSelection],
       showNeedHelp: true,
@@ -231,13 +231,6 @@ module.exports = {
           condition: {
             field: 'how-many-adults',
             value: '1-adult'
-          }
-        },
-        {
-          target: '/correct-passport-number',
-          condition: {
-            field: 'how-many-adults',
-            value: '2-adults'
           }
         }
       ]

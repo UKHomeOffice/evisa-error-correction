@@ -8,7 +8,8 @@ const {
   isEditJourney,
   hasFieldValue,
   getFieldsForProblemKey,
-  getFieldsForRoutes
+  getFieldsForRoutes,
+  getInternalRoutesForProblemKey
 } = require('../../utils/problem-utils');
 
 describe('problem-utils', () => {
@@ -81,6 +82,22 @@ describe('problem-utils', () => {
           steps: {
             '/your-correct-name': {
               fields: ['correct-given-names', 'correct-last-name']
+            },
+            '/how-many-adults': {
+              fields: ['how-many-adults']
+            },
+            '/correct-details-adult-accompanying': {
+              fields: [
+                'correct-given-names-adult-accompanying',
+                'correct-last-name-adult-accompanying',
+                'correct-passport-number-adult-accompanying'
+              ]
+            },
+            '/correct-passport-number': {
+              fields: [
+                'correct-passport-number-adult-1',
+                'correct-passport-number-adult-2'
+              ]
             }
           }
         }
@@ -91,6 +108,108 @@ describe('problem-utils', () => {
       'correct-given-names',
       'correct-last-name'
     ]);
+  });
+
+  test('getFieldsForProblemKey includes internalRoutes fields for problem metadata', () => {
+    const req = {
+      form: {
+        options: {
+          steps: {
+            '/how-many-adults': {
+              fields: ['how-many-adults']
+            },
+            '/correct-details-adult-accompanying': {
+              fields: [
+                'correct-given-names-adult-accompanying',
+                'correct-last-name-adult-accompanying',
+                'correct-passport-number-adult-accompanying'
+              ]
+            },
+            '/correct-passport-number': {
+              fields: [
+                'correct-passport-number-adult-1',
+                'correct-passport-number-adult-2'
+              ]
+            }
+          }
+        }
+      }
+    };
+
+    expect(getFieldsForProblemKey(req, 'problem-accompanying-adult-details')).toEqual([
+      'how-many-adults',
+      'correct-given-names-adult-accompanying',
+      'correct-last-name-adult-accompanying',
+      'correct-passport-number-adult-accompanying',
+      'correct-passport-number-adult-1',
+      'correct-passport-number-adult-2'
+    ]);
+  });
+
+  test('getFieldsForProblemKey can return only the selected internalRoutes branch', () => {
+    const req = {
+      form: {
+        options: {
+          steps: {
+            '/how-many-adults': {
+              fields: ['how-many-adults']
+            },
+            '/correct-details-adult-accompanying': {
+              fields: [
+                'correct-given-names-adult-accompanying',
+                'correct-last-name-adult-accompanying',
+                'correct-passport-number-adult-accompanying'
+              ]
+            },
+            '/correct-passport-number': {
+              fields: [
+                'correct-passport-number-adult-1',
+                'correct-passport-number-adult-2'
+              ]
+            }
+          }
+        }
+      }
+    };
+
+    req.sessionModel = {
+      get: key => (key === 'how-many-adults' ? '1-adult' : undefined)
+    };
+
+    expect(
+      getFieldsForProblemKey(req, 'problem-accompanying-adult-details', {
+        internalRoutes: 'selected'
+      })
+    ).toEqual([
+      'how-many-adults',
+      'correct-given-names-adult-accompanying',
+      'correct-last-name-adult-accompanying',
+      'correct-passport-number-adult-accompanying'
+    ]);
+  });
+
+  test('getInternalRoutesForProblemKey returns the selected internal route branch', () => {
+    const req = {
+      sessionModel: {
+        get: key => (key === 'how-many-adults' ? '2-adults' : undefined)
+      }
+    };
+
+    expect(
+      getInternalRoutesForProblemKey(req, 'problem-accompanying-adult-details', 'selected')
+    ).toEqual(['/correct-passport-number']);
+  });
+
+  test('getInternalRoutesForProblemKey returns an empty array when the selector value is missing', () => {
+    const req = {
+      sessionModel: {
+        get: () => undefined
+      }
+    };
+
+    expect(
+      getInternalRoutesForProblemKey(req, 'problem-accompanying-adult-details', 'selected')
+    ).toEqual([]);
   });
 
   test('getFieldsForProblemKey returns empty array for unknown key or missing step config', () => {
@@ -153,5 +272,42 @@ describe('problem-utils', () => {
 
     expect(getFieldsForRoutes(reqWithoutSteps, ['/a'])).toEqual([]);
     expect(getFieldsForRoutes(reqWithMixedRoutes, ['/missing', '/a', '/b'])).toEqual(['field-b1']);
+  });
+
+  test('getInternalRoutesForProblemKey falls back to empty array when selected mode has no selector field', () => {
+    jest.isolateModules(() => {
+      jest.doMock('../../utils/problem-order', () => ({
+        PROBLEM_ORDER: [
+          {
+            key: 'problem-with-object-internal-routes',
+            target: '/parent',
+            internalRoutes: {
+              '1-option': ['/child-one'],
+              '2-option': ['/child-two']
+            },
+            order: 1
+          }
+        ]
+      }));
+
+      const mockedUtils = require('../../utils/problem-utils');
+
+      const req = {
+        sessionModel: {
+          get: () => undefined
+        }
+      };
+
+      expect(
+        mockedUtils.getInternalRoutesForProblemKey(
+          req,
+          'problem-with-object-internal-routes',
+          'selected'
+        )
+      ).toEqual([]);
+    });
+
+    jest.resetModules();
+    jest.unmock('../../utils/problem-order');
   });
 });
