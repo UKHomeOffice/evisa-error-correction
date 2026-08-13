@@ -8,8 +8,11 @@
  * For selected problems after the current step:
  * - Non-edit journeys route to the next selected problem in configured order.
  * - Edit journeys route to the first selected problem whose owned fields are
- *   missing. If all selected problems are complete, no fork matches and HOF
- *   falls back to `step.next`.
+ *   missing. Field ownership is resolved via `getFieldsForProblemKey` with
+ *   `internalRoutes: 'selected'`, so only the active internal branch is
+ *   considered for selector-based problems.
+ *   If all selected problems are complete, no fork matches and HOF falls back
+ *   to `step.next`.
  *
  * Forks are emitted with `continueOnEdit: true` so this check still runs in
  * edit journeys, while non-edit journeys continue using normal selected-

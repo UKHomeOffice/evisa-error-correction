@@ -25,15 +25,17 @@
  * - Never overwrite a field that already has a value.
  *   This avoids clobbering any value the user re-entered during the edit.
  * - Clear all problem state when previous selection is empty.
- *   This delegates to `clearProblemSessionState` so problem fields and edit
- *   snapshot keys are reset together.
+ *   This delegates to shared helper `clearProblemSessionState`
+ *   (utils/clear-problem-session-state.js) so problem fields and edit snapshot
+ *   keys are reset together.
  * - Clear edit snapshot keys on non-edit problem-selection submits.
  *   That prevents old edit snapshots from leaking into later non-edit flows.
  * - On any problem-selection submit (edit or non-edit), if accompanying-adult
- *   details is not selected, internal adult fork steps are removed from
+ *   details is not selected, its internal routes are cleared and removed from
  *   session progress.
  * - In edit success, rebuild problem-related session steps in canonical
- *   problem order and keep non-problem steps untouched.
+ *   problem order using problem metadata (including selected internal routes),
+ *   and keep non-problem steps untouched.
  */
 const {
   PROBLEM_ORDER,

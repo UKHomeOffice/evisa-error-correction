@@ -1,5 +1,15 @@
 // Source-of-truth problem definitions for the eVisa journey.
-// Targets are slash-prefixed route paths for HOF step/fork definitions.
+//
+// Each definition includes:
+// - `key`: problem identifier used in session/form values.
+// - `target`: slash-prefixed canonical step route.
+//
+// Optional metadata for problems with internal branches:
+// - `internalRouteSelector`: session field that selects a branch.
+// - `internalRoutes`: selector-value -> route[] map for branch-specific steps.
+//
+// This metadata is consumed by routing/restore helpers to decide which internal
+// routes and fields are considered in `all` vs `selected` mode.
 const PROBLEM_DEFINITIONS = [
   { key: 'problem-full-name', target: '/your-correct-name' },
   { key: 'problem-date-of-birth', target: '/correct-date-of-birth' },
