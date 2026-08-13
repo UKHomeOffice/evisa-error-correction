@@ -45,7 +45,7 @@ const {
   getInternalRoutesForProblemKey,
   isEditJourney
 } = require('../../../utils/problem-utils');
-const { clearProblemSessionState } = require('./clear-problem-session');
+const { clearProblemSessionState } = require('../../../utils/clear-problem-session-state');
 
 const getSnapshotValue = (req, fieldName, overrides) => {
   if (Object.prototype.hasOwnProperty.call(overrides, fieldName)) {
