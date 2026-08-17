@@ -17,11 +17,6 @@ const spaceSeparatorKeys = [
   'correct-given-names-adult-accompanying'
 ];
 
-const getAdultNumberForField = (fieldName, fallbackIndex) => {
-  const fieldMatch = fieldName.match(/adult-(\d+)$/);
-  return fieldMatch ? fieldMatch[1] : fallbackIndex + 1;
-};
-
 const buildAccompanyingAdultDetailsNote = req => {
   const adultsValue = req.sessionModel.get('how-many-adults');
   const adultsValueLabel = getLabel('how-many-adults', adultsValue) || adultsValue || '';
@@ -45,8 +40,7 @@ const buildAccompanyingAdultDetailsNote = req => {
     const separator = spaceSeparatorKeys.includes(fieldName) ? ' ' : '\n';
     let formattedFieldValue = fieldValue;
     if (adultsValue === '2-adults') {
-      const adultNumber = getAdultNumberForField(fieldName, index);
-      formattedFieldValue = fieldValue ? `Adult ${adultNumber}: ${fieldValue}` : null;
+      formattedFieldValue = `Adult ${index + 1}: ${fieldValue}`;
     }
 
     adultDetails += `${formattedFieldValue}${separator}`;
