@@ -1,7 +1,14 @@
 const {
   PROBLEM_ORDER,
-  getFieldsForProblemKey
+  getFieldsForProblemKey,
+  clearFields
 } = require('./problem-utils');
+
+const EDIT_SNAPSHOT_FIELDS = [
+  'problem-selection-before-edit',
+  'problem-selection-current-edit',
+  'problem-values-before-edit'
+];
 
 // Build the unique set of problem-related fields that should be unset.
 const getProblemFieldsToClear = req => {
@@ -17,13 +24,10 @@ const getProblemFieldsToClear = req => {
 
 // Clear problem fields and edit snapshot keys in one shared place.
 const clearProblemSessionState = req => {
-  getProblemFieldsToClear(req).forEach(fieldName => {
-    req.sessionModel.unset(fieldName);
-  });
-
-  req.sessionModel.unset('problem-selection-before-edit');
-  req.sessionModel.unset('problem-selection-current-edit');
-  req.sessionModel.unset('problem-values-before-edit');
+  clearFields(req, [
+    ...getProblemFieldsToClear(req),
+    ...EDIT_SNAPSHOT_FIELDS
+  ]);
 };
 
 module.exports = {

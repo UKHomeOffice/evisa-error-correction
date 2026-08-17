@@ -87,6 +87,11 @@ const hasFieldValue = value => {
 
   return true;
 };
+
+// Clear a list of fields from session, de-duplicating names first.
+const clearFields = (req, fields) => {
+  Array.from(new Set(fields)).forEach(fieldName => req.sessionModel.unset(fieldName));
+};
 /**
  * Resolve internal routes for a problem key from PROBLEM_ORDER metadata.
  *
@@ -107,9 +112,9 @@ const getInternalRoutesForProblemKey = (req, problemKey, internalRoutesMode = 'a
     return [];
   }
 
-  // This is a simple array of routes, return them all.
-  // This is the default mode for problems without selector-based internal routes.
-  // We don't have that case in the current PROBLEM_ORDER, but this is future-proofing.
+  // Support the simple array form: internalRoutes: ['/route-a', '/route-b'].
+  // Current `PROBLEM_ORDER` entries use selector-based maps, but this keeps the helper compatible
+  // with routes that do not need branching.
   if (Array.isArray(problemInternalRoutes)) {
     return problemInternalRoutes.map(normaliseRoute).filter(Boolean);
   }
@@ -136,20 +141,24 @@ const getFieldsForRoutes = (req, routes) => {
     return [];
   }
 
-  return routes.reduce((acc, route) => {
-    const fields = Array.isArray(steps[route]?.fields) ? steps[route].fields : [];
-    return acc.concat(fields);
+  const fields = routes.reduce((acc, route) => {
+    const routeFields = Array.isArray(steps[route]?.fields) ? steps[route].fields : [];
+    return acc.concat(routeFields);
   }, []);
+
+  return Array.from(new Set(fields));
 };
 
 // Resolve configured fields for the problem's canonical route.
 const getFieldsForProblemKey = (req, problemKey, options = {}) => {
   const targetRoute = PROBLEM_KEY_TO_TARGET_ROUTE[problemKey];
-  const internalRoutesMode = options.internalRoutes || 'all';
-  const internalRoutes = getInternalRoutesForProblemKey(req, problemKey, internalRoutesMode);
+  if (!targetRoute) {
+    throw new Error(`Unknown problem key: ${problemKey}`);
+  }
+  const internalRoutes = getInternalRoutesForProblemKey(req, problemKey, options.internalRoutes);
 
   const routes = [targetRoute, ...internalRoutes].filter(Boolean);
-  return Array.from(new Set(getFieldsForRoutes(req, routes)));
+  return getFieldsForRoutes(req, routes);
 };
 
 module.exports = {
@@ -161,6 +170,7 @@ module.exports = {
   normaliseRoute,
   isEditJourney,
   hasFieldValue,
+  clearFields,
   getFieldsForProblemKey,
   getFieldsForRoutes,
   getInternalRoutesForProblemKey

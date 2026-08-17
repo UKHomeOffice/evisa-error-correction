@@ -227,7 +227,9 @@ describe('problem-utils', () => {
       }
     };
 
-    expect(getFieldsForProblemKey(reqWithSteps, 'unknown-key')).toEqual([]);
+    expect(
+      () => getFieldsForProblemKey(reqWithSteps, 'unknown-key')
+    ).toThrow('Unknown problem key: unknown-key');
     expect(
       getFieldsForProblemKey(reqWithoutSteps, 'problem-full-name')
     ).toEqual([]);

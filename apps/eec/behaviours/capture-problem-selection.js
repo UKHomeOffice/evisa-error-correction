@@ -42,6 +42,7 @@ const {
   toArray,
   normaliseRoute,
   hasFieldValue,
+  clearFields,
   getFieldsForProblemKey,
   getFieldsForRoutes,
   getInternalRoutesForProblemKey,
@@ -73,10 +74,6 @@ const removeJourneySteps = (req, stepsToRemove) => {
   const nextSteps = currentSteps.filter(step => !removeSet.has(step));
 
   req.sessionModel.set('steps', nextSteps);
-};
-
-const clearFields = (req, fields) => {
-  Array.from(new Set(fields)).forEach(fieldName => req.sessionModel.unset(fieldName));
 };
 
 // Remove accompanying-adult internal routes when that problem is no longer selected.

@@ -349,6 +349,7 @@ describe('capture-problem-selection behaviour', () => {
         },
         normaliseRoute: () => null,
         hasFieldValue: value => value !== undefined && value !== null && value !== '',
+        clearFields: () => {},
         getFieldsForProblemKey: () => [],
         getFieldsForRoutes: () => [],
         getInternalRoutesForProblemKey: () => [],
