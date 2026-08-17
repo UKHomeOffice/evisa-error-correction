@@ -7,6 +7,7 @@ const {
   normaliseRoute,
   isEditJourney,
   hasFieldValue,
+  clearFields,
   getFieldsForProblemKey,
   getFieldsForRoutes,
   getInternalRoutesForProblemKey
@@ -73,6 +74,21 @@ describe('problem-utils', () => {
     expect(hasFieldValue(['x'])).toBe(true);
     expect(hasFieldValue(0)).toBe(true);
     expect(hasFieldValue(false)).toBe(true);
+  });
+
+  test('clearFields unsets unique field names only once', () => {
+    const unset = jest.fn();
+    const req = {
+      sessionModel: {
+        unset
+      }
+    };
+
+    clearFields(req, ['field-a', 'field-b', 'field-a']);
+
+    expect(unset).toHaveBeenCalledTimes(2);
+    expect(unset).toHaveBeenNthCalledWith(1, 'field-a');
+    expect(unset).toHaveBeenNthCalledWith(2, 'field-b');
   });
 
   test('getFieldsForProblemKey returns fields for known problem key when step fields are configured', () => {
@@ -307,6 +323,33 @@ describe('problem-utils', () => {
           'selected'
         )
       ).toEqual([]);
+    });
+
+    jest.resetModules();
+    jest.unmock('../../utils/problem-order');
+  });
+
+  test('getInternalRoutesForProblemKey supports flat array internalRoutes and normalises values', () => {
+    jest.isolateModules(() => {
+      jest.doMock('../../utils/problem-order', () => ({
+        PROBLEM_ORDER: [
+          {
+            key: 'problem-with-array-internal-routes',
+            target: '/parent',
+            internalRoutes: ['child-one', '/child-two', '', null],
+            order: 1
+          }
+        ]
+      }));
+
+      const mockedUtils = require('../../utils/problem-utils');
+
+      expect(
+        mockedUtils.getInternalRoutesForProblemKey(
+          {},
+          'problem-with-array-internal-routes'
+        )
+      ).toEqual(['/child-one', '/child-two']);
     });
 
     jest.resetModules();
