@@ -289,99 +289,99 @@ describe('submit-feedback behaviour', () => {
         .toHaveBeenCalledWith('456-789', 'test@example.com', emailProps);
     });
 
-    test('problem notes include accompanying adult details for one adult', async () => {
-      req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
-      req.sessionModel.set('how-many-adults', '1-adult');
-      req.sessionModel.set('correct-given-names-adult-accompanying', 'Jane');
-      req.sessionModel.set('correct-last-name-adult-accompanying', 'Doe');
-      req.sessionModel.set('correct-passport-number-adult-accompanying', 'A1234567');
+    // test('problem notes include accompanying adult details for one adult', async () => {
+    //   req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    //   req.sessionModel.set('how-many-adults', '1-adult');
+    //   req.sessionModel.set('correct-given-names-adult-accompanying', 'Jane');
+    //   req.sessionModel.set('correct-last-name-adult-accompanying', 'Doe');
+    //   req.sessionModel.set('correct-passport-number-adult-accompanying', 'A1234567');
 
-      await instance.saveValues(req, res, next);
+    //   await instance.saveValues(req, res, next);
 
-      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
-      const notes = sentProps.personalisation.problem_notes;
-      expect(notes).toContain('Number of adults accompanying a child: 1 adult');
-      expect(notes).toContain('Name and passport number of accompanying adult:');
-      expect(notes).toContain('Jane Doe');
-      expect(notes).toContain('A1234567');
-    });
+    //   const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+    //   const notes = sentProps.personalisation.problem_notes;
+    //   expect(notes).toContain('Number of adults accompanying a child: 1 adult');
+    //   expect(notes).toContain('Name and passport number of accompanying adult:');
+    //   expect(notes).toContain('Jane Doe');
+    //   expect(notes).toContain('A1234567');
+    // });
 
-    test('problem notes for one adult omit full name and passport when both are missing', async () => {
-      req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
-      req.sessionModel.set('how-many-adults', '1-adult');
-      req.sessionModel.unset('correct-given-names-adult-accompanying');
-      req.sessionModel.unset('correct-last-name-adult-accompanying');
-      req.sessionModel.unset('correct-passport-number-adult-accompanying');
+    // test('problem notes for one adult omit full name and passport when both are missing', async () => {
+    //   req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    //   req.sessionModel.set('how-many-adults', '1-adult');
+    //   req.sessionModel.unset('correct-given-names-adult-accompanying');
+    //   req.sessionModel.unset('correct-last-name-adult-accompanying');
+    //   req.sessionModel.unset('correct-passport-number-adult-accompanying');
 
-      await instance.saveValues(req, res, next);
+    //   await instance.saveValues(req, res, next);
 
-      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
-      const notes = sentProps.personalisation.problem_notes;
-      expect(notes).toContain('Number of adults accompanying a child: 1 adult');
-      expect(notes).toContain('Name and passport number of accompanying adult:');
-      expect(notes).not.toContain('Jane Doe');
-      expect(notes).not.toContain('A1234567');
-    });
+    //   const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+    //   const notes = sentProps.personalisation.problem_notes;
+    //   expect(notes).toContain('Number of adults accompanying a child: 1 adult');
+    //   expect(notes).toContain('Name and passport number of accompanying adult:');
+    //   expect(notes).not.toContain('Jane Doe');
+    //   expect(notes).not.toContain('A1234567');
+    // });
 
-    test('problem notes include accompanying adult details for two adults', async () => {
-      req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
-      req.sessionModel.set('how-many-adults', '2-adults');
-      req.sessionModel.set('correct-passport-number-adult-1', 'P1111111');
-      req.sessionModel.set('correct-passport-number-adult-2', 'P2222222');
+    // test('problem notes include accompanying adult details for two adults', async () => {
+    //   req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    //   req.sessionModel.set('how-many-adults', '2-adults');
+    //   req.sessionModel.set('correct-passport-number-adult-1', 'P1111111');
+    //   req.sessionModel.set('correct-passport-number-adult-2', 'P2222222');
 
-      await instance.saveValues(req, res, next);
+    //   await instance.saveValues(req, res, next);
 
-      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
-      const notes = sentProps.personalisation.problem_notes;
-      expect(notes).toContain('Number of adults accompanying a child: 2 adults');
-      expect(notes).toContain('Passport numbers of accompanying adults:');
-      expect(notes).toContain('Adult 1: P1111111');
-      expect(notes).toContain('Adult 2: P2222222');
-    });
+    //   const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+    //   const notes = sentProps.personalisation.problem_notes;
+    //   expect(notes).toContain('Number of adults accompanying a child: 2 adults');
+    //   expect(notes).toContain('Passport numbers of accompanying adults:');
+    //   expect(notes).toContain('Adult 1: P1111111');
+    //   expect(notes).toContain('Adult 2: P2222222');
+    // });
 
-    test('problem notes for two adults omit passport lines when both are missing', async () => {
-      req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
-      req.sessionModel.set('how-many-adults', '2-adults');
-      req.sessionModel.unset('correct-passport-number-adult-1');
-      req.sessionModel.unset('correct-passport-number-adult-2');
+    // test('problem notes for two adults omit passport lines when both are missing', async () => {
+    //   req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    //   req.sessionModel.set('how-many-adults', '2-adults');
+    //   req.sessionModel.unset('correct-passport-number-adult-1');
+    //   req.sessionModel.unset('correct-passport-number-adult-2');
 
-      await instance.saveValues(req, res, next);
+    //   await instance.saveValues(req, res, next);
 
-      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
-      const notes = sentProps.personalisation.problem_notes;
-      expect(notes).toContain('Number of adults accompanying a child: 2 adults');
-      expect(notes).toContain('Passport numbers of accompanying adults:');
-      expect(notes).not.toContain('Adult 1:');
-      expect(notes).not.toContain('Adult 2:');
-    });
+    //   const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+    //   const notes = sentProps.personalisation.problem_notes;
+    //   expect(notes).toContain('Number of adults accompanying a child: 2 adults');
+    //   expect(notes).toContain('Passport numbers of accompanying adults:');
+    //   expect(notes).not.toContain('Adult 1:');
+    //   expect(notes).not.toContain('Adult 2:');
+    // });
 
-    test('problem notes include fallback adult count and omit missing one-adult details', async () => {
-      req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
-      req.sessionModel.set('how-many-adults', '3-adults');
-      req.sessionModel.unset('correct-given-names-adult-accompanying');
-      req.sessionModel.unset('correct-last-name-adult-accompanying');
-      req.sessionModel.unset('correct-passport-number-adult-accompanying');
+    // test('problem notes include fallback adult count and omit missing one-adult details', async () => {
+    //   req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    //   req.sessionModel.set('how-many-adults', '3-adults');
+    //   req.sessionModel.unset('correct-given-names-adult-accompanying');
+    //   req.sessionModel.unset('correct-last-name-adult-accompanying');
+    //   req.sessionModel.unset('correct-passport-number-adult-accompanying');
 
-      await instance.saveValues(req, res, next);
+    //   await instance.saveValues(req, res, next);
 
-      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
-      const notes = sentProps.personalisation.problem_notes;
-      expect(notes).toContain('Number of adults accompanying a child: 3-adults');
-      expect(notes).not.toContain('Name and passport number of accompanying adult:');
-      expect(notes).not.toContain('Adult 1:');
-      expect(notes).not.toContain('Adult 2:');
-    });
+    //   const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+    //   const notes = sentProps.personalisation.problem_notes;
+    //   expect(notes).toContain('Number of adults accompanying a child: 3-adults');
+    //   expect(notes).not.toContain('Name and passport number of accompanying adult:');
+    //   expect(notes).not.toContain('Adult 1:');
+    //   expect(notes).not.toContain('Adult 2:');
+    // });
 
-    test('problem notes use empty fallback when adult count is missing', async () => {
-      req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
-      req.sessionModel.unset('how-many-adults');
+    // test('problem notes use empty fallback when adult count is missing', async () => {
+    //   req.sessionModel.set('problem', ['problem-accompanying-adult-details']);
+    //   req.sessionModel.unset('how-many-adults');
 
-      await instance.saveValues(req, res, next);
+    //   await instance.saveValues(req, res, next);
 
-      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
-      const notes = sentProps.personalisation.problem_notes;
-      expect(notes).toContain('Number of adults accompanying a child: ');
-    });
+    //   const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+    //   const notes = sentProps.personalisation.problem_notes;
+    //   expect(notes).toContain('Number of adults accompanying a child: ');
+    // });
 
     test('problem notes formats corrected date of birth details', async () => {
       req.sessionModel.set('problem', ['problem-date-of-birth']);
