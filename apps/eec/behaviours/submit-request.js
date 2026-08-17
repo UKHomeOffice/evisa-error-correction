@@ -6,8 +6,8 @@ const {
   replyToId
 } = config.govukNotify;
 
-const { getLabel, formatDate, genNotifyErrorMsg, joinNonEmpty } = require('../../../utils');
-const { getFieldsForProblemKey } = require('../../../utils/problem-utils');
+const { getLabel, formatDate, genNotifyErrorMsg } = require('../../../utils');
+const { buildProblemNotes } = require('../../../utils/build-problem-notes');
 
 const NotifyClient = require('notifications-node-client').NotifyClient;
 const Notify = new NotifyClient(notifyApiKey);
@@ -24,87 +24,6 @@ class EmailProps {
     Object.assign(this.personalisation, newPersonalisation);
   }
 }
-
-const buildProblemNotes = req => {
-  let problems = req.sessionModel.get('problem');
-  let concatProblems = '';
-  const dateDetailProblemKeys = [
-    'problem-date-of-birth',
-    'problem-valid-from',
-    'problem-valid-to'
-  ];
-  const spaceSeparatorProblemKeys = [
-    'problem-full-name',
-    'problem-future-partner-name'
-  ];
-
-  // A single checked box will be stored as a string not an array of length 1 so...
-  if (typeof problems === 'string') {
-    problems = Array.of(problems);
-  }
-
-  const buildAccompanyingAdultDetailsNote = () => {
-    const adultsValue = req.sessionModel.get('how-many-adults');
-    const adultsValueLabel = getLabel('how-many-adults', adultsValue) || adultsValue || '';
-    const adultsCountLabel = getLabel('how-many-adults', undefined, 'confirm-field');
-    const oneAdultLabel = getLabel('correct-given-names-adult-accompanying', undefined, 'confirm-field');
-    const twoAdultsLabel = getLabel('correct-passport-number-adult-1', undefined, 'confirm-field');
-    const lines = [
-      `${adultsCountLabel}: ${adultsValueLabel}\n\n`
-    ];
-
-    if (adultsValue === '1-adult') {
-      const givenNames = req.sessionModel.get('correct-given-names-adult-accompanying');
-      const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
-      const fullName = joinNonEmpty([givenNames, lastName]);
-      const passport = req.sessionModel.get('correct-passport-number-adult-accompanying');
-
-      lines.push(`${oneAdultLabel}:`);
-      if (fullName) {
-        lines.push(fullName);
-      }
-      if (passport) {
-        lines.push(passport);
-      }
-    }
-
-    if (adultsValue === '2-adults') {
-      const passport1 = req.sessionModel.get('correct-passport-number-adult-1');
-      const passport2 = req.sessionModel.get('correct-passport-number-adult-2');
-
-      lines.push(`${twoAdultsLabel}:`);
-      if (passport1) {
-        lines.push(`Adult 1: ${passport1}`);
-      }
-      if (passport2) {
-        lines.push(`Adult 2: ${passport2}`);
-      }
-    }
-
-    return lines.join('\n');
-  };
-
-  for (const problem of problems) {
-    if (problem === 'problem-accompanying-adult-details') {
-      concatProblems += buildAccompanyingAdultDetailsNote() + '\n\n';
-      continue;
-    }
-
-    concatProblems += getLabel('problem', problem) + ': ';
-    const fieldValues = getFieldsForProblemKey(req, problem)
-      .map(fieldName => {
-        const rawValue = req.sessionModel.get(fieldName);
-        const value = dateDetailProblemKeys.includes(problem) ? formatDate(rawValue) : rawValue;
-        return value;
-      });
-
-    const separator = spaceSeparatorProblemKeys.includes(problem) ? ' ' : ', ';
-    const detail = fieldValues.join(separator);
-    concatProblems += detail + '\n\n';
-  }
-
-  return concatProblems;
-};
 
 module.exports = superclass => class extends superclass {
   async saveValues(req, res, next) {
