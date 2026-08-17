@@ -95,7 +95,8 @@ describe('build-problem-notes utility', () => {
     }));
 
     expect(output).toBe(
-      'Number of adults accompanying a child: 2 adults\n\n\nPassport numbers of accompanying adults:\nAdult 1: P133456\nAdult 2: P223344\n\n\n'
+      'Number of adults accompanying a child: 2 adults\n\n\n' +
+      'Passport numbers of accompanying adults:\nAdult 1: P133456\nAdult 2: P223344\n\n\n'
     );
   });
 
@@ -115,7 +116,8 @@ describe('build-problem-notes utility', () => {
     }));
 
     expect(output).toBe(
-      'Number of adults accompanying a child: 1 adult\n\n\nName and passport number of accompanying adult:\nJamie Smith\nP1234567\n\n\n'
+      'Number of adults accompanying a child: 1 adult\n\n\n' +
+      'Name and passport number of accompanying adult:\nJamie Smith\nP1234567\n\n\n'
     );
   });
 });
