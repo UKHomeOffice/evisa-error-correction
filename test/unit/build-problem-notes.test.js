@@ -1,8 +1,3 @@
-jest.mock('../../utils/index', () => ({
-  getLabel: jest.fn(),
-  formatDate: jest.fn(value => `formatted:${value}`)
-}));
-
 jest.mock('../../utils/problem-utils', () => ({
   getFieldsForProblemKey: jest.fn(),
   getFieldsForRoutes: jest.fn(),
@@ -10,7 +5,6 @@ jest.mock('../../utils/problem-utils', () => ({
 }));
 
 const { buildProblemNotes } = require('../../utils/build-problem-notes');
-const { getLabel, formatDate } = require('../../utils/index');
 const {
   getFieldsForProblemKey,
   getFieldsForRoutes,
@@ -27,53 +21,37 @@ describe('build-problem-notes utility', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    getLabel.mockImplementation((key, value, namespace) => {
-      if (key === 'problem' && value === 'problem-full-name') {
-        return 'Name';
-      }
-
-      if (key === 'problem' && value === 'problem-valid-from') {
-        return 'Valid from';
-      }
-
-      if (key === 'how-many-adults' && namespace === 'confirm-field') {
-        return 'How many adults';
-      }
-
-      if (key === 'correct-given-names-adult-accompanying' && namespace === 'confirm-field') {
-        return 'Given names';
-      }
-
-      return undefined;
-    });
-
     getFieldsForProblemKey.mockReturnValue([]);
     getFieldsForRoutes.mockReturnValue([]);
     getInternalRoutesForProblemKey.mockReturnValue([]);
   });
 
-  test('formats date fields and joins non-space problems with comma separators', () => {
+  test('formats valid-from and valid-to dates as DD/MM/YYYY', () => {
     getFieldsForProblemKey.mockImplementation((request, problem) => {
       if (problem === 'problem-valid-from') {
         return ['problem-valid-from'];
+      }
+
+      if (problem === 'problem-valid-to') {
+        return ['problem-valid-to'];
       }
 
       return [];
     });
 
     const output = buildProblemNotes(req({
-      problem: ['problem-valid-from'],
-      'problem-valid-from': '2026-08-01'
+      problem: ['problem-valid-from', 'problem-valid-to'],
+      'problem-valid-from': '2025-06-22',
+      'problem-valid-to': '2026-11-24'
     }));
 
-    expect(formatDate).toHaveBeenCalledWith('2026-08-01');
-    expect(output).toBe('Valid from: formatted:2026-08-01\n\n');
+    expect(output).toBe('Valid from: 22/06/2025\n\nValid to: 24/11/2026\n\n');
   });
 
   test('handles a single selected problem stored as a string and uses space separator for full name', () => {
     getFieldsForProblemKey.mockImplementation((request, problem) => {
       if (problem === 'problem-full-name') {
-        return ['correct-given-name', 'correct-last-name'];
+        return ['correct-given-names', 'correct-last-name'];
       }
 
       return [];
@@ -81,7 +59,7 @@ describe('build-problem-notes utility', () => {
 
     const output = buildProblemNotes(req({
       problem: 'problem-full-name',
-      'correct-given-name': 'Ada',
+      'correct-given-names': 'Ada',
       'correct-last-name': 'Lovelace'
     }));
 
@@ -100,12 +78,11 @@ describe('build-problem-notes utility', () => {
         'selected'
       );
       expect(getFieldsForRoutes).toHaveBeenCalledWith(expect.any(Object), []);
-      expect(output).toBe('How many adults: \n\n\n:\n\n');
+      expect(output).toBe('Number of adults accompanying a child: \n\n\n:\n\n');
     });
 
   test('builds accompanying-adult notes for two adults and prefixes each available field value', () => {
     getFieldsForRoutes.mockReturnValue([
-      'correct-given-names-adult-accompanying',
       'correct-passport-number-adult-1',
       'correct-passport-number-adult-2'
     ]);
@@ -113,45 +90,32 @@ describe('build-problem-notes utility', () => {
     const output = buildProblemNotes(req({
       problem: ['problem-accompanying-adult-details'],
       'how-many-adults': '2-adults',
-      'correct-given-names-adult-accompanying': 'Alex',
-      'correct-passport-number-adult-1': '',
+      'correct-passport-number-adult-1': 'P133456',
       'correct-passport-number-adult-2': 'P223344'
     }));
 
     expect(output).toBe(
-      'How many adults: 2-adults\n\n\nGiven names:\nAdult 1: Alex null\nAdult 3: P223344\n\n\n'
+      'Number of adults accompanying a child: 2 adults\n\n\nPassport numbers of accompanying adults:\nAdult 1: P133456\nAdult 2: P223344\n\n\n'
     );
   });
 
-  test('builds accompanying-adult notes for one adult without numbered prefixes', () => {
-    getLabel.mockImplementation((key, value, namespace) => {
-      if (key === 'how-many-adults' && namespace === 'confirm-field') {
-        return 'How many adults';
-      }
-
-      if (key === 'how-many-adults' && value === '1-adult') {
-        return '1 adult';
-      }
-
-      if (key === 'correct-given-names-adult-accompanying' && namespace === 'confirm-field') {
-        return 'Given names';
-      }
-
-      return undefined;
-    });
-
+  test('builds accompanying-adult notes for one adult with multiple fields and without numbered prefixes', () => {
     getFieldsForRoutes.mockReturnValue([
-      'correct-given-names-adult-accompanying'
+      'correct-given-names-adult-accompanying',
+      'correct-last-name-adult-accompanying',
+      'correct-passport-number-adult-accompanying'
     ]);
 
     const output = buildProblemNotes(req({
       problem: ['problem-accompanying-adult-details'],
       'how-many-adults': '1-adult',
-      'correct-given-names-adult-accompanying': 'Jamie'
+      'correct-given-names-adult-accompanying': 'Jamie',
+      'correct-last-name-adult-accompanying': 'Smith',
+      'correct-passport-number-adult-accompanying': 'P1234567'
     }));
 
     expect(output).toBe(
-      'How many adults: 1 adult\n\n\nGiven names:\nJamie \n\n'
+      'Number of adults accompanying a child: 1 adult\n\n\nName and passport number of accompanying adult:\nJamie Smith\nP1234567\n\n\n'
     );
   });
 });
