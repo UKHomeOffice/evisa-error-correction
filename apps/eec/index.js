@@ -16,7 +16,7 @@ module.exports = {
   name: 'eec',
   baseUrl: '/',
   params: '/:action?/:id?/:edit?',
-  confirmStep: '/check-answers',
+  confirmStep: '/check-your-answers',
   steps: {
     '/in-uk': {
       next: '/accessing-evisa',
@@ -47,7 +47,7 @@ module.exports = {
         'travel-doc-nationality',
         'travel-doc-dob'
       ],
-      behaviours: [validateAutocomplete('requestor-nationality')],
+      behaviours: [validateAutocomplete('travel-doc-nationality')],
       showNeedHelp: true
     },
     '/premium': {
@@ -115,32 +115,251 @@ module.exports = {
       ]
     },
     '/more-details': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['describe-evisa-error'],
       showNeedHelp: true
     },
     '/problem': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
-        'problem',
-        'detail-full-name',
-        'detail-dob',
-        'detail-nationality',
-        'detail-status',
-        'detail-valid-from',
-        'detail-valid-until',
-        'detail-nin',
-        'detail-photo',
-        'detail-restrictions',
-        'detail-share-code',
-        'detail-signin-email',
-        'detail-signin-phone',
-        'detail-sponsor-licence-number',
-        'detail-other'
+        'problem'
+      ],
+      forks: [
+        {
+          target: '/your-correct-name',
+          condition: req => {
+            if ( req.sessionModel.get('problem') &&
+            req.sessionModel.get('problem').includes('problem-full-name') ) {
+              return true;
+            }
+            return false;
+          }
+        },
+        {
+          target: '/correct-date-of-birth',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-date-of-birth')
+        },
+        {
+          target: '/correct-nationality',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-nationality')
+        },
+        {
+          target: '/problem-immigration-status',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-status')
+        },
+        {
+          target: '/date-valid-from',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-valid-from')
+        },
+        {
+          target: '/date-valid-to',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-valid-to')
+        },
+        {
+          target: '/national-insurance-number',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-national-insurance-number')
+        },
+        {
+          target: '/sponsor-licence-number',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-sponsor-licence-number')
+        },
+        {
+          target: '/photo',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-photo')
+        },
+        {
+          target: '/future-partner-name',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-future-partner-name')
+        },
+        {
+          target: '/how-many-adults',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-accompanying-adult-details')
+        },
+        {
+          target: '/correct-ship-and-port',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-ship-and-port-details')
+        },
+        {
+          target: '/details-can-do-uk',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-restrictions-in-uk')
+        },
+        {
+          target: '/correct-flight-number-airport',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-flight-number-airport')
+        },
+        {
+          target: '/share-code',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-share-code')
+        },
+        {
+          target: '/correct-email-address',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-signin-email')
+        },
+        {
+          target: '/correct-phone-number',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-signin-phone')
+        },
+        {
+          target: '/problem-not-listed',
+          condition: req => req.sessionModel.get('problem') &&
+          req.sessionModel.get('problem').includes('problem-other')
+        }
       ],
       showNeedHelp: true
     },
-    '/personal-details': {
+    '/your-correct-name': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-given-names',
+        'correct-last-name'
+      ],
+      showNeedHelp: true
+    },
+    '/correct-date-of-birth': {
+      next: '/your-evisa-details',
+      fields: ['correct-date-of-birth'],
+      showNeedHelp: true
+    },
+    '/correct-nationality': {
+      next: '/your-evisa-details',
+      fields: ['correct-nationality'],
+      behaviours: [validateAutocomplete('correct-nationality')],
+      showNeedHelp: true
+    },
+    '/problem-immigration-status': {
+      next: '/your-evisa-details',
+      fields: ['problem-immigration-status'],
+      showNeedHelp: true
+    },
+    '/date-valid-from': {
+      next: '/your-evisa-details',
+      fields: ['correct-visa-start-date'],
+      showNeedHelp: true
+    },
+    '/date-valid-to': {
+      next: '/your-evisa-details',
+      fields: ['correct-visa-end-date'],
+      showNeedHelp: true
+    },
+    '/national-insurance-number': {
+      next: '/your-evisa-details',
+      fields: ['correct-national-insurance-number'],
+      showNeedHelp: true
+    },
+    '/sponsor-licence-number': {
+      next: '/your-evisa-details',
+      fields: ['correct-sponsor-licence-number'],
+      showNeedHelp: true
+    },
+    '/photo': {
+      next: '/your-evisa-details',
+      fields: ['photo'],
+      showNeedHelp: true
+    },
+    '/future-partner-name': {
+      next: '/your-evisa-details',
+      fields: [
+        'future-partner-correct-given-names',
+        'future-partner-correct-last-name'
+      ],
+      showNeedHelp: true
+    },
+    '/how-many-adults': {
+      next: '/your-evisa-details',
+      fields: ['how-many-adults'],
+      showNeedHelp: true,
+      forks: [
+        {
+          target: '/correct-details-adult-accompanying',
+          condition: {
+            field: 'how-many-adults',
+            value: '1-adult'
+          }
+        },
+        {
+          target: '/correct-passport-number',
+          condition: {
+            field: 'how-many-adults',
+            value: '2-adults'
+          }
+        }
+      ]
+    },
+    '/correct-details-adult-accompanying': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-given-names-adult-accompanying',
+        'correct-last-name-adult-accompanying',
+        'correct-passport-number-adult-accompanying'
+      ],
+      showNeedHelp: true
+    },
+    '/correct-passport-number': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-passport-number-adult-1',
+        'correct-passport-number-adult-2'
+      ],
+      showNeedHelp: true
+    },
+    '/correct-ship-and-port': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-ship-name',
+        'correct-port-name'
+      ],
+      showNeedHelp: true
+    },
+    '/details-can-do-uk': {
+      next: '/your-evisa-details',
+      fields: ['detail-restrictions-in-uk'],
+      showNeedHelp: true
+    },
+    '/correct-flight-number-airport': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-flight-number',
+        'correct-airport'
+      ],
+      showNeedHelp: true
+    },
+    '/share-code': {
+      next: '/your-evisa-details',
+      fields: ['detail-share-code'],
+      showNeedHelp: true
+    },
+    '/correct-email-address': {
+      next: '/your-evisa-details',
+      fields: ['correct-signin-email'],
+      showNeedHelp: true
+    },
+    '/correct-phone-number': {
+      next: '/your-evisa-details',
+      fields: ['correct-signin-phone'],
+      showNeedHelp: true
+    },
+    '/problem-not-listed': {
+      next: '/your-evisa-details',
+      fields: ['problem-not-listed'],
+      showNeedHelp: true
+    },
+    '/your-evisa-details': {
       next: '/refugee',
       fields: [
         'requestor-full-name',
@@ -189,7 +408,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/someone-else': {
-      next: '/check-answers',
+      next: '/check-your-answers',
       fields: ['completing-for-someone-else'],
       forks: [
         {
@@ -203,7 +422,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/someone-else-details': {
-      next: '/check-answers',
+      next: '/check-your-answers',
       fields: [
         'representative-name',
         'representative-email',
@@ -211,7 +430,7 @@ module.exports = {
       ],
       showNeedHelp: true
     },
-    '/check-answers': {
+    '/check-your-answers': {
       behaviours: [Summary, submitRequest],
       sections: require('./sections/summary-data-sections'),
       template: 'summary',

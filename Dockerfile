@@ -1,10 +1,12 @@
-FROM node:20.18.0-alpine3.20@sha256:d504f23acdda979406cf3bdbff0dff7933e5c4ec183dda404ed24286c6125e60
+FROM node:24.18.0-alpine3.24@sha256:4ba75f835bb8802193e4c114572113d4b26f95f6f094f4b5229d2a77773e0afc
+
 USER root
 
-# Switch to UK Alpine mirrors, update package index and upgrade all installed packages
-RUN echo "http://uk.alpinelinux.org/alpine/v3.20/main" > /etc/apk/repositories ; \
-    echo "http://uk.alpinelinux.org/alpine/v3.20/community" >> /etc/apk/repositories ; \
-    apk update && apk upgrade --no-cache
+# Update Alpine packages with latest security and bug fixes
+RUN apk upgrade --no-cache
+
+# Upgrade npm from the base image to patch vulnerable bundled dependencies
+RUN npm install -g npm@12.0.1 && npm --version
 
 # Setup nodejs group & nodejs user
 RUN addgroup --system nodejs --gid 998 && \
@@ -17,7 +19,7 @@ WORKDIR /app
 
 COPY --chown=999:998 . /app
 
-RUN yarn install --frozen-lockfile --production --ignore-optional && \
+RUN yarn install --frozen-lockfile --production && \
     yarn run postinstall
 
 HEALTHCHECK --interval=5m --timeout=3s \
