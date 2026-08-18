@@ -1,11 +1,20 @@
 const config = require('../config');
 const translations = require('../apps/eec/translations/src/en/fields.json');
+const pages = require('../apps/eec/translations/src/en/pages.json');
 
-const getLabel = (fieldKey, fieldValue) => {
-  if ( Array.isArray(fieldValue)) {
-    return fieldValue.map(option => translations[fieldKey]?.options[option]?.label).join(', ') || undefined;
+const getLabel = (fieldKey, fieldValue, labelType = null) => {
+  if (!fieldKey) {
+    return undefined;
   }
-  return translations[fieldKey]?.options[fieldValue]?.label || undefined;
+
+  if (labelType === 'confirm-field') {
+    return pages.confirm?.fields?.[fieldKey]?.label || undefined;
+  }
+
+  if ( Array.isArray(fieldValue)) {
+    return fieldValue.map(option => translations[fieldKey]?.options?.[option]?.label).join(', ') || undefined;
+  }
+  return translations[fieldKey]?.options?.[fieldValue]?.label || undefined;
 };
 
 const formatDate = date => {
