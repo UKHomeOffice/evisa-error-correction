@@ -48,8 +48,27 @@ describe('submit-feedback behaviour', () => {
       Base.prototype.saveValues = jest.fn().mockReturnValue(req, res, next);
       NotifyClient.prototype.sendEmail = jest.fn().mockResolvedValue({data: {}});
 
+      req.form = {
+        options: {
+          steps: {
+            '/photo': {
+              fields: ['photo']
+            },
+            '/national-insurance-number': {
+              fields: ['correct-national-insurance-number']
+            },
+            '/your-correct-name': {
+              fields: ['correct-given-names', 'correct-last-name']
+            },
+            '/correct-date-of-birth': {
+              fields: ['correct-date-of-birth']
+            }
+          }
+        }
+      };
+
       req.sessionModel = new Model({
-        problem: ['problem-photo', 'problem-nin'],
+        problem: ['problem-photo', 'problem-national-insurance-number'],
         premium: ['premium-super-priority'],
         'trying-to-do': ['trying-to-report-error'],
         'in-uk': 'no',
@@ -60,8 +79,8 @@ describe('submit-feedback behaviour', () => {
         'travel-doc-dob': '1987-08-14',
         'accessing-evisa': 'yes',
         'asylum-support': 'no',
-        'detail-photo': 'photo bad',
-        'detail-nin': 'QQ123456A',
+        photo: 'photo bad',
+        'correct-national-insurance-number': 'QQ123456A',
         'requestor-full-name': 'test user',
         'requestor-dob': '1987-08-14',
         'describe-evisa-error': 'There is an error with my evisa',
@@ -95,7 +114,7 @@ describe('submit-feedback behaviour', () => {
       expect(NotifyClient.prototype.sendEmail).toHaveBeenCalledTimes(1);
     });
 
-    /* test('Notify sendEmail to business is called with the correct props if has access to eVisa', async () => {
+    test('Notify sendEmail to business is called with the correct props if has access to eVisa', async () => {
       req.sessionModel.unset('describe-evisa-error');
 
       emailProps = {
@@ -134,7 +153,7 @@ describe('submit-feedback behaviour', () => {
       await instance.saveValues(req, res, next);
       expect(NotifyClient.prototype.sendEmail)
         .toHaveBeenCalledWith('456-789', 'test@example.com', emailProps);
-    }); */
+    });
 
     test('Notify sendEmail to business is called with the correct props if has no access to eVisa', async () => {
       req.sessionModel.set('accessing-evisa', 'no');
@@ -179,14 +198,15 @@ describe('submit-feedback behaviour', () => {
         .toHaveBeenCalledWith('456-789', 'test@example.com', emailProps);
     });
 
-    /* test('Business sendEmail is called with the correct props if only one problem had been added'
+    test('Business sendEmail is called with the correct props if only one problem had been added'
       + ' and has no access to eVisa', async () => {
       req.sessionModel.set('accessing-evisa', 'no');
       req.sessionModel.set('problem', 'problem-full-name');
-      req.sessionModel.set('detail-full-name', 'Corrected name');
+      req.sessionModel.set('correct-given-names', 'Corrected given');
+      req.sessionModel.set('correct-last-name', 'name');
       req.sessionModel.set('asylum-support', 'Yes');
-      req.sessionModel.unset('detail-photo');
-      req.sessionModel.unset('detail-nin');
+      req.sessionModel.unset('photo');
+      req.sessionModel.unset('correct-national-insurance-number');
       req.sessionModel.unset('trying-to-do');
       req.sessionModel.unset('describe-evisa-error');
 
@@ -212,7 +232,7 @@ describe('submit-feedback behaviour', () => {
           reference: 'I do not have a reference',
           is_refugee: 'Yes',
           corrected_evisa_details: 'yes',
-          problem_notes: 'Name: Corrected name\n\n',
+          problem_notes: 'Name: Corrected given name\n\n',
           contact_email: 'test@example.com',
           contact_address: 'none provided',
           completing_for_someone_else: 'No',
@@ -225,9 +245,9 @@ describe('submit-feedback behaviour', () => {
       await instance.saveValues(req, res, next);
       expect(NotifyClient.prototype.sendEmail)
         .toHaveBeenCalledWith('456-789', 'test@example.com', emailProps);
-    }); */
+    });
 
-    /* test('Business sendEmail is called with the correct props if contact method is address', async () => {
+    test('Business sendEmail is called with the correct props if contact method is address', async () => {
       req.sessionModel.set('requestor-contact-method', 'uk-address');
 
       emailProps = {
@@ -267,7 +287,38 @@ describe('submit-feedback behaviour', () => {
       await instance.saveValues(req, res, next);
       expect(NotifyClient.prototype.sendEmail)
         .toHaveBeenCalledWith('456-789', 'test@example.com', emailProps);
-    }); */
+    });
+
+    test('problem notes formats corrected date of birth details', async () => {
+      req.sessionModel.set('problem', ['problem-date-of-birth']);
+      req.sessionModel.set('correct-date-of-birth', '1987-08-14');
+
+      await instance.saveValues(req, res, next);
+
+      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+      expect(sentProps.personalisation.problem_notes).toBe('Date of birth: 14/08/1987\n\n');
+    });
+
+    test('saveValues uses in-uk and is-refugee false branches', async () => {
+      req.sessionModel.set('in-uk', 'yes');
+      req.sessionModel.set('booked-travel', 'no');
+      req.sessionModel.set('is-refugee', 'no');
+
+      await instance.saveValues(req, res, next);
+
+      const sentProps = NotifyClient.prototype.sendEmail.mock.calls[0][2];
+      expect(sentProps.personalisation).toMatchObject({
+        is_not_in_uk: 'no',
+        booked_travel: '',
+        is_booked_travel: '',
+        booked_travel_date_to_uk: '',
+        premium: '',
+        travel_doc_number: '',
+        travel_doc_nationality: '',
+        travel_doc_dob: '',
+        asylum_support: ''
+      });
+    });
 
     test('Notify errors are detected and passed to next()', async () => {
       NotifyClient.prototype.sendEmail = jest.fn().mockRejectedValue(new Error('Notify error'));
@@ -276,5 +327,77 @@ describe('submit-feedback behaviour', () => {
       expect(next).toHaveBeenCalled;
       expect(next).toHaveBeenCalledWith(new Error('Notify error'));
     });
+  });
+
+  test('Email props omit emailReplyToId when config replyToId is not set', async () => {
+    jest.resetModules();
+
+    jest.doMock('../../config.js', () => {
+      const originalModule = jest.requireActual('../../config.js');
+      return {
+        ...originalModule,
+        govukNotify: {
+          notifyApiKey: 'test',
+          caseworkerEmail: 'sas-hof-test@digital.homeoffice.gov.uk',
+          userConfirmationTemplateId: '123-456',
+          businessConfirmationTemplateId: '456-789',
+          replyToId: undefined
+        }
+      };
+    });
+
+    const BehaviourNoReplyTo = require('../../apps/eec/behaviours/submit-request');
+    const NotifyClientNoReplyTo = require('notifications-node-client').NotifyClient;
+
+    class LocalBase {
+      saveValues() {}
+    }
+
+    const localReq = reqres.req();
+    const localRes = reqres.res();
+    const localNext = jest.fn();
+    LocalBase.prototype.saveValues = jest.fn().mockReturnValue(localReq, localRes, localNext);
+    NotifyClientNoReplyTo.prototype.sendEmail = jest.fn().mockResolvedValue({ data: {} });
+
+    localReq.form = {
+      options: {
+        steps: {
+          '/photo': {
+            fields: ['photo']
+          }
+        }
+      }
+    };
+
+    localReq.sessionModel = new Model({
+      problem: ['problem-photo'],
+      'in-uk': 'no',
+      'booked-travel': 'yes',
+      'booked-travel-date-to-uk': '2025-06-24',
+      premium: ['premium-super-priority'],
+      'travel-doc-number': '120383978A',
+      'travel-doc-nationality': 'France',
+      'travel-doc-dob': '1987-08-14',
+      'accessing-evisa': 'yes',
+      'trying-to-do': ['trying-to-report-error'],
+      'requestor-full-name': 'test user',
+      'requestor-dob': '1987-08-14',
+      'requestor-nationality': 'France',
+      'formatted-reference': 'I do not have a reference',
+      'is-refugee': 'no',
+      'requestor-contact-method': 'email',
+      'requestor-email': 'sas-hof-test@digital.homeoffice.gov.uk',
+      'completing-for-someone-else': 'no',
+      photo: 'photo bad'
+    });
+
+    const LocalSubmitRequest = BehaviourNoReplyTo(LocalBase);
+    const localInstance = new LocalSubmitRequest();
+    await localInstance.saveValues(localReq, localRes, localNext);
+
+    const sentProps = NotifyClientNoReplyTo.prototype.sendEmail.mock.calls[0][2];
+    expect(sentProps.emailReplyToId).toBe(undefined);
+
+    jest.dontMock('../../config.js');
   });
 });
