@@ -1,4 +1,4 @@
-const { getLabel, formatDate, truncate } = require('../../../utils');
+const { getLabel, formatDate, truncate, joinNonEmpty } = require('../../../utils');
 
 function isTravelToUKNotBooked(req) {
   return req.sessionModel.get('booked-travel') === 'no';
@@ -34,60 +34,131 @@ module.exports = {
     steps: [
       {
         step: '/problem',
-        field: 'detail-full-name'
+        field: 'problem',
+        parse: val => Array.isArray(val) ? val.join('\n') : val
       },
       {
-        step: '/problem',
-        field: 'detail-dob',
+        step: '/your-correct-name',
+        field: 'correct-given-names',
+        parse: (val, req) => {
+          const givenNames = req.sessionModel.get('correct-given-names');
+          const lastName = req.sessionModel.get('correct-last-name');
+          return joinNonEmpty([givenNames, lastName]);
+        }
+      },
+      {
+        step: '/correct-date-of-birth',
+        field: 'correct-date-of-birth',
         parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-nationality'
+        step: '/correct-nationality',
+        field: 'correct-nationality'
       },
       {
-        step: '/problem',
-        field: 'detail-status'
+        step: '/problem-immigration-status',
+        field: 'problem-immigration-status'
       },
       {
-        step: '/problem',
-        field: 'detail-valid-from'
+        step: '/date-valid-from',
+        field: 'correct-visa-start-date',
+        parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-valid-until'
+        step: '/date-valid-to',
+        field: 'correct-visa-end-date',
+        parse: val => !val ? '' : formatDate(val)
       },
       {
-        step: '/problem',
-        field: 'detail-nin'
+        step: '/national-insurance-number',
+        field: 'correct-national-insurance-number'
       },
       {
-        step: '/problem',
-        field: 'detail-photo'
+        step: '/sponsor-licence-number',
+        field: 'correct-sponsor-licence-number'
       },
       {
-        step: '/problem',
-        field: 'detail-restrictions'
+        step: '/photo',
+        field: 'photo'
       },
       {
-        step: '/problem',
+        step: '/future-partner-name',
+        field: 'future-partner-correct-given-names',
+        parse: (val, req) => {
+          const givenNames = req.sessionModel.get('future-partner-correct-given-names');
+          const lastName = req.sessionModel.get('future-partner-correct-last-name');
+          return joinNonEmpty([givenNames, lastName]);
+        }
+      },
+      {
+        step: '/how-many-adults',
+        field: 'how-many-adults'
+      },
+      {
+        step: '/correct-details-adult-accompanying',
+        field: 'correct-given-names-adult-accompanying',
+        parse: (val, req) => {
+          const isSingleAdult = req.sessionModel.get('how-many-adults') === '1-adult';
+          if (!isSingleAdult) return null;
+
+          const givenNames = req.sessionModel.get('correct-given-names-adult-accompanying');
+          const lastName = req.sessionModel.get('correct-last-name-adult-accompanying');
+          const passportNumber = req.sessionModel.get('correct-passport-number-adult-accompanying');
+          const fullName = joinNonEmpty([givenNames, lastName]);
+          return joinNonEmpty([fullName, passportNumber], '\n');
+        }
+      },
+      {
+        step: '/correct-passport-number',
+        field: 'correct-passport-number-adult-1',
+        parse: (val, req) => {
+          const isTwoAdults = req.sessionModel.get('how-many-adults') === '2-adults';
+          if (!isTwoAdults) return null;
+
+          const passportNumber1 = req.sessionModel.get('correct-passport-number-adult-1');
+          const passportNumber2 = req.sessionModel.get('correct-passport-number-adult-2');
+          const adult1 = passportNumber1 ? `Adult 1: ${passportNumber1}` : null;
+          const adult2 = passportNumber2 ? `Adult 2: ${passportNumber2}` : null;
+          return joinNonEmpty([adult1, adult2], '\n');
+        }
+      },
+      {
+        step: '/correct-ship-and-port',
+        field: 'correct-ship-name',
+        parse: (val, req) => {
+          const shipName = req.sessionModel.get('correct-ship-name');
+          const portName = req.sessionModel.get('correct-port-name');
+          return joinNonEmpty([shipName, portName], ', ');
+        }
+      },
+      {
+        step: '/correct-flight-number-airport',
+        field: 'correct-flight-number',
+        parse: (val, req) => {
+          const flightNumber = req.sessionModel.get('correct-flight-number');
+          const airport = req.sessionModel.get('correct-airport');
+          return joinNonEmpty([flightNumber, airport], ', ');
+        }
+      },
+      {
+        step: '/details-can-do-uk',
+        field: 'detail-restrictions-in-uk'
+      },
+      {
+        step: '/share-code',
         field: 'detail-share-code'
       },
       {
-        step: '/problem',
-        field: 'detail-signin-email'
+        step: '/correct-email-address',
+        field: 'correct-signin-email'
       },
       {
-        step: '/problem',
-        field: 'detail-signin-phone'
+        step: '/correct-phone-number',
+        field: 'correct-signin-phone'
       },
       {
-        step: '/problem',
-        field: 'detail-sponsor-licence-number'
-      },
-      {
-        step: '/problem',
-        field: 'detail-other'
+        step: '/problem-not-listed',
+        field: 'problem-not-listed'
       }
     ]
   },
@@ -121,23 +192,23 @@ module.exports = {
       }
     ]
   },
-  'personal-details': {
+  'your-evisa-details': {
     steps: [
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'requestor-full-name'
       },
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'requestor-dob',
         parse: val => formatDate(val)
       },
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'requestor-nationality'
       },
       {
-        step: '/personal-details',
+        step: '/your-evisa-details',
         field: 'reference-number',
         parse: (val, req) => {
           const refType = req.sessionModel.get('requestor-reference-type');

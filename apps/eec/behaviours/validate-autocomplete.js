@@ -1,28 +1,31 @@
 const countries = require('hof').utils.countries();
 
 module.exports = selectField => superclass => class extends superclass {
-  validate(req, res, next) {
-    const autoFieldValue = req.body[`${selectField}-auto`] ?? undefined;
-
-    if (!selectField || autoFieldValue === undefined) {
-      return super.validate(req, res, next);
-    }
-
-    const autoFieldIsInvalid = !countries.some(country => country.value === autoFieldValue);
-
-    if (autoFieldIsInvalid) {
-      if (autoFieldValue === '') {
-        return next({[selectField]: new this.ValidationError(selectField, {
-          type: 'required',
-          redirect: undefined
-        })});
+  validateField(key, req) {
+    if (key === selectField) {
+      const autoFieldValue = req.body[`${selectField}-auto`] ?? undefined;
+      if (autoFieldValue === undefined) {
+        return super.validateField(key, req);
       }
 
-      return next({[selectField]: new this.ValidationError(selectField, {
-        type: 'invalidOption',
-        redirect: undefined
-      })});
+      const autoFieldIsInvalid = !countries.some(country => country.value === autoFieldValue);
+
+      if (autoFieldIsInvalid) {
+        // Order of this check is important to trigger invalidOption error when an invalid option is entered,
+        // and required error when the field is cleared
+        if (autoFieldValue !== '') {
+          return new this.ValidationError(key, {
+            type: 'invalidOption',
+            redirect: undefined
+          });
+        }
+
+        return new this.ValidationError(key, {
+          type: 'required',
+          redirect: undefined
+        });
+      }
     }
-    return super.validate(req, res, next);
+    return super.validateField(key, req);
   }
 };

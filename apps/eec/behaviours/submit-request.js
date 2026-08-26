@@ -7,6 +7,7 @@ const {
 } = config.govukNotify;
 
 const { getLabel, formatDate, genNotifyErrorMsg } = require('../../../utils');
+const { buildProblemNotes } = require('../../../utils/build-problem-notes');
 
 const NotifyClient = require('notifications-node-client').NotifyClient;
 const Notify = new NotifyClient(notifyApiKey);
@@ -23,27 +24,6 @@ class EmailProps {
     Object.assign(this.personalisation, newPersonalisation);
   }
 }
-
-const buildProblemNotes = req => {
-  let problems = req.sessionModel.get('problem');
-  let concatProblems = '';
-
-  // A single checked box will be stored as a string not an array of length 1 so...
-  if (typeof problems === 'string') {
-    problems = Array.of(problems);
-  }
-
-  for (const problem of problems) {
-    concatProblems += getLabel('problem', problem) + ': ';
-    let detail = req.sessionModel.get(problem.replace('problem', 'detail'));
-    if (problem === 'problem-dob') {
-      detail = formatDate(detail);
-    }
-    concatProblems += detail + '\n\n';
-  }
-
-  return concatProblems;
-};
 
 module.exports = superclass => class extends superclass {
   async saveValues(req, res, next) {

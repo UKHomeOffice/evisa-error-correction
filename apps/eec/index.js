@@ -2,6 +2,9 @@ const hof = require('hof');
 const Summary = hof.components.summary;
 const submitRequest = require('./behaviours/submit-request');
 const validateAutocomplete = require('./behaviours/validate-autocomplete');
+const captureProblemSelection = require('./behaviours/capture-problem-selection');
+const { buildProblemForks } = require('../../utils/build-problem-forks');
+const clearProblemSession = require('./behaviours/clear-problem-session');
 const { disallowIndexing } = require('../../config');
 
 const pages = {
@@ -16,12 +19,13 @@ module.exports = {
   name: 'eec',
   baseUrl: '/',
   params: '/:action?/:id?/:edit?',
-  confirmStep: '/check-answers',
+  confirmStep: '/check-your-answers',
   steps: {
     '/in-uk': {
       next: '/accessing-evisa',
       fields: ['in-uk'],
       showNeedHelp: true,
+      continueOnEdit: true,
       forks: [
         {
           target: '/booked-travel',
@@ -38,6 +42,7 @@ module.exports = {
         'booked-travel',
         'booked-travel-date-to-uk'
       ],
+      continueOnEdit: true,
       showNeedHelp: true
     },
     '/travel-document-details': {
@@ -47,7 +52,8 @@ module.exports = {
         'travel-doc-nationality',
         'travel-doc-dob'
       ],
-      behaviours: [validateAutocomplete('requestor-nationality')],
+      continueOnEdit: true,
+      behaviours: [validateAutocomplete('travel-doc-nationality')],
       showNeedHelp: true
     },
     '/premium': {
@@ -55,12 +61,14 @@ module.exports = {
       fields: [
         'premium'
       ],
+      continueOnEdit: true,
       showNeedHelp: true
     },
     '/accessing-evisa': {
       next: '/trying-to-do',
       fields: ['accessing-evisa'],
       showNeedHelp: true,
+      continueOnEdit: true,
       forks: [
         {
           target: '/before-reporting',
@@ -75,6 +83,7 @@ module.exports = {
       next: '/problem',
       fields: ['trying-to-do'],
       showNeedHelp: true,
+      continueOnEdit: true,
       forks: [
         {
           target: '/prove-status-before-reporting',
@@ -94,11 +103,13 @@ module.exports = {
     },
     '/prove-status-before-reporting': {
       next: '/problem',
-      showNeedHelp: true
+      showNeedHelp: true,
+      continueOnEdit: true
     },
     '/update-details-before-reporting': {
       next: '/problem',
-      showNeedHelp: true
+      showNeedHelp: true,
+      continueOnEdit: true
     },
     '/before-reporting': {
       next: '/more-details',
@@ -107,6 +118,7 @@ module.exports = {
       forks: [
         {
           target: '/problem',
+          continueOnEdit: true,
           condition: {
             field: 'problem-redirect',
             value: 'yes'
@@ -115,32 +127,191 @@ module.exports = {
       ]
     },
     '/more-details': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: ['describe-evisa-error'],
       showNeedHelp: true
     },
     '/problem': {
-      next: '/personal-details',
+      next: '/your-evisa-details',
       fields: [
-        'problem',
-        'detail-full-name',
-        'detail-dob',
-        'detail-nationality',
-        'detail-status',
-        'detail-valid-from',
-        'detail-valid-until',
-        'detail-nin',
-        'detail-photo',
-        'detail-restrictions',
-        'detail-share-code',
-        'detail-signin-email',
-        'detail-signin-phone',
-        'detail-sponsor-licence-number',
-        'detail-other'
+        'problem'
       ],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks(),
       showNeedHelp: true
     },
-    '/personal-details': {
+    '/your-correct-name': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-given-names',
+        'correct-last-name'
+      ],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-full-name'),
+      showNeedHelp: true
+    },
+    '/correct-date-of-birth': {
+      next: '/your-evisa-details',
+      fields: ['correct-date-of-birth'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-date-of-birth'),
+      showNeedHelp: true
+    },
+    '/correct-nationality': {
+      next: '/your-evisa-details',
+      fields: ['correct-nationality'],
+      behaviours: [
+        validateAutocomplete('correct-nationality'),
+        captureProblemSelection
+      ],
+      forks: buildProblemForks('problem-nationality'),
+      showNeedHelp: true
+    },
+    '/problem-immigration-status': {
+      next: '/your-evisa-details',
+      fields: ['problem-immigration-status'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-status'),
+      showNeedHelp: true
+    },
+    '/date-valid-from': {
+      next: '/your-evisa-details',
+      fields: ['correct-visa-start-date'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-valid-from'),
+      showNeedHelp: true
+    },
+    '/date-valid-to': {
+      next: '/your-evisa-details',
+      fields: ['correct-visa-end-date'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-valid-to'),
+      showNeedHelp: true
+    },
+    '/national-insurance-number': {
+      next: '/your-evisa-details',
+      fields: ['correct-national-insurance-number'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-national-insurance-number'),
+      showNeedHelp: true
+    },
+    '/sponsor-licence-number': {
+      next: '/your-evisa-details',
+      fields: ['correct-sponsor-licence-number'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-sponsor-licence-number'),
+      showNeedHelp: true
+    },
+    '/photo': {
+      next: '/your-evisa-details',
+      fields: ['photo'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-photo'),
+      showNeedHelp: true
+    },
+    '/future-partner-name': {
+      next: '/your-evisa-details',
+      fields: [
+        'future-partner-correct-given-names',
+        'future-partner-correct-last-name'
+      ],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-future-partner-name'),
+      showNeedHelp: true
+    },
+    '/how-many-adults': {
+      next: '/correct-passport-number',
+      fields: ['how-many-adults'],
+      behaviours: [captureProblemSelection],
+      showNeedHelp: true,
+      continueOnEdit: true,
+      forks: [
+        {
+          target: '/correct-details-adult-accompanying',
+          condition: {
+            field: 'how-many-adults',
+            value: '1-adult'
+          }
+        }
+      ]
+    },
+    '/correct-details-adult-accompanying': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-given-names-adult-accompanying',
+        'correct-last-name-adult-accompanying',
+        'correct-passport-number-adult-accompanying'
+      ],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-accompanying-adult-details'),
+      showNeedHelp: true
+    },
+    '/correct-passport-number': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-passport-number-adult-1',
+        'correct-passport-number-adult-2'
+      ],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-accompanying-adult-details'),
+      showNeedHelp: true
+    },
+    '/correct-ship-and-port': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-ship-name',
+        'correct-port-name'
+      ],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-ship-and-port-details'),
+      showNeedHelp: true
+    },
+    '/details-can-do-uk': {
+      next: '/your-evisa-details',
+      fields: ['detail-restrictions-in-uk'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-restrictions-in-uk'),
+      showNeedHelp: true
+    },
+    '/correct-flight-number-airport': {
+      next: '/your-evisa-details',
+      fields: [
+        'correct-flight-number',
+        'correct-airport'
+      ],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-flight-number-airport'),
+      showNeedHelp: true
+    },
+    '/share-code': {
+      next: '/your-evisa-details',
+      fields: ['detail-share-code'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-share-code'),
+      showNeedHelp: true
+    },
+    '/correct-email-address': {
+      next: '/your-evisa-details',
+      fields: ['correct-signin-email'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-signin-email'),
+      showNeedHelp: true
+    },
+    '/correct-phone-number': {
+      next: '/your-evisa-details',
+      fields: ['correct-signin-phone'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-signin-phone'),
+      showNeedHelp: true
+    },
+    '/problem-not-listed': {
+      next: '/your-evisa-details',
+      fields: ['problem-not-listed'],
+      behaviours: [captureProblemSelection],
+      forks: buildProblemForks('problem-other'),
+      showNeedHelp: true
+    },
+    '/your-evisa-details': {
       next: '/refugee',
       fields: [
         'requestor-full-name',
@@ -153,7 +324,10 @@ module.exports = {
         'requestor-passport',
         'requestor-ukvi'
       ],
-      behaviours: [validateAutocomplete('requestor-nationality')],
+      behaviours: [
+        validateAutocomplete('requestor-nationality'),
+        captureProblemSelection
+      ],
       showNeedHelp: true
     },
     '/refugee': {
@@ -189,7 +363,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/someone-else': {
-      next: '/check-answers',
+      next: '/check-your-answers',
       fields: ['completing-for-someone-else'],
       forks: [
         {
@@ -203,7 +377,7 @@ module.exports = {
       showNeedHelp: true
     },
     '/someone-else-details': {
-      next: '/check-answers',
+      next: '/check-your-answers',
       fields: [
         'representative-name',
         'representative-email',
@@ -211,8 +385,8 @@ module.exports = {
       ],
       showNeedHelp: true
     },
-    '/check-answers': {
-      behaviours: [Summary, submitRequest],
+    '/check-your-answers': {
+      behaviours: [Summary, clearProblemSession, submitRequest],
       sections: require('./sections/summary-data-sections'),
       template: 'summary',
       next: '/request-sent'

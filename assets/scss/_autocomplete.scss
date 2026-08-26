@@ -133,6 +133,10 @@
   padding: 5px;
 }
 
+.govuk-form-group--error .autocomplete__input {
+  border: 2px solid #d4351c;
+}
+
 @media (min-width: 641px) {
   .autocomplete__hint,
   .autocomplete__input,
