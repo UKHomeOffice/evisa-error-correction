@@ -338,7 +338,7 @@ describe('submit-feedback behaviour', () => {
         ...originalModule,
         govukNotify: {
           notifyApiKey: 'test',
-          caseworkerEmail: 'sas-hof-test@digital.homeoffice.gov.uk',
+          caseworkerEmail: 'test@example.com',
           userConfirmationTemplateId: '123-456',
           businessConfirmationTemplateId: '456-789',
           replyToId: undefined
@@ -386,7 +386,7 @@ describe('submit-feedback behaviour', () => {
       'formatted-reference': 'I do not have a reference',
       'is-refugee': 'no',
       'requestor-contact-method': 'email',
-      'requestor-email': 'sas-hof-test@digital.homeoffice.gov.uk',
+      'requestor-email': 'test@example.com',
       'completing-for-someone-else': 'no',
       photo: 'photo bad'
     });
