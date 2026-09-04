@@ -6,7 +6,7 @@ Check that you have completed the 3 steps to <a href='https://www.gov.uk/evisa/s
   <li>Link your eVisa to your account.</li>
 </ol>
 
-You can <a href='https://ukimmigration-support-webchat.homeoffice.gov.uk/evisa' target='_blank'>ask for help (opens in new tab)</a> creating a UKVI account and getting access to an eVisa.
+You can <a href='https://ukvi-evisa-support-webchat.homeoffice.gov.uk' target='_blank'>ask for help (opens in new tab)</a> creating a UKVI account and getting access to an eVisa.
 
 When you have linked your eVisa, you can sign in to your UKVI account to <a href='https://www.gov.uk/evisa/view-evisa-get-share-code-prove-immigration-status' target='_blank'>view your eVisa and prove your immigration status (opens in new tab)</a>.
 
