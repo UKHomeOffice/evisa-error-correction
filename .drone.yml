@@ -16,7 +16,6 @@ environment:
   HOF_CONFIG: hof-services-config/E_Visa_Error_Correction
   NON_PROD_AVAILABILITY: Mon-Sun 08:00-23:00 Europe/London
   READY_FOR_TEST_DELAY: 20s
-  NOTIFY_STUB: stub
   REDIS_PERSISTENCE_ENABLED: "true"
   REDIS_PERSISTENCE_ACCESS_MODES: ReadWriteOnce
   REDIS_PERSISTENCE_STORAGE_CLASS: gp2-encrypted-eu-west-2b
