@@ -28,7 +28,7 @@ class EmailProps {
 module.exports = superclass => class extends superclass {
   async saveValues(req, res, next) {
     const businessEmailProps = new EmailProps;
-    const notifyStubbed = config.env === 'test' || ['true', 'stub'].includes(String(process.env.NOTIFY_STUB).toLowerCase());
+    const notifyStubbed = ['true', 'stub'].includes(String(process.env.NOTIFY_STUB).toLowerCase());
 
     try {
       businessEmailProps.addPersonalisation({
