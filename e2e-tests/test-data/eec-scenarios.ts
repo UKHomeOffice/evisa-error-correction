@@ -14,6 +14,7 @@ export type EecScenarioData = {
   referenceValue?: string;
   contactMethod: 'Email' | 'UK address';
   completingForSomeoneElse: boolean;
+  deselectProblemAfterEdit?: string;
 };
 
 const defaultScenario: Omit<EecScenarioData, 'problems' | 'referenceType' | 'referenceValue'> = {
@@ -96,9 +97,11 @@ export const eecScenarioData: Record<string, EecScenarioData> = {
     ...defaultScenario,
     problems: [
       { label: 'Future spouse or civil partner name', value: 'HOF TEST' },
+      { label: 'Ship and port details', value: 'MV Kent|Dover' },
       { label: 'What you can and cannot do in the UK', value: 'My work restrictions are incorrect' },
       { label: 'My problem is not listed', value: 'My visa details have another issue that is not listed' }
     ],
+    deselectProblemAfterEdit: 'Ship and port details',
     ...brp
   },
   't22: test with sponsor licence number and accompanying adult then change number of adults from 1 to 2 from check your answers': { ...defaultScenario, problems: [{ label: 'Sponsor licence number', value: 'ABCdeF12345' }, { label: 'Name or passport numbers of accompanying adult', value: '2|P1234567|P7654321' }], ...brp },

@@ -78,6 +78,10 @@ export class EecPage {
       await this.continue();
     }
 
+    if (data.deselectProblemAfterEdit) {
+      await this.deselectProblemAfterEdit(data.deselectProblemAfterEdit);
+    }
+
     await this.page.getByRole('button', { name: 'Accept and send' }).click();
   }
 
@@ -177,7 +181,10 @@ export class EecPage {
 
   async selectProblemCheckboxAndEnter(problemLabel: string, value: string, valueIsLength = false): Promise<void> {
     const normalizedLabel = this.normalizeProblemLabel(problemLabel);
-    await this.page.getByRole('checkbox', { name: normalizedLabel, exact: true }).check();
+    const checkbox = this.page.getByRole('checkbox', { name: normalizedLabel, exact: true });
+    if (!await checkbox.isChecked()) {
+      await checkbox.check();
+    }
     await this.continue();
     await this.completeProblemCorrection({
       label: normalizedLabel,
@@ -333,6 +340,12 @@ export class EecPage {
       default:
         throw new Error(`Unsupported EEC problem correction: ${problem.label}`);
     }
+  }
+
+  private async deselectProblemAfterEdit(problemToRemove: string): Promise<void> {
+    await this.page.locator('a[href^="/problem"]').first().click();
+    await this.page.getByRole('checkbox', { name: problemToRemove, exact: true }).uncheck();
+    await this.continue();
   }
 
   private async completeAccompanyingAdult(value: string): Promise<void> {

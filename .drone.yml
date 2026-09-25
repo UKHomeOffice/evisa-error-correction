@@ -278,7 +278,6 @@ steps:
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
     environment:
-      # NOTIFY_STUB: stub
       KUBE_SERVER:
         from_secret: kube_server_dev
       KUBE_TOKEN:
@@ -601,8 +600,8 @@ steps:
       - node --version
       - yarn install --frozen-lockfile
       - yarn playwright install --with-deps
-      - echo "Running nightly Playwright e2e against https://$${PRODUCTION_URL}"
-      - CI=true PLAYWRIGHT_BASE_URL="https://$${PRODUCTION_URL}" yarn test:e2e > /root/.dockersock/nightly_playwright_output.txt 2>&1; test_exit=$?; cat /root/.dockersock/nightly_playwright_output.txt; exit $test_exit
+      - echo "Running nightly Playwright e2e against https://$${APP_NAME}.uat.sas-notprod.homeoffice.gov.uk"
+      - CI=true PLAYWRIGHT_BASE_URL="https://$${APP_NAME}.uat.sas-notprod.homeoffice.gov.uk" yarn test:e2e > /root/.dockersock/nightly_playwright_output.txt 2>&1; test_exit=$?; cat /root/.dockersock/nightly_playwright_output.txt; exit $test_exit
     when:
       cron: nightly_e2e_tests
       event: cron
