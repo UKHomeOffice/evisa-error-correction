@@ -621,7 +621,8 @@ steps:
       - cat /root/.dockersock/nightly_playwright_summary.txt
       - test -n "$SLACK_WEBHOOK" || (echo "Missing SLACK_WEBHOOK secret." && exit 1)
       - node -e 'const fs=require("fs"); const text=fs.readFileSync("/root/.dockersock/nightly_playwright_summary.txt", "utf8"); process.stdout.write(JSON.stringify({text}))' > /root/.dockersock/nightly_playwright_slack_payload.json
-      - curl -sS -X POST -H 'Content-type: application/json' --data @/root/.dockersock/nightly_playwright_slack_payload.json "$SLACK_WEBHOOK"
+      - >-
+        curl -sS -X POST -H 'Content-type: application/json' --data @/root/.dockersock/nightly_playwright_slack_payload.json "$SLACK_WEBHOOK"
     when:
       cron: nightly_e2e_tests
       event: cron
