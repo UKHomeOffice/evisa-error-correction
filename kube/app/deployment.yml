@@ -79,6 +79,10 @@ spec:
                   key: notify-key
             - name: USE_MOCKS
               value: "false"
+            {{ if not (eq .KUBE_NAMESPACE .PROD_ENV) }}
+            - name: NOTIFY_STUB
+              value: "stub"
+            {{ end }}
             # Preventing search engines from indexing all pages
             - name: DISALLOW_INDEXING
               value: "true"

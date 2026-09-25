@@ -22,3 +22,6 @@ test/_accessibility/tmp/*
 .npm
 .yarn
 .yarnrc
+.features-gen
+playwright-report
+test-results
