@@ -361,6 +361,7 @@ steps:
         - success
         - failure
     depends_on:
+      - e2e_tests
       - generate_github_app_token_for_e2e_report
 
   - name: deploy_to_uat
