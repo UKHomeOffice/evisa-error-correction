@@ -327,6 +327,17 @@ describe('submit-feedback behaviour', () => {
       expect(next).toHaveBeenCalled;
       expect(next).toHaveBeenCalledWith(new Error('Notify error'));
     });
+
+    test.each(['true', 'stub'])('the caseworker email is stubbed when NOTIFY_STUB is %s', async stubValue => {
+      process.env.NOTIFY_STUB = stubValue;
+      try {
+        await instance.saveValues(req, res, next);
+        expect(NotifyClient.prototype.sendEmail).not.toHaveBeenCalled();
+        expect(Base.prototype.saveValues).toHaveBeenCalled();
+      } finally {
+        delete process.env.NOTIFY_STUB;
+      }
+    });
   });
 
   test('Email props omit emailReplyToId when config replyToId is not set', async () => {
