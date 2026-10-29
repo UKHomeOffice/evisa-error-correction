@@ -28,7 +28,6 @@ class EmailProps {
 module.exports = superclass => class extends superclass {
   async saveValues(req, res, next) {
     const businessEmailProps = new EmailProps;
-    const notifyStubbed = ['true', 'stub'].includes(String(process.env.NOTIFY_STUB).toLowerCase());
 
     try {
       businessEmailProps.addPersonalisation({
@@ -75,12 +74,8 @@ module.exports = superclass => class extends superclass {
         representative_type: getLabel('representative-type', req.sessionModel.get('representative-type')) ?? ''
       });
 
-      if (notifyStubbed) {
-        req.log('info', 'EEC request caseworker email stubbed');
-      } else {
-        await Notify.sendEmail(businessConfirmationTemplateId, caseworkerEmail, businessEmailProps);
-        req.log('info', 'EEC request caseworker email sent successfully');
-      }
+      await Notify.sendEmail(businessConfirmationTemplateId, caseworkerEmail, businessEmailProps);
+      req.log('info', 'EEC request caseworker email sent successfully');
     } catch (error) {
       req.log('error', `Failed to send EEC request email: ${genNotifyErrorMsg(error)}`);
       return next(error);
