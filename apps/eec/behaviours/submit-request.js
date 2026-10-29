@@ -9,7 +9,6 @@ const {
 const { getLabel, formatDate, genNotifyErrorMsg } = require('../../../utils');
 const { buildProblemNotes } = require('../../../utils/build-problem-notes');
 
-const NotifyClient = require('notifications-node-client').NotifyClient;
 const Notify = new NotifyClient(notifyApiKey);
 
 class EmailProps {
@@ -75,12 +74,8 @@ module.exports = superclass => class extends superclass {
         representative_type: getLabel('representative-type', req.sessionModel.get('representative-type')) ?? ''
       });
 
-      if (notifyStubbed) {
-        req.log('info', 'EEC request caseworker email stubbed');
-      } else {
-        await Notify.sendEmail(businessConfirmationTemplateId, caseworkerEmail, businessEmailProps);
-        req.log('info', 'EEC request caseworker email sent successfully');
-      }
+      await Notify.sendEmail(businessConfirmationTemplateId, caseworkerEmail, businessEmailProps);
+      req.log('info', 'EEC request caseworker email sent successfully');
     } catch (error) {
       req.log('error', `Failed to send EEC request email: ${genNotifyErrorMsg(error)}`);
       return next(error);
