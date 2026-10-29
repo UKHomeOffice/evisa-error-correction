@@ -327,7 +327,6 @@ describe('submit-feedback behaviour', () => {
       expect(next).toHaveBeenCalled;
       expect(next).toHaveBeenCalledWith(new Error('Notify error'));
     });
-
   });
 
   test('Email props omit emailReplyToId when config replyToId is not set', async () => {
