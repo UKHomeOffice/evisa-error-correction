@@ -40,7 +40,7 @@ trivy-client-image: &trivy-client-image
   pull: always
   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
 
-node_image_name: &node_image_name quay.io/ukhomeofficedigital/hof-nodejs:24.22.1_1-alpine@sha256:033927ee2316f3b3c7d22f3560c2e4201c4c751b7cb4664d0d9b9c28783d9473
+node_image_name: &node_image_name quay.io/ukhomeofficedigital/hof-nodejs:24.22.2_2-alpine@sha256:9279cf6e97dd0c1e0ea106153c2847a23a99bac3a588f7eb564d1f54eb3c92af
 
 node_image: &node_image
   pull: if-not-exists
@@ -85,7 +85,7 @@ accessibility_tests: &accessibility_tests
 
 acceptance_tests: &acceptance_tests
   pull: if-not-exists
-  image: mcr.microsoft.com/playwright:v1.61.1-noble
+  image: mcr.microsoft.com/playwright:v1.62.1-noble
 
 github_app_token_step: &github_app_token_step
   pull: if-not-exists
@@ -297,7 +297,7 @@ steps:
 
   - name: e2e_tests
     pull: if-not-exists
-    image: mcr.microsoft.com/playwright:v1.61.1-noble
+    image: mcr.microsoft.com/playwright:v1.62.1-noble
     environment:
       NOTIFY_STUB: stub
       SAS_HOF_EMAIL:
@@ -309,7 +309,7 @@ steps:
         path: /root/.dockersock
     commands:
       - npm install -g n
-      - n 24.22.1
+      - n 24.22.2
       - hash -r
       - node --version
       - yarn install --frozen-lockfile
@@ -584,7 +584,7 @@ steps:
 
   - name: cron_nightly_e2e_tests
     pull: if-not-exists
-    image: mcr.microsoft.com/playwright:v1.61.1-noble
+    image: mcr.microsoft.com/playwright:v1.62.1-noble
     environment:
       NOTIFY_STUB: stub
       SAS_HOF_EMAIL:
@@ -596,7 +596,7 @@ steps:
         path: /root/.dockersock
     commands:
       - npm install -g n
-      - n 24.22.1
+      - n 24.22.2
       - hash -r
       - node --version
       - yarn install --frozen-lockfile
