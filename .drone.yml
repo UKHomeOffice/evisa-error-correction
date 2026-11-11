@@ -85,7 +85,7 @@ accessibility_tests: &accessibility_tests
 
 acceptance_tests: &acceptance_tests
   pull: if-not-exists
-  image: mcr.microsoft.com/playwright:v1.61.1-noble
+  image: mcr.microsoft.com/playwright:v1.62.1-noble
 
 github_app_token_step: &github_app_token_step
   pull: if-not-exists
@@ -297,7 +297,7 @@ steps:
 
   - name: e2e_tests
     pull: if-not-exists
-    image: mcr.microsoft.com/playwright:v1.61.1-noble
+    image: mcr.microsoft.com/playwright:v1.62.1-noble
     environment:
       NOTIFY_STUB: stub
       SAS_HOF_EMAIL:
@@ -584,7 +584,7 @@ steps:
 
   - name: cron_nightly_e2e_tests
     pull: if-not-exists
-    image: mcr.microsoft.com/playwright:v1.61.1-noble
+    image: mcr.microsoft.com/playwright:v1.62.1-noble
     environment:
       NOTIFY_STUB: stub
       SAS_HOF_EMAIL:
