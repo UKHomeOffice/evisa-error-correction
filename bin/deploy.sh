@@ -51,9 +51,13 @@ delete_redis() {
   fi
 }
 
+sanitize_branch_name() {
+  printf '%s' "$1" | tr '[:upper:]' '[:lower:]' | tr '/.' '-'
+}
+
 if [[ $1 == 'tear_down' ]]; then
   export KUBE_NAMESPACE=$BRANCH_ENV
-  export DRONE_SOURCE_BRANCH=$(cat /root/.dockersock/branch_name.txt)
+  export DRONE_SOURCE_BRANCH=$(sanitize_branch_name "$(cat /root/.dockersock/branch_name.txt)")
   set_redis_persistence
 
   $kd --delete -f kube/configmaps/configmap.yml
@@ -64,7 +68,7 @@ if [[ $1 == 'tear_down' ]]; then
 fi
 
 export KUBE_NAMESPACE=$1
-export DRONE_SOURCE_BRANCH=$(echo $DRONE_SOURCE_BRANCH | tr '[:upper:]' '[:lower:]' | tr '/' '-')
+export DRONE_SOURCE_BRANCH=$(sanitize_branch_name "$DRONE_SOURCE_BRANCH")
 set_redis_persistence
 set_redis_persistence_size
 
