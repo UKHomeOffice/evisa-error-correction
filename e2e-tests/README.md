@@ -65,3 +65,13 @@ yarn test:e2e:headed  # Run with the Playwright headed option
 yarn test:e2e:debug   # Run with the Playwright debugger
 yarn test:e2e:report  # Open the most recent HTML report
 ```
+
+### Troubleshooting test discovery
+
+If Playwright reports that `test.describe()` was called unexpectedly, check for
+multiple runner versions with `yarn list --pattern playwright`.
+Keep `@playwright/test` and `playwright` pinned to the same version in the root
+`package.json`, then run `yarn install` and `yarn test:e2e --list` to regenerate
+and discover the tests without running journeys against UAT. After a Playwright
+upgrade, reinstall Chromium with `yarn playwright install chromium` and align
+the Playwright container images in `.drone.yml` with that version.
