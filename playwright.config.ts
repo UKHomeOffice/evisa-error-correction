@@ -1,26 +1,29 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 import dotenv from 'dotenv';
 
 dotenv.config({ quiet: true });
 
+//Note: The baseURL is set to the value of PLAYWRIGHT_BASE_URL from the .env file if it exists, otherwise it defaults to http://localhost:${port}.
 const port = Number(process.env.PLAYWRIGHT_PORT || 8080);
 const baseURL = process.env.PLAYWRIGHT_BASE_URL || `http://localhost:${port}`;
+
 
 const testDir = defineBddConfig({
   features: 'e2e-tests/features/**/*.feature',
   steps: [
     'e2e-tests/steps/**/*.step.ts',
-    'e2e-tests/fixture/fixtures.ts'
+    'e2e-tests/fixture/fixtures.ts',
   ],
-  outputDir: '.features-gen'
+  outputDir: '.features-gen',
 });
 
 export default defineConfig({
   testDir,
-  timeout: 60_000,
+  testMatch: '**/*.feature.spec.js',
+  timeout: 60000,
   expect: {
-    timeout: 10_000
+    timeout: 6000,
   },
   fullyParallel: true,
   workers: process.env.CI ? 2 : 1,
@@ -33,29 +36,29 @@ export default defineConfig({
     screenshot: 'on',
     video: 'on',
     trace: 'on-first-retry',
-    headless: !!process.env.CI
+    headless: !!process.env.CI,
   },
+
   webServer: process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
-      command: 'yarn start',
+      command: 'yarn start:dev',
       port,
-      env: {
-        ...process.env,
-        NODE_ENV: 'test'
-      },
       reuseExistingServer: !process.env.CI,
       timeout: 120_000
     },
+
   projects: [
     {
       name: 'chromium',
       use: {
         browserName: 'chromium',
         launchOptions: {
-          args: ['--start-maximized']
-        }
-      }
+          args: ['--start-maximized'],
+        },
+        video: 'on',
+        screenshot: 'on',
+      },
     }
-  ]
+  ],
 });
